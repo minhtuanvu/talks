@@ -11,6 +11,7 @@ drawings:
   persist: false
 mdc: true
 clicks: 0
+preload: false
 # glowSeed: 26
 glowSeed: 228
 routerMode: hash
