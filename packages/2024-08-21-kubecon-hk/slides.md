@@ -10,7 +10,6 @@ lineNumbers: false
 drawings:
   persist: false
 mdc: true
-preload: false
 clicks: 0
 # glowSeed: 26
 glowSeed: 228
