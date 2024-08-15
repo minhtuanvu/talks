@@ -1,6 +1,6 @@
 // @ts-expect-error - Ignoring the error of missing types for the uno config
 import config from '@slidev/client/uno.config'
-import { defineConfig, mergeConfigs, presetAttributify, presetIcons, presetUno, presetWebFonts } from 'unocss'
+import { mergeConfigs, presetAttributify, presetIcons, presetUno, presetWebFonts } from 'unocss'
 
 export default mergeConfigs([
   config,
