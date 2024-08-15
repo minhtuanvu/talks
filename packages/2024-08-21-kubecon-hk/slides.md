@@ -14,6 +14,7 @@ preload: false
 clicks: 0
 # glowSeed: 26
 glowSeed: 228
+routerMode: hash
 ---
 
 # Sit Back and Relax with Fault Awareness and Robust Instant Recovery for Large Scale AI Workloads
