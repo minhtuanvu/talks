@@ -1234,7 +1234,9 @@ class: py-10
 #### Install
 
 ```shell
-helm install kcover kcover/kcover --namespace kcover-system
+helm repo add baizeai https://baizeai.github.io/charts
+helm repo update baizeai
+helm -n kcover-system --create-namespace install kcover baizeai/kcover 
 ```
 
 <div mt-6 />
@@ -1244,7 +1246,7 @@ helm install kcover kcover/kcover --namespace kcover-system
 #### Label the should watched resources - With `kubectl`
 
 ```shell
-kubectl label pod pytorchjob-example-0 kcover.io/cascading-recovery=true
+kubectl label pytorchjobs pytorchjob-example kcover.io/cascading-recovery=true
 ```
 
 </div>
@@ -1256,10 +1258,10 @@ kubectl label pod pytorchjob-example-0 kcover.io/cascading-recovery=true
 #### Label the should watched resources - With `yaml`
 
 ```yaml {6}
-apiVersion: v1
-kind: Pod
+apiVersion: kubeflow.org/v1
+kind: PyTorchJob
 metadata:
-  name: pytorchjob-example-0
+  name: pytorchjob-example
   labels:
     kcover.io/cascading-recovery: "true"
   # ...
