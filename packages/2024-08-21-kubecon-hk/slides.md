@@ -1197,6 +1197,20 @@ glowSeed: 230
 
 </div>
 
+<!--
+Let’s dive into the core features of kcover.
+
+[click] Firstly, there is the “Firewatch of Workloads.” This feature will continuously monitor the status of training task workloads, such as PyTorchJob Jobs, and promptly detect any error messages.
+
+[click] Next, “Enhanced Observability” will be implemented by utilizing various means to determine the status of tasks, such as observing logs and real-time system calls, thus enhancing the observability of training tasks.
+
+[click] Through “Periodic Inspection,” we will regularly test the status of tasks, the environment, or infrastructure to ensure that the resources committed to training tasks meet the required conditions, ensuring smooth training progress.
+
+[click] With “Cascading Shutdown,” when a fault occurs that prevents the training task from continuing, the entire task will be restarted through Cascading Shutdown. This prevents the training framework from waiting due to a non-working part, thus avoiding the waste of valuable hardware resources.
+
+[click] Finally, “Intelli-Migration” will intelligently assess the health status of nodes to determine whether they can continue running tasks, ensuring maximized resource utilization while safeguarding training efficiency.
+-->
+
 ---
 class: py-10
 ---
@@ -1253,6 +1267,14 @@ class: py-10
 </svg>
 
 </div>
+
+<!--
+The architecture of Kcovery consists of two parts: Collector and Controller (also known as Recovery Manager).
+
+The Collector runs as a Daemonset on each Node, responsible for gathering information. This includes executing the dcgmi command, analyzing the logs and events of each Pod, and invoking some system calls, such as checking the status of PCIE devices, to determine the operational status of tasks. It reports any exceptional events back to the APIServer.
+
+The Controller monitors these events from the APIServer and makes further assessments of the data collected by the Collector to determine whether a Job needs to be restarted. If a restart is required, it will execute the restart of the entire Job and may mark the faulty node as unschedulable.
+-->
 
 ---
 class: py-10
@@ -1326,6 +1348,12 @@ metadata:
 ```
 
 </div>
+
+<!--
+To start using kcover, you can initially install kcover onto your system with a few simple helm commands. 
+[click] Subsequently, when submitting training tasks, such as a PyTorchJob, you only need to set a label for the job. 
+[click] This allows kcover to continuously monitor the job, ensuring that it can be quickly recovered after a failure without the need for manual intervention.
+-->
 
 ---
 class: py-10
