@@ -1236,13 +1236,13 @@ glowSeed: 230
 <!--
 Let’s dive into the core features of kcover.
 
-[click] Firstly, there is the “Firewatch of Workloads.” This feature will continuously monitor the status of training task workloads, such as PyTorchJobs, and promptly detect any error messages.
+[click] Firstly, there is the “Firewatch of Workloads.” This feature will continuously monitor the status of training job workloads, such as PyTorchJobs, and promptly detect any error messages.
 
 [click] Next, “Enhanced Observability” will be implemented by utilizing various means to determine the status of jobs, such as observing logs and real-time system calls, thus enhancing the observability of training jobs.
 
 [click] Through “Periodic Inspection,” we will regularly test the status of jobs, the environment, or infrastructure to ensure that the resources committed to training jobs meet the required conditions, ensuring smooth training progress.
 
-[click] With “Cascading Shutdown,” when a fault occurs that prevents the training task from continuing, the entire task will be restarted through Cascading Shutdown. This prevents the training framework from waiting due to a non-working part, thus avoiding the waste of valuable hardware resources.
+[click] With “Cascading Shutdown,” when a fault occurs that prevents the training job from continuing, the entire job will be restarted through Cascading Shutdown. This prevents the training framework from waiting due to a non-working part, thus avoiding the waste of valuable hardware resources.
 
 [click] Finally, “Intelli-Migration” will intelligently assess the health status of nodes to determine whether they can continue running jobs, ensuring maximized resource utilization while safeguarding training efficiency.
 -->
@@ -1307,9 +1307,9 @@ class: py-10
 <!--
 The architecture of Kcover consists of two parts: Collector and Controller (also known as Recovery Manager).
 
-The Collector runs as a Daemonset on each Node, responsible for gathering information. This includes executing the dcgmi command, analyzing the logs and events of each Pod, and invoking some system calls, such as checking the status of PCIE devices, to determine the operational status of tasks. It reports any exceptional events back to the APIServer.
+The Collector runs as a Daemonset on each Node, responsible for gathering information. This includes executing the dcgmi command, analyzing the logs and events of each Pod, and invoking some system calls, such as checking the status of PCIE devices, to determine the operational status of jobs. It reports any exceptional events back to the APIServer.
 
-The Controller monitors these events from the APIServer and makes further assessments of the data collected by the Collector to determine whether a Job needs to be restarted. If a restart is required, it will execute the restart of the entire Job and may mark the node as unschedulable.
+The Controller keeps an eye on events relayed by the APIServer and further analyzes the data gathered by the Collector. Based on this analysis, it decides if a Job needs to be restarted. If a restart is  necessary, the Controller will reboot the entire Job and may also mark the node as unschedulable to prevent further assignments.
 -->
 
 ---
@@ -1340,10 +1340,10 @@ glowSeed: 230
 </v-clicks>
 
 <!--
-[click] Once a training task is labeled, kcover will continuously analyze this information. 
+[click] Once a training job is labeled, kcover will continuously analyze this information. 
 This includes [click] node status, [click] container logs (such as CUDA, NCCL, or OOM errors, [click] as well as specific exit codes). 
 [click] If a problem is detected, 
-[click] we will record the event through the Collector [click] and may initiate a Cascading Shutdown to restart the task, allowing it to resume training from the last known state. [click] Additionally, through ongoing diagnostic tools, we will analyze network status, GPU hardware status, PCIE status, and kernel status to ensure that the system always operates at optimal conditions.
+[click] we will record the event through the Collector [click] and may initiate a Cascading Shutdown to restart the job, allowing it to resume training from the last known state. [click] Additionally, through ongoing diagnostic tools, we will analyze network status, GPU hardware status, PCIE status, and kernel status to ensure that the system always operates at optimal conditions.
 -->
 
 ---
@@ -1395,7 +1395,7 @@ metadata:
 <!--
 To start using kcover, you can initially install kcover onto your system with a few simple helm commands. 
 [click] You only need to execute the helm install command to install kcover on your cluster.
-[click] Subsequently, when submitting training tasks, such as a PyTorchJob, you only need to set a label for the job. 
+[click] Subsequently, when submitting training jobs, such as a PyTorchJob, you only need to set a label for the job. 
 [click] This allows kcover to continuously monitor the job, ensuring that it can be quickly recovered after a failure without the need for manual intervention.
 -->
 
