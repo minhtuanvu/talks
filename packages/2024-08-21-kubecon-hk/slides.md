@@ -1024,6 +1024,7 @@ After improvements...
 
 ---
 class: py-10
+glow: right
 ---
 
 # Who else have tried
@@ -1032,35 +1033,70 @@ class: py-10
 
 <div mt-4 />
 
-<div flex flex-col gap-4 items-center>
+<div flex flex-col gap-4>
 
-<div flex gap-3 flex-col>
-  <div v-click rounded-lg border="2 solid [#ff7979]" flex>
-    <div bg="[#b31b1b]" rounded-l-lg>
-      <img src="/Arxiv.svg" h-12 px-3 py-3 />
+<div flex flex-col gap-2>
+  <div flex gap-18>
+    <div v-click bg="black/20" rounded-lg border="2 solid blue-700" w-70>
+      <div text="blue-200" bg="blue-900/40" rounded-lg px-4 py-3 text-center>
+        <span>JobSet</span>
+      </div>
+      <div flex justify-center items-center py-4>
+        <a href="https://github.com/kubernetes-sigs/jobset" items-center flex><div inline-block mr-1 i-ri:github-fill />kubernetes-sigs/jobset</a>
+      </div>
+      <div flex justify-center items-center>
+        <div i-devicon:kubernetes inline-block mr-2 h-8 px-2 py-6 /> <span text="[#5791f7]">Kubernetes</span>
+      </div>
     </div>
-    <div text="[#fefefe]" rounded-lg px-4 py-3 text-center>
-      <span>FastPersist: Accelerating Model Checkpointing in Deep Learning</span>
+    <div v-click>
+      <div flex flex-col mt-3>
+        <div flex items-center><div i-carbon:chevron-up mr-2 text-green-300 /><div i-devicon:kubernetes inline-block mr-1 translate-y--0.2 /> <span text="[#5791f7]">Kubernetes SIG</span>&nbsp; project</div>
+        <div flex items-center><div i-carbon:chevron-up mr-2 text-green-300 /><div i-devicon:kubernetes inline-block mr-1 translate-y--0.2 /> <span text="[#5791f7]">Kubernetes</span>&nbsp;native</div>
+        <div flex items-center><div i-carbon:chevron-up mr-2 text-green-300 />Easy to support any frameworks</div>
+        <div flex items-center><div i-carbon:chevron-down mr-2 text-red-300 />Cannot handle events, and log analysis</div>
+        <div flex items-center><div i-carbon:chevron-down mr-2 text-red-300 />Cannot perform periodic inspection</div>
+      </div>
     </div>
   </div>
-  <div v-click rounded-lg border="2 solid [#ff7979]" flex>
-    <div bg="[#b31b1b]" rounded-l-lg>
-      <img src="/Arxiv.svg" h-12 px-3 py-3 />
+  <div flex gap-18>
+    <div w-70>
+      <div v-click bg="[#f7f7f7]" rounded-lg border="2 solid [#1577fc]" flex flex-col justify-center items-center>
+        <div text="[#1577fc]" bg="blue-100" rounded-lg px-4 py-2 text-center w-full>
+          <span>DLRover</span>
+        </div>
+        <img src="/dlrover_logo.png" w-36 rounded-lg px-2 py-4 />
+        <div flex justify-center>
+          <img src="/Ant_Group_logo.png" h-8 px-2 pb-2 />
+        </div>
+      </div>
     </div>
-    <div text="[#fefefe]" rounded-lg px-4 py-3 text-center>
-      <span>DLRover-RM: Resource Optimization for Deep Recommendation Models Training in the Cloud</span>
+    <div v-click>
+      <div mt-1 flex flex-col>
+        <div flex items-center><div i-carbon:chevron-up mr-2 text-green-300 /><span text="[#f6432f]"><div inline-block mr-1 translate-y-0.8 i-devicon:pytorch />Trainer</span>&nbsp;oriented</div>
+        <div flex items-center><div i-carbon:chevron-up mr-2 text-red-300 /><span text="[#f6432f]"><div inline-block mr-1 translate-y-0.8 i-devicon:pytorch />PyTorch</span>&nbsp;native</div>
+        <div flex items-center><div i-carbon:chevron-up mr-2 text-red-300 />Ready to use out of box&nbsp;<span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />NVIDIA</span>&nbsp;error support</div>
+        <div flex items-center><div i-carbon:chevron-down mr-2 text-red-300 />Cannot perform periodic inspection</div>
+        <div flex items-center><div i-carbon:chevron-down mr-2 text-red-300 />Not extensible to various of frameworks & scenarios</div>
+      </div>
     </div>
   </div>
 </div>
 
-<div flex>
-  <div v-click bg="[#f7f7f7]" rounded-lg border="2 solid [#1577fc]">
-    <div text="[#1577fc]" bg="blue-100" rounded-lg px-4 py-3 text-center>
-      <span>DLRover</span>
+<div flex gap-3 text-sm opacity-50>
+  <div v-click rounded-lg flex gap-2 w="[40%]">
+    <div bg="[#851717]" rounded-lg flex items-center min-w-8>
+      <img src="/Arxiv.svg" w-20 px-3 py-1 />
     </div>
-    <img src="/dlrover_logo.png" w-50 rounded-lg px-2 py-6 />
-    <div flex justify-center>
-      <img src="/Ant_Group_logo.png" h-16 px-2 py-3 />
+    <div text="zinc-300" rounded-lg px-2 py-1>
+      <span>FastPersist: Accelerating Model Checkpointing in Deep Learning</span>
+    </div>
+  </div>
+  <div v-click rounded-lg flex gap-2 w="[60%]">
+    <div bg="[#851717]" rounded-lg flex items-center min-w-8>
+      <img src="/Arxiv.svg" w-20 px-3 py-1 />
+    </div>
+    <div text="zinc-300" rounded-lg px-2 py-1>
+      <span>DLRover-RM: Resource Optimization for Deep Recommendation Models Training in the Cloud</span>
     </div>
   </div>
 </div>
@@ -1267,17 +1303,17 @@ glowSeed: 230
 <v-clicks depth="2">
 
 - After labelled, we will watch over the stopped <span text-sky-400><div inline-block i-carbon:cube translate-y-0.8 mr-1 />`Pod`</span>, and analyze the:
-  - <span text-violet-300><div inline-block i-carbon:cloud-alerting translate-y-0.8 mr-2 />Node issues</span>
-  - <span text-purple-300><div inline-block i-carbon:ibm-open-enterprise-languages translate-y-0.8 mr-2 />Logs</span> (e.g. <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />CUDA</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />cuDNN</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />NCCL</span>, `OOM` errors)
-  - <span text-pink-300><div inline-block i-carbon:exit translate-y-0.8 mr-2 />Exit codes</span>
+  - <span text-violet-200><div inline-block i-carbon:cloud-alerting translate-y-0.8 mr-2 />Node issues</span>
+  - <span text-purple-200><div inline-block i-carbon:ibm-open-enterprise-languages translate-y-0.8 mr-2 />Logs</span> (e.g. <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />CUDA</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />cuDNN</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />NCCL</span>, `OOM` errors)
+  - <span text-pink-200><div inline-block i-carbon:exit translate-y-0.8 mr-2 />Exit codes</span>
 - Once Issue identified:
-  - <span text-purple-300><div inline-block i-carbon:flow-stream-reference translate-y-0.8 mr-2 />event will be recorded</span> (e.g. container logs, syscalls)
-  - <span text-pink-300>trigger cascading shutdown</span> (which results in job restarting by <div i-devicon:kubernetes inline-block translate-y-0.5 mr-2 /><span text="[#5791f7]">Controller & Operator</span>)
+  - <span text-purple-200><div inline-block i-carbon:flow-stream-reference translate-y-0.8 mr-2 />event will be recorded</span> (e.g. container logs, syscalls)
+  - <span text-pink-200>trigger cascading shutdown</span> (which results in job restarting by <div i-devicon:kubernetes inline-block translate-y-0.5 mr-2 /><span text="[#5791f7]">Controller & Operator</span>)
 - For continues diagnostics, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />`dcgmi`</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />`nvidia-smi`</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />`nccl-test`</span> will be executed periodically to:
-  - <span text-purple-300><div inline-block i-carbon:flow-stream-reference translate-y-0.8 mr-2 />Network & IO connectivity & throughput</span>
-  - <span text-indigo-300><div inline-block i-bi:gpu-card translate-y-0.8 mr-2 />GPU & VRAM health</span>
-  - <span text-blue-300><div inline-block i-carbon:fusion-blender translate-y-0.8 mr-2 />PCIe status</span>
-  - <span text-sky-300><div inline-block i-carbon:edge-node translate-y-0.8 mr-2 />Kernel modules status</span>
+  - <span text-purple-200><div inline-block i-carbon:flow-stream-reference translate-y-0.8 mr-2 />Network & IO connectivity & throughput</span>
+  - <span text-indigo-200><div inline-block i-bi:gpu-card translate-y-0.8 mr-2 />GPU & VRAM health</span>
+  - <span text-blue-200><div inline-block i-carbon:fusion-blender translate-y-0.8 mr-2 />PCIe status</span>
+  - <span text-sky-200><div inline-block i-carbon:edge-node translate-y-0.8 mr-2 />Kernel modules status</span>
 
 </v-clicks>
 
@@ -1446,10 +1482,21 @@ class: py-10
 class: py-10
 ---
 
-<div mt-50 />
-
-<div text="[48px]">
-  Thank you
+<div flex>
+  <div flex-1>
+    <div mt-50 />
+    <div text="[48px]">
+      Thank you
+    </div>
+  </div>
+  <div text-sm text="zinc-300" text-right flex flex-col gap-3 mt-3>
+    <div>
+      Slides open sourced at <a href="https://github.com/BaizeAI/talks"><div inline-block mr-1 translate-y-0.8 i-ri:github-fill />github.com/BaizeAI/talks</a>
+    </div>
+    <div>
+      Slides built on top of <a href="https://sli.dev"><div inline-block mr-1 translate-y-0.8 i-logos:slidev />sli.dev</a>
+    </div>
+  </div>
 </div>
 
 <div w-full absolute bottom-0 left-0 flex items-center transform="translate-x--10 translate-y--10">
