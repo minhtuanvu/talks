@@ -1256,11 +1256,30 @@ class: py-10
 
 ---
 class: py-10
+glow: right
+glowSeed: 230
 ---
 
 # Why can it?
 
-<span>How it was implemented</span>
+<span>Sum it up for architecture</span>
+
+<v-clicks depth="2">
+
+- After labelled, we will watch over the stopped <span text-sky-400><div inline-block i-carbon:cube translate-y-0.8 mr-1 />`Pod`</span>, and analyze the:
+  - <span text-violet-300><div inline-block i-carbon:cloud-alerting translate-y-0.8 mr-2 />Node issues</span>
+  - <span text-purple-300><div inline-block i-carbon:ibm-open-enterprise-languages translate-y-0.8 mr-2 />Logs</span> (e.g. <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />CUDA</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />cuDNN</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />NCCL</span>, `OOM` errors)
+  - <span text-pink-300><div inline-block i-carbon:exit translate-y-0.8 mr-2 />Exit codes</span>
+- Once Issue identified:
+  - <span text-purple-300><div inline-block i-carbon:flow-stream-reference translate-y-0.8 mr-2 />event will be recorded</span> (e.g. container logs, syscalls)
+  - <span text-pink-300>trigger cascading shutdown</span> (which results in job restarting by <div i-devicon:kubernetes inline-block translate-y-0.5 mr-2 /><span text="[#5791f7]">Controller & Operator</span>)
+- For continues diagnostics, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />`dcgmi`</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />`nvidia-smi`</span>, <span text="[#64b023]"><div inline-block translate-y-0.8 mr-1 i-bi:nvidia />`nccl-test`</span> will be executed periodically to:
+  - <span text-purple-300><div inline-block i-carbon:flow-stream-reference translate-y-0.8 mr-2 />Network & IO connectivity & throughput</span>
+  - <span text-indigo-300><div inline-block i-bi:gpu-card translate-y-0.8 mr-2 />GPU & VRAM health</span>
+  - <span text-blue-300><div inline-block i-carbon:fusion-blender translate-y-0.8 mr-2 />PCIe status</span>
+  - <span text-sky-300><div inline-block i-carbon:edge-node translate-y-0.8 mr-2 />Kernel modules status</span>
+
+</v-clicks>
 
 ---
 class: py-10
@@ -1306,37 +1325,6 @@ metadata:
   # ...
 ```
 
-</div>
-
----
-class: py-10
----
-
-# Let's build it together
-
-<span>Open sourced, already</span>
-
-<div flex>
-  <div
-    v-click="1" flex flex-col items-start transition duration-500 ease-in-out
-    :class="$clicks < 1 ? 'translate-x--20' : 'translate-x-0'"
-  >
-    <div mt-10 flex gap-16>
-      <img src="/kcover-repository-qr.png" w-60 />
-      <div text-2xl flex items-center gap-2 mt-4>
-        <div i-ri:github-fill /><span underline decoration-dashed font-mono decoration-zinc-300>BaizeAI/kcover</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div w-full absolute bottom-0 left-0 flex items-center transform="translate-x--10 translate-y--10">
-  <div w-full flex items-center justify-end gap-4>
-    <img src="/KubeCon.png" h-10>
-    <img src="/CloudNativeCon.png" h="10.1">
-    <img src="/OpenSourceSummit.png" h-9>
-    <img src="/AI_dev.png" h-4>
-  </div>
 </div>
 
 ---
@@ -1396,6 +1384,37 @@ class: py-10
 
 </div>
 
+</div>
+
+---
+class: py-10
+---
+
+# Let's build it together
+
+<span>Open sourced, already</span>
+
+<div flex>
+  <div
+    v-click="1" flex flex-col items-start transition duration-500 ease-in-out
+    :class="$clicks < 1 ? 'translate-x--20' : 'translate-x-0'"
+  >
+    <div mt-10 flex gap-16>
+      <img src="/kcover-repository-qr.png" w-60 />
+      <div text-2xl flex items-center gap-2 mt-4>
+        <div i-ri:github-fill /><span underline decoration-dashed font-mono decoration-zinc-300>BaizeAI/kcover</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div w-full absolute bottom-0 left-0 flex items-center transform="translate-x--10 translate-y--10">
+  <div w-full flex items-center justify-end gap-4>
+    <img src="/KubeCon.png" h-10>
+    <img src="/CloudNativeCon.png" h="10.1">
+    <img src="/OpenSourceSummit.png" h-9>
+    <img src="/AI_dev.png" h-4>
+  </div>
 </div>
 
 ---
