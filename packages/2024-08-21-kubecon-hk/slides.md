@@ -576,7 +576,7 @@ glow: right
 ---
 class: py-10
 glow: bottom
-clicks: 3
+clicks: 7
 ---
 
 # Simulate the failure
@@ -585,66 +585,105 @@ clicks: 3
 
 <div mt-6 />
 
-Let's say we have a distributed training job running on a GPU cluster...
+<v-clicks>
+
+- Let's say we have a distributed training job running on a GPU cluster...
+- Notice how the <span text-red-500>error</span> is propagated from one node to another...
+
+</v-clicks>
+
+<div mt-8 />
 
 <div v-click flex justify-center>
   <div
     v-motion
-    v-click="2"
+    v-click="3"
     :initial="{ opacity: 0 }"
     :enter="{ opacity: 1, transition: { delay: '0' } }"
     :leave="{ opacity: 0 }"
     text-8xl
-    :class="$clicks < 3 ? 'i-carbon:hexagon-vertical-outline' : 'i-carbon:hexagon-vertical-solid'"
+    :class="[
+      $clicks < 3 ? 'i-carbon:hexagon-vertical-outline' : 'i-carbon:hexagon-vertical-solid',
+      [5,6].includes($clicks) ? 'animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-2000 animate-ease-in-out animate-delay-250': '',
+      [7].includes($clicks) ? 'text-red-500 delay-1000' : ''
+    ]"
   />
   <div
     v-motion
-    v-click="2"
+    v-click="3"
     :initial="{ opacity: 0 }"
     :enter="{ opacity: 1, transition: { delay: '250' } }"
     :leave="{ opacity: 0 }"
     i-carbon:hexagon-vertical-outline text-8xl
+    transition-all ease-in-out duration-500
+    :class="[
+      [5,6].includes($clicks) ? 'animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-2000 animate-ease-in-out animate-delay-500': '',
+      [7].includes($clicks) ? 'text-red-500 delay-500' : ''
+    ]"
   />
   <div
     v-motion
-    v-click="2"
+    v-click="3"
     :initial="{ opacity: 0 }"
     :enter="{ opacity: 1, transition: { delay: '500' } }"
     :leave="{ opacity: 0 }"
     i-carbon:hexagon-vertical-outline text-8xl
+    transition-all ease-in-out duration-500
+    :class="[
+      [5].includes($clicks) ? 'animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-2000 animate-ease-in-out animate-delay-750': 'animate-none',
+      $clicks < 6 ? 'text-zinc-300' : 'text-red-500'
+    ]"
   />
   <div
     v-motion
-    v-click="2"
+    v-click="3"
     :initial="{ opacity: 0 }"
     :enter="{ opacity: 1, transition: { delay: '750' } }"
     :leave="{ opacity: 0 }"
     i-carbon:hexagon-vertical-outline text-8xl
+    transition-all ease-in-out duration-500
+    :class="[
+      [5,6].includes($clicks) ?
+        'animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-2000 animate-ease-in-out animate-delay-1000' : '',
+      [7].includes($clicks) ? 'text-red-500 delay-500' : ''
+    ]"
   />
   <div
     v-motion
-    v-click="2"
+    v-click="3"
     :initial="{ opacity: 0 }"
     :enter="{ opacity: 1, transition: { delay: '1000' } }"
     :leave="{ opacity: 0 }"
     i-carbon:hexagon-vertical-outline text-8xl
+    transition-all ease-in-out duration-500
+    :class="[
+      [5,6].includes($clicks) ? 'animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-2000 animate-ease-in-out animate-delay-1250': '',
+      [7].includes($clicks) ? 'text-red-500 delay-1000' : ''
+    ]"
   />
   <div
     v-motion
-    v-click="2"
+    v-click="3"
     :initial="{ opacity: 0 }"
-    :enter="{ opacity: 1, transition: { delay: '1150' } }"
+    :enter="{ opacity: 1, transition: { delay: '1250' } }"
     :leave="{ opacity: 0 }"
     i-carbon:hexagon-vertical-outline text-8xl
+    transition-all ease-in-out duration-500
+    :class="[
+      [5,6].includes($clicks) ? 'animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-2000 animate-ease-in-out animate-delay-1500': '',
+      [7].includes($clicks) ? 'text-red-500 delay-1500' : ''
+    ]"
   />
 </div>
 
-<div mt-6 />
+<div mt-12 />
 
 <div flex items-center justify-center gap-4>
-  <div flex items-center v-click="3" text-zinc-300><div i-carbon:hexagon-vertical-solid mr-1 /><span>Main node</span></div>
-  <div flex items-center v-click="3" text-zinc-300><div i-carbon:hexagon-vertical-outline mr-1 /><span>Worker node</span></div>
+  <div flex items-center v-click="4" text-zinc-300><div i-carbon:hexagon-vertical-solid mr-1 /><span>Main node</span></div>
+  <div flex items-center v-click="4" text-zinc-300><div i-carbon:hexagon-vertical-outline mr-1 /><span>Worker node</span></div>
 </div>
+
+<div mt-12 />
 
 <!--
 
@@ -1236,7 +1275,7 @@ class: py-10
 ```shell
 helm repo add baizeai https://baizeai.github.io/charts
 helm repo update baizeai
-helm -n kcover-system --create-namespace install kcover baizeai/kcover 
+helm -n kcover-system --create-namespace install kcover baizeai/kcover
 ```
 
 <div mt-6 />

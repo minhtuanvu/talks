@@ -10,6 +10,7 @@ export default mergeConfigs([
     ],
     safelist: [
       ...Array.from({ length: 30 }, (_, i) => `delay-${(i + 1) * 100}`),
+      'animate-pulse',
     ],
     presets: [
       presetUno({
