@@ -1,4 +1,4 @@
-# 2023 年 12 月 21 日晨会分享 - 深入浅出：如何释放 LLM 的潜力 Slidev 源代码
+# Sit Back and Relax with Fault Awareness and Robust Instant Recovery for Large Scale AI Workloads
 
 To start the slide show:
 
