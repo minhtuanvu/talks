@@ -1,10 +1,10 @@
 {
-  "name": "2024-08-21-kubecon-hk",
+  "name": "2025-06-11-kubecon-hk",
   "type": "module",
   "private": true,
   "scripts": {
     "build": "slidev build",
-    "build-base": "slidev build --out ../../dist/2024-08-21-kubecon-hk --base /talks/2024-08-21-kubecon-hk/",
+    "build-base": "slidev build --out ../../dist/2024-06-11-kubecon-hk --base /talks/2024-06-11-kubecon-hk/",
     "dev": "slidev  --open --remote",
     "export": "slidev export --with-clicks --per-slide --wait-until none"
   },
