@@ -17,16 +17,20 @@ glowSeed: 229
 routerMode: hash
 ---
 
-# Taming Dependency Chaos for LLM in K8S
+<div translate-x--12>
+
+<h1>
+  Taming Dependency Chaos for LLM in K8S
+</h1>
 
 DaoCloud Fanshi Zhang, Kebe Liu, Peter Pan
+
+</div>
 
 <div w-full absolute bottom-0 left-0 flex items-center transform="translate-x--10 translate-y--10">
   <div w-full flex items-center justify-end gap-4>
     <img src="/KubeCon.png" h-10>
     <img src="/CloudNativeCon.png" h="10.1">
-    <img src="/OpenSourceSummit.png" h-9>
-    <img src="/AI_dev.png" h-4>
   </div>
 </div>
 
@@ -134,7 +138,7 @@ class: py-10
       Slides built on top of <a href="https://sli.dev"><div inline-block mr-1 translate-y-0.8 i-logos:slidev />sli.dev</a>
     </div>
     <div self-end mt-16 translate-x-6>
-      <img src="/public/slide_qr.png" w-50 />
+      <img src="/slide_qr.png" w-50 />
     </div>
   </div>
 </div>
@@ -143,8 +147,6 @@ class: py-10
   <div w-full flex items-center justify-end gap-4>
     <img src="/KubeCon.png" h-10>
     <img src="/CloudNativeCon.png" h="10.1">
-    <img src="/OpenSourceSummit.png" h-9>
-    <img src="/AI_dev.png" h-4>
   </div>
 </div>
 

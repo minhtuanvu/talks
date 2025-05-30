@@ -1725,7 +1725,7 @@ class: py-10
       Slides built on top of <a href="https://sli.dev"><div inline-block mr-1 translate-y-0.8 i-logos:slidev />sli.dev</a>
     </div>
     <div self-end mt-16 translate-x-6>
-      <img src="/public/slide_qr.png" w-50 />
+      <img src="/slide_qr.png" w-50 />
     </div>
   </div>
 </div>

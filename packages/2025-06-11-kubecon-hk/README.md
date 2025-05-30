@@ -1,4 +1,4 @@
-# Sit Back and Relax with Fault Awareness and Robust Instant Recovery for Large Scale AI Workloads
+# Taming Dependency Chaos for LLM in K8S
 
 To start the slide show:
 
@@ -10,3 +10,7 @@ To start the slide show:
 Edit the [slides.md](./slides.md) to see the changes.
 
 Learn more about Slidev on [documentations](https://sli.dev/).
+
+> Template referenced: https://docs.google.com/presentation/d/17iv41llVvtgw7JssTzfHkLAncU9eGb2v/edit?slide=id.p1#slide=id.p1
+>
+> Speaker guide: https://events.linuxfoundation.org/kubecon-cloudnativecon-china/program/speaker-guide/#schedule-timing
