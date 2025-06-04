@@ -64,14 +64,6 @@ glowSeed: 205
   </div>
 </div>
 
-<!--
-Before we start, let's introduce ourselves.
-
-[click] We are the software engineers come from DaoCloud, one of the famously known corporation that put much efforts into open source and Kubernetes ecosystems.
-
-With now primarily focusing on field to cohere Kubernetes and AI together.
--->
-
 ---
 layout: intro
 class: px-35
@@ -112,12 +104,6 @@ glowSeed: 205
   </div>
 </div>
 
-<!--
-As background, [click] Kebe Liu is one of the member of Istio Steering Committee, while working on AI stuff, he is also focusing on the other Cloud native projects like Istio, eBPF, etc. in recent years.
-
-[click] Me, Fanshi Zhang, I am a software engineer at DaoCloud, focusing on AI and Kubernetes. I am also a contributor to the Kubernetes community. As well as contributor to Golang, Vue communities.
--->
-
 ---
 class: py-10
 ---
@@ -147,13 +133,3 @@ class: py-10
     <img src="/KubeCon.svg" h-20 translate-y-4>
   </div>
 </div>
-
-<!--
-With all of that, that's the end of today's session.
-
-I bet many of you may asking for how to make this PPT, we open sourced it, it built with codes.
-
-We would like to ask you to give us some thumb ups on sched.
-
-Any questions?
--->
