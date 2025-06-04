@@ -17,7 +17,7 @@ glowSeed: 229
 routerMode: hash
 ---
 
-<div translate-x--12>
+<div translate-x--14>
 
 <h1>
   Taming Dependency Chaos for LLM in K8S
