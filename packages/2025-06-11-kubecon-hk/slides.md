@@ -130,41 +130,49 @@ class: text-center
   How many times have you seen this?
 </div>
 
-<div class="mt-10 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-2 py-1 text-left">
+<div class="mt-10 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6 text-left">
 
-```shell
+```bash
 $ python train.py
 ImportError: libcudart.so.11.0: cannot open shared object file
+
 $ pip install torch --index-url https://download.pytorch.org/whl/cu118
 RuntimeError: CUDA error: no kernel image is available for execution
+
 $ ldd $(which python3) | grep 'not found'
-        libstdc++.so.6 => not found</pre>
+        libstdc++.so.6 => not found
 ```
 
 </div>
 
 ---
 layout: center
+clicks: 3
 ---
 
 # Dependency Hell: When Python Meets C++
 
-<div v-click class="mt-10">
-  <div class="relative">
-    <div class="w-full h-full flex items-center justify-center">
-      <div class="text-6xl i-logos:python" />
+<div class="mt-8 flex flex-col justify-center items-center">
+  <div v-click class="flex items-center gap-6">
+    <div class="flex items-center justify-center">
+      <div class="text-[96px] i-logos:python" />
     </div>
-    <div class="w-full h-full flex items-center justify-center">
-      <div class="text-6xl i-logos:c-plusplus" />
+    <div class="flex items-center justify-center">
+      <div class="text-[96px] i-logos:c-plusplus" />
     </div>
-    <div class="w-full h-full">
-      <div class="text-8xl i-carbon:warning-alt" />
-    </div>
+  </div>
+  <div
+    :class="[ $clicks < 2 ? 'scale-50 opacity-0' : 'scale-100 opacity-100' ]"
+    class="text-center"
+    transition="all duration-500 ease-in-out"
+  >
+    <div class="text-8xl i-carbon:warning-alt mt-5 ml-5 text-red" />
   </div>
 </div>
 
-<div v-click class="mt-10">
+<div v-click class="mt-10 text-center">
   <h3>The Perfect Storm: When Python Code Meets C++ Underpinnings</h3>
+  <p class="mt-4 text-xl opacity-70">ML libraries are just thin Python wrappers around massive C++ and CUDA codebases</p>
 </div>
 
 ---
@@ -527,9 +535,9 @@ layout: center
 glowSeed: 12129
 ---
 
-# Introducing Datasets: The Solution
+# Introducing Datasets: Python + C++ Harmony in K8S
 
-<div class="mt-10 flex justify-center">
+<div class="mt-6 flex justify-center">
   <div class="relative w-120 h-60">
     <div v-click class="absolute inset-0 flex items-center justify-center">
       <div class="text-[150px] i-logos:kubernetes" />
@@ -561,7 +569,7 @@ glowSeed: 12129
 <div class="flex relative">
 
 <div class="mt-2 w-75%">
-  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
 
 ```yaml
 apiVersion: dataset.baize.io/v1alpha1
