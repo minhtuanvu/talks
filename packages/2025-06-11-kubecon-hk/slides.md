@@ -29,8 +29,7 @@ DaoCloud Fanshi Zhang, Kebe Liu, Peter Pan
 
 <div w-full absolute bottom-0 left-0 flex items-center transform="translate-x--10 translate-y--10">
   <div w-full flex items-center justify-end gap-4>
-    <img src="/KubeCon.png" h-10>
-    <img src="/CloudNativeCon.png" h="10.1">
+    <img src="/KubeCon.svg" h-20 translate-y-4>
   </div>
 </div>
 
@@ -145,8 +144,7 @@ class: py-10
 
 <div w-full absolute bottom-0 left-0 flex items-center transform="translate-x--10 translate-y--10">
   <div w-full flex items-center justify-end gap-4>
-    <img src="/KubeCon.png" h-10>
-    <img src="/CloudNativeCon.png" h="10.1">
+    <img src="/KubeCon.svg" h-20 translate-y-4>
   </div>
 </div>
 
