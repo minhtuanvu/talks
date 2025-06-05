@@ -688,6 +688,59 @@ class: px-2
 
 ---
 
+# Cross-Namespace Dataset Sharing
+
+<div class="flex relative">
+
+<div class="mt-2 w-75%">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
+
+```yaml
+# Sharing Dataset
+apiVersion: dataset.baize.io/v1alpha1
+kind: Dataset
+metadata:
+  name: training-sample-code
+  namespace: default
+spec:
+  shared: true
+  shareToNamespaceSelector:
+    matchExpressions:
+      - key: example.io/workspace-id
+        operator: In
+        values: ['4']
+
+# LINK Dataset
+apiVersion: dataset.baize.io/v1alpha1
+kind: Dataset
+metadata:
+  name: training-sample-code-ref
+spec:
+  source:
+    type: REFERENCE
+    uri: dataset://default/training-sample-code
+```
+
+  </div>
+</div>
+
+<div v-click class="absolute right-0 top-25">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+    <div text-xl text-neutral-300>Key Features</div>
+    <ul class="mt-4">
+      <li>• Fine-grained namespace access control</li>
+      <li>• Automatic PVC/PV creation for LINKs</li>
+      <li>• UI for managing shared Datasets</li>
+      <li>• API for discovering shared Datasets</li>
+      <li>• Synchronized lifecycle management</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+---
+
 # Enterprise Model Hub in Minutes
 
 <div class="mt-6 grid grid-cols-2 gap-8">
