@@ -1127,7 +1127,7 @@ glowSeed: 310
   <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
 
 ```yaml
-apiVersion: dataset.baize.io/v1alpha1
+apiVersion: dataset.baizeai.io/v1alpha1
 kind: Dataset
 metadata:
   name: pytorch-env
@@ -1265,7 +1265,7 @@ glowSeed: 275
   <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
 
 ```yaml
-apiVersion: dataset.baize.io/v1alpha1
+apiVersion: dataset.baizeai.io/v1alpha1
 kind: Dataset
 metadata:
   name: qwen3-32b
@@ -1648,7 +1648,7 @@ glowSeed: 195
           border="1 solid purple-700"
         >
           <div text-yellow-300># Reference a shared Dataset</div>
-          <div>apiVersion: dataset.baize.io/v1alpha1</div>
+          <div>apiVersion: dataset.baizeai.io/v1alpha1</div>
           <div>kind: Dataset</div>
           <div>metadata:</div>
           <div>  name: llama-model-ref</div>
