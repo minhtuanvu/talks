@@ -132,7 +132,7 @@ The ML Engineer's Lament
   How many times have you seen this?
 </div>
 
-<div class="mt-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-2 text-left">
+<div class="mt-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-1 py-0 text-left">
 
 ```bash
 $ python train.py
@@ -145,6 +145,116 @@ $ ldd $(which python3) | grep 'not found'
         libstdc++.so.6 => not found
 ```
 
+</div>
+
+---
+class: py-10
+glowSeed: 175
+---
+
+# Development vs Training: The Environment Gap
+
+<span>Bridging the divide between model development and production training</span>
+
+<div mt-6 grid grid-cols-2 gap-6>
+  <div
+    v-click
+    border="2 solid red-800" bg="red-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="red-800/40" px-4 py-2 flex items-center>
+      <div i-carbon:warning-alt text-red-300 text-xl mr-2 />
+      <span font-bold>The Common Pattern</span>
+    </div>
+    <div px-4 py-3 flex flex-col gap-2>
+      <div flex items-center gap-2 py-1>
+        <div i-carbon:development text-amber-300 text-xl />
+        <div>
+          <div font-bold>Development</div>
+          <div text-sm opacity-80>SSH Remote / Jupyter Notebooks</div>
+        </div>
+      </div>
+      <div flex items-center gap-2 py-1>
+        <div i-carbon:machine-learning-model text-amber-300 text-xl />
+        <div>
+          <div font-bold>Training</div>
+          <div text-sm opacity-80>Separate pods/containers</div>
+        </div>
+      </div>
+      <div mt-2 bg="red-900/30" rounded-lg p-3 text-sm>
+        <div font-bold mb-1>Slurm-style Install Pattern</div>
+        <div font-mono text-xs text-zinc-300 bg="black/30" p-2 rounded>
+          <div># In training script or job</div>
+          <div>pip install -r requirements.txt</div>
+          <div>python train.py</div>
+        </div>
+        <div mt-2 grid grid-cols-2 gap-2>
+          <div flex items-center gap-1 text-xs>
+            <div i-carbon:close text-red-400 />
+            <span>Dependency drift</span>
+          </div>
+          <div flex items-center gap-1 text-xs>
+            <div i-carbon:close text-red-400 />
+            <span>Repeated downloads</span>
+          </div>
+          <div flex items-center gap-1 text-xs>
+            <div i-carbon:close text-red-400 />
+            <span>No lockfile tracking</span>
+          </div>
+          <div flex items-center gap-1 text-xs>
+            <div i-carbon:close text-red-400 />
+            <span>Inconsistent versions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-click
+    border="2 solid green-800" bg="green-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="green-800/40" px-4 py-2 flex items-center>
+      <div i-carbon:cloud-service-management text-green-300 text-xl mr-2 />
+      <span font-bold>The Dataset Solution</span>
+    </div>
+    <div px-4 py-3 flex flex-col gap-2 h-full>
+      <div bg="green-900/30" rounded-lg p-3 flex flex-col gap-2>
+        <div font-bold text-sm>Single Environment, Multiple Contexts</div>
+        <div flex items-center gap-2>
+          <div i-carbon:checkmark-outline text-green-400 />
+          <span text-sm>Define once, use everywhere</span>
+        </div>
+        <div flex items-center gap-2>
+          <div i-carbon:checkmark-outline text-green-400 />
+          <span text-sm>Tracked dependencies with lockfiles</span>
+        </div>
+        <div flex items-center gap-2>
+          <div i-carbon:checkmark-outline text-green-400 />
+          <span text-sm>Automatic dependency resolution</span>
+        </div>
+      </div>
+      <div bg="green-900/30" rounded-lg p-3 mt-1 h-40>
+        <div font-bold text-sm mb-2>Automatic Tool Integration</div>
+        <div grid grid-cols-2 gap-2 h-16>
+          <div flex items-center justify-center gap-2 bg="black/20" rounded p-2>
+            <div i-logos:jupyter text-xl min-w-7 />
+            <div text-xs>
+              <div font-bold>Jupyter</div>
+            </div>
+          </div>
+          <div flex items-center justify-center gap-2 bg="black/20" rounded p-2>
+            <div i-logos:visual-studio-code text-xl min-w-7 />
+            <div text-xs>
+              <div font-bold>VSCode</div>
+            </div>
+          </div>
+        </div>
+        <div text-xs text-center mt-2 text-green-300>No configuration needed - just click and use!</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 ---
@@ -837,7 +947,6 @@ glow: left
       <div
         border="2 solid green-800" bg="green-800/20"
         rounded-lg p-4 w-full
-        :class="$clicks === 5 ? 'border-green-500 scale-110 transition-all duration-500' : ''"
       >
         <div text-center font-bold text-xl mb-3>What We Need</div>
         <div grid grid-cols-3 gap-4>
@@ -1002,6 +1111,262 @@ glowSeed: 182
       >
         <div i-carbon:dot-mark text-blue-300 />
         <span>{{step}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+---
+class: py-4
+glowSeed: 310
+---
+
+<div mt-6 />
+
+<div class="mt-2 w-75%">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
+
+```yaml
+apiVersion: dataset.baize.io/v1alpha1
+kind: Dataset
+metadata:
+  name: pytorch-env
+spec:
+  source:
+    type: CONDA
+    uri: conda://python?version=3.11.9
+    options:
+      packageManager: CONDA
+      pythonVersion: 3.11.9
+      condaEnvironmentYml: |-
+        channels: ['nvidia', 'conda-forge']
+        dependencies: [
+          - 'cuda'
+          - 'cuda-libraries-dev'
+          - 'cuda-nvcc'
+          - 'cuda-nvtx'
+          - 'cuda-cupti'
+      pipRequirementsTxt: |-
+        transformers==4.35.0
+        torch
+        torchaudio
+        torchvision
+```
+
+  </div>
+</div>
+
+<div v-click class="absolute right-18 top-25">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-3 py-2">
+    <div text-lg>Python Environment Management</div>
+    <span class="text–neutral-500 text-xs">From dependency chaos to environment harmony</span>
+    <div>
+      <div px-0 py-2 flex flex-col gap-2>
+        <div grid grid-cols-2 gap-2>
+          <div
+            flex flex-col gap-2 rounded-lg bg="neutral-900/30"
+            p-3 border="1 solid neutral-700"
+          >
+            <div flex items-center gap-2>
+              <div i-logos:conda text-xl />
+              <span font-bold></span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Full environment control</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>CUDA integration</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>C++ binary packages</span>
+            </div>
+          </div>
+          <div
+            flex flex-col gap-2 rounded-lg bg="neutral-900/30"
+            p-3 border="1 solid neutral-700"
+          >
+            <div flex items-center gap-2>
+              <div i-logos:python text-xl />
+              <span font-bold>pip</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Familiar requirements.txt</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>PyPI packages</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Private indexes</span>
+            </div>
+          </div>
+        </div>
+        <div grid grid-cols-2 gap-2>
+          <div
+            flex flex-col gap-2 rounded-lg bg="neutral-900/30"
+            p-3 border="1 solid neutral-700"
+          >
+            <div flex items-center gap-2>
+              <img src="/pixi.png" w-6 />
+              <span font-bold>Pixi</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Fast parallel installs</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Rust-powered speed</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Lockfile support</span>
+            </div>
+          </div>
+          <div
+            flex flex-col gap-2 rounded-lg bg="neutral-900/30"
+            p-3 border="1 solid neutral-700"
+          >
+            <div flex items-center gap-2>
+              <span font-bold>Mamba</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>10x faster than conda</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Parallel downloads</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Conda-compatible</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+---
+class: py-4
+glowSeed: 275
+---
+
+<div mt-6 />
+
+<div class="mt-2 w-75%">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
+
+```yaml
+apiVersion: dataset.baize.io/v1alpha1
+kind: Dataset
+metadata:
+  name: qwen3-32b
+spec:
+  dataSyncRound: 1
+  secretRef: dataset-hf-qwen3-32b-secret
+  source:
+    options:
+      endpoint: https://hf-mirror.com
+      repoType: MODEL
+    type: HUGGING_FACE
+    uri: huggingface://Qwen/Qwen3-32B
+  volumeClaimTemplate:
+    metadata: {}
+    spec:
+      accessModes:
+        - ReadWriteMany
+      resources:
+        requests:
+          storage: '0'
+      storageClassName: juicefs-no-share-sc
+    status: {}
+```
+
+</div>
+</div>
+
+<div v-click class="absolute right-18 top-25">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-3 py-2">
+    <div text-lg>HuggingFace & ModelScope</div>
+    <span class="text–neutral-500 text-xs">Models, datasets, all in one</span>
+    <div
+      v-click
+      mt-4
+      border="2 solid cyan-800" bg="cyan-800/20"
+      rounded-lg overflow-hidden
+      transition duration-500 ease-in-out
+    >
+      <div bg="cyan-800/40" px-2 py-2 flex items-center>
+        <div i-carbon:filter text-cyan-300 text-xl mr-2 />
+        <span font-bold text-sm>Smart Filtering</span>
+      </div>
+      <div p-2 flex items-center gap-6>
+        <div flex flex-col gap-2 flex-1>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span text-xs text-nowrap>Include/exclude patterns</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span text-xs text-nowrap>Skip redundant files</span>
+          </div>
+        </div>
+        <div flex-1 font-mono text-xs bg="black/30" rounded-lg px-3 py-2 text="[10px]">
+          <div>options:</div>
+          <div>  <span text-green-300>include: "*.safetensors"</span></div>
+          <div>  <span text-green-300>exclude: "*.fp16.*"</span></div>
+        </div>
+      </div>
+    </div>
+    <div
+      mt-4
+      border="2 solid indigo-800" bg="indigo-800/20"
+      rounded-lg overflow-hidden
+      transition duration-500 ease-in-out
+    >
+      <div bg="indigo-800/40" px-2 py-2 flex items-center>
+        <div i-carbon:delivery text-indigo-300 text-xl mr-2 />
+        <span font-bold text-sm>Advanced Features</span>
+      </div>
+      <div p-2 flex flex-col gap-2>
+        <div grid grid-cols-2 gap-4>
+          <div flex flex-col gap-2 bg="indigo-900/30" rounded-lg p-3>
+            <div font-bold text-sm>Mirroring Support</div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Configurable endpoints</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Regional mirrors</span>
+            </div>
+            <div text-xs font-mono bg="black/30" rounded px-2 py-1 mt-1 border="1 solid indigo-700">
+              <div>endpoint: https://hf-mirror.com</div>
+            </div>
+          </div>
+          <div flex flex-col gap-2 bg="indigo-900/30" rounded-lg p-3>
+            <div font-bold text-sm>Token Authentication</div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Secure token management</span>
+            </div>
+            <div text-xs flex items-center gap-1>
+              <div i-carbon:checkmark-outline text-green-400 />
+              <span>Private repo access</span>
+            </div>
+            <div text-xs font-mono bg="black/30" rounded px-2 py-1 mt-1 border="1 solid indigo-700">
+              <div>secretRef: hf-token-secret</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1207,13 +1572,12 @@ spec:
 
 ---
 class: py-10
-clicks: 3
-glowSeed: 88
+glowSeed: 195
 ---
 
-# Component in Dataset: Dataloader
+# Cross-Namespace Dataset Sharing
 
-<span>The command-line superpower for anything useful to LLMOps / MLOps</span>
+<span>Breaking down silos without breaking security</span>
 
 <div mt-6 />
 
@@ -1222,138 +1586,137 @@ glowSeed: 88
     v-click="1"
     w="1/2" pr-4
     transition duration-500 ease-in-out
-    :class="$clicks < 1 ? 'opacity-0 translate-x--20' : 'opacity-100 translate-x-0'"
+    :class="$clicks < 1 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
   >
     <div
-      border="2 solid sky-800" bg="sky-800/20"
-      rounded-lg overflow-hidden relative
-    >
-      <div bg="sky-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:terminal text-sky-300 text-xl mr-2 />
-        <span font-bold>Core Commands</span>
-      </div>
-      <div class="font-mono px-4 py-4 flex flex-col gap-3">
-        <div
-          v-for="(cmd, idx) in [
-            { cmd: 'dataloader init', desc: 'Environment setup' },
-            { cmd: 'dataloader install', desc: 'Dependency resolution' },
-            { cmd: 'dataloader sync', desc: 'State synchronization' },
-            { cmd: 'dataloader verify', desc: 'Dependency verification' }
-          ]"
-          :key="cmd.cmd"
-          flex items-center gap-3
-          :style="{
-            transitionDelay: `${200 + idx * 150}ms`,
-            transitionProperty: 'all',
-            transitionDuration: '500ms'
-          }"
-        >
-          <div
-            px-3 py-1.5 rounded bg="black/30" border="1 solid sky-700"
-            text-sky-300 min-w-45 text-sm
-          >$ {{cmd.cmd}}</div>
-          <div text-zinc-400 text-sm>{{cmd.desc}}</div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="$clicks >= 2"
-      mt-4
-      border="2 solid indigo-800" bg="indigo-800/20"
+      border="2 solid blue-800" bg="blue-800/20"
       rounded-lg overflow-hidden
-      transition duration-500 ease-in-out
-      :class="$clicks < 2 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
     >
-      <div bg="indigo-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:code text-indigo-300 text-xl mr-2 />
-        <span font-bold>Example: Install PyTorch with CUDA</span>
+      <div bg="blue-800/40" px-4 py-2 flex items-center>
+        <div i-carbon:share-knowledge text-blue-300 text-xl mr-2 />
+        <span font-bold>The Power of Sharing</span>
       </div>
-      <div class="font-mono bg-black/30 px-4 py-3 text-sm">
-        <div text-green-400>$ dataloader install --cuda=11.8 --torch=2.1.0</div>
-        <div text-sky-300 mt-1>[INFO] Resolving compatible C++ runtime...</div>
-        <div text-sky-300>[INFO] Setting up CUDA environment...</div>
-        <div text-sky-300>[INFO] Installing PyTorch dependencies...</div>
-        <div text-green-400 mt-2>[SUCCESS] Environment ready in 4m32s</div>
+      <div px-4 py-4 flex flex-col gap-2>
+        <div
+          font-mono text-sm px-4 py-3 bg="black/30" rounded-lg
+          border="1 solid blue-700"
+        >
+          <div text-yellow-300># Enable sharing for Dataset</div>
+          <div>spec:</div>
+          <div>  <span text-green-300>shared: true</span></div>
+          <div>  <span text-green-300>shareToNamespaceSelector:</span></div>
+          <div>    matchExpressions:</div>
+          <div>      - key: workspace.io/id</div>
+          <div>        operator: In</div>
+          <div>        values: ['4']</div>
+        </div>
+        <div mt-2 flex flex-col gap-2>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Fine-grained namespace access control</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Workspace-based sharing</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Security-first design</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <div
-    v-click="3"
+    v-click="2"
     w="1/2" pl-4
     transition duration-500 ease-in-out
-    :class="$clicks < 3 ? 'opacity-0 translate-x-20' : 'opacity-100 translate-x-0'"
+    :class="$clicks < 2 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
   >
     <div
-      border="2 solid violet-800" bg="violet-800/20"
+      border="2 solid purple-800" bg="purple-800/20"
       rounded-lg overflow-hidden
     >
-      <div bg="violet-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:tools text-violet-300 text-xl mr-2 />
-        <span font-bold>Language Support</span>
+      <div bg="purple-800/40" px-4 py-2 flex items-center>
+        <div i-carbon:connection text-purple-300 text-xl mr-2 />
+        <span font-bold>Consuming Shared Datasets</span>
       </div>
-      <div px-4 py-4 grid grid-cols-2 gap-6>
-        <div>
-          <div flex items-center gap-2 mb-3>
-            <div i-logos:python text-2xl />
-            <span font-bold>Python</span>
-          </div>
-          <div flex flex-col gap-2 text-sm>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>pip requirements</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>conda environments</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>poetry support</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>virtualenv integration</span>
-            </div>
-          </div>
+      <div px-4 py-4 flex flex-col gap-2>
+        <div
+          font-mono text-sm px-4 py-3 bg="black/30" rounded-lg
+          border="1 solid purple-700"
+        >
+          <div text-yellow-300># Reference a shared Dataset</div>
+          <div>apiVersion: dataset.baize.io/v1alpha1</div>
+          <div>kind: Dataset</div>
+          <div>metadata:</div>
+          <div>  name: llama-model-ref</div>
+          <div>spec:</div>
+          <div>  source:</div>
+          <div>    <span text-green-300>type: REFERENCE</span></div>
+          <div>    <span text-green-300>uri: dataset://default/llama-model</span></div>
         </div>
-        <div>
-          <div flex items-center gap-2 mb-3>
-            <div i-logos:c-plusplus text-2xl />
-            <span font-bold>C++ & System</span>
+        <div mt-2 flex flex-col gap-2>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Automatic PVC/PV mirroring</span>
           </div>
-          <div flex flex-col gap-2 text-sm>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>CUDA versions</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>compiler toolchains</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>system libraries</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>ABI compatibility</span>
-            </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Synchronized lifecycle management</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Use models from other teams instantly</span>
           </div>
         </div>
       </div>
-      <div
-        mt-2 px-4 py-3 bg="violet-900/30"
-        border-t="2 solid violet-800/50"
-        flex items-center justify-between
-      >
-        <div flex items-center gap-2>
-          <div i-carbon:application text-violet-300 />
-          <span text-sm>Kubernetes Integration</span>
+    </div>
+  </div>
+</div>
+
+<div
+  v-click="3"
+  mt-6 flex justify-center
+  transition duration-500 ease-in-out
+  :class="$clicks < 3 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+>
+  <div
+    bg="teal-900/30" border="2 solid teal-800"
+    rounded-lg px-5 py-3 max-w-180
+  >
+    <div flex items-center gap-2 mb-2>
+      <div i-carbon:chart-relationship text-teal-300 text-xl />
+      <span font-bold text-lg>Before vs After</span>
+    </div>
+    <div grid grid-cols-2 gap-6 mt-3>
+      <div flex flex-col gap-2>
+        <div flex items-center gap-2 text-red-400>
+          <div i-carbon:close />
+          <span>Duplicate model copies</span>
         </div>
-        <div flex items-center gap-2>
-          <div i-carbon:checkmark-filled text-green-400 />
-          <span text-sm>Native Init Container Support</span>
+        <div flex items-center gap-2 text-red-400>
+          <div i-carbon:close />
+          <span>TB of wasted storage</span>
+        </div>
+        <div flex items-center gap-2 text-red-400>
+          <div i-carbon:close />
+          <span>Complex permission management</span>
+        </div>
+      </div>
+      <div flex flex-col gap-2>
+        <div flex items-center gap-2 text-green-400>
+          <div i-carbon:checkmark-outline />
+          <span>Single source of truth</span>
+        </div>
+        <div flex items-center gap-2 text-green-400>
+          <div i-carbon:checkmark-outline />
+          <span>Efficient storage usage</span>
+        </div>
+        <div flex items-center gap-2 text-green-400>
+          <div i-carbon:checkmark-outline />
+          <span>Declarative access control</span>
         </div>
       </div>
     </div>
@@ -1362,222 +1725,119 @@ glowSeed: 88
 
 ---
 class: py-10
-clicks: 6
+clicks: 3
 glowSeed: 150
 ---
 
-# Cache Strategy
+# Intelligent Cache Strategy
 
-<span>Optimizing the Unbearable Heaviness of Builds</span>
+<div flex justify-between items-center>
+  <span w="1/2">Optimizing the unbearable heaviness of builds</span>
+  <div i-carbon:cache text-7xl />
+</div>
 
-<div mt-6 />
+<div mt-6 grid grid-cols-3 gap-4>
+  <div
+    v-click="1"
+    border="2 solid indigo-800" bg="indigo-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:archive text-indigo-300 text-xl mr-2 />
+      <span font-bold>Layer 1: Downloads</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Source packages & archives</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>SHA256 verification</span>
+      </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Mirror fallback</span>
+      </div>
+    </div>
+  </div>
 
-<div
-  v-click="1"
-  relative min-h-90
-  transition duration-500 ease-in-out
-  :class="$clicks < 1 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
->
   <div
     v-click="2"
-    absolute top="1/2" left="1/2" translate-x="-1/2" translate-y="-1/2"
-    w-90 h-90 rounded-full border="4 indigo-500/40"
-    transition-all duration-1000
-    :class="{ 'animate-pulse': $clicks < 6 }"
-  ></div>
+    border="2 solid purple-800" bg="purple-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="purple-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:assembly-cluster text-purple-300 text-xl mr-2 />
+      <span font-bold>Layer 2: Builds</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Compiled binaries & wheels</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Deduplication</span>
+      </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Incremental builds</span>
+      </div>
+    </div>
+  </div>
 
   <div
     v-click="3"
-    absolute top="1/2" left="1/2" translate-x="-1/2" translate-y="-1/2"
-    w-65 h-65 rounded-full border="4 purple-500/40"
-    transition-all duration-1000
-    :class="{ 'animate-pulse': $clicks < 6 }"
-  ></div>
-
-  <div
-    v-click="4"
-    absolute top="1/2" left="1/2" translate-x="-1/2" translate-y="-1/2"
-    w-40 h-40 rounded-full border="4 pink-500/40"
-    transition-all duration-1000
-    :class="{ 'animate-pulse': $clicks < 6 }"
-  ></div>
-
-  <div flex justify-center>
-    <div grid grid-cols-3 gap-6>
-      <div
-        v-click="2"
-        border="2 solid indigo-800" bg="indigo-800/20"
-        rounded-lg overflow-hidden
-        transition-all duration-500
-        :class="[
-          $clicks === 2 ? 'z-10 scale-105' : '',
-          $clicks >= 6 ? 'border-green-500' : ''
-        ]"
-      >
-        <div
-          bg="indigo-800/40" px-4 py-2 flex items-center
-          :class="$clicks >= 6 ? 'bg-green-800/40' : ''"
-        >
-          <div i-carbon:archive text-indigo-300 text-xl mr-2 />
-          <span font-bold>Layer 1: Downloads</span>
-        </div>
-        <div px-4 py-3>
-          <div text-sm opacity-80>Source packages & archives</div>
-          <div mt-3 flex flex-col gap-1 text-xs opacity-70>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>SHA256 verification</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>Mirror fallback</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>Parallel fetching</span>
-            </div>
-          </div>
-        </div>
+    border="2 solid pink-800" bg="pink-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="pink-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:data-class text-pink-300 text-xl mr-2 />
+      <span font-bold>Layer 3: Metadata</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Environment configs</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Dependency tracking</span>
       </div>
-      <div
-        v-click="3"
-        border="2 solid purple-800" bg="purple-800/20"
-        rounded-lg overflow-hidden
-        transition-all duration-500
-        :class="[
-          $clicks === 3 ? 'z-10 scale-105' : '',
-          $clicks >= 6 ? 'border-green-500' : ''
-        ]"
-      >
-        <div
-          bg="purple-800/40" px-4 py-2 flex items-center
-          :class="$clicks >= 6 ? 'bg-green-800/40' : ''"
-        >
-          <div i-carbon:assembly-cluster text-purple-300 text-xl mr-2 />
-          <span font-bold>Layer 2: Builds</span>
-        </div>
-        <div px-4 py-3>
-          <div text-sm opacity-80>Compiled binaries & wheels</div>
-          <div mt-3 flex flex-col gap-1 text-xs opacity-70>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>Deduplication</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>Incremental builds</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>ABI versioning</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        v-click="4"
-        border="2 solid pink-800" bg="pink-800/20"
-        rounded-lg overflow-hidden
-        transition-all duration-500
-        :class="[
-          $clicks === 4 ? 'z-10 scale-105' : '',
-          $clicks >= 6 ? 'border-green-500' : ''
-        ]"
-      >
-        <div
-          bg="pink-800/40" px-4 py-2 flex items-center
-          :class="$clicks >= 6 ? 'bg-green-800/40' : ''"
-        >
-          <div i-carbon:data-class text-pink-300 text-xl mr-2 />
-          <span font-bold>Layer 3: Metadata</span>
-        </div>
-        <div px-4 py-3>
-          <div text-sm opacity-80>Environment configs</div>
-          <div mt-3 flex flex-col gap-1 text-xs opacity-70>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>Dependency tracking</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>Version resolution</span>
-            </div>
-            <div flex items-center gap-2>
-              <div i-carbon:checkmark-outline text-green-400 />
-              <span>Activation scripts</span>
-            </div>
-          </div>
-        </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Version resolution</span>
       </div>
     </div>
   </div>
 </div>
 
-<div
-  v-click="5"
-  mt-6 grid grid-cols-2 gap-8
-  transition duration-500 ease-in-out
-  :class="$clicks < 5 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
->
-  <div
-    border="2 solid red-800" bg="red-800/20"
-    rounded-lg overflow-hidden
-  >
+<div v-click mt-4 grid grid-cols-2 gap-4>
+  <div border="2 solid red-800" bg="red-800/20" rounded-lg overflow-hidden>
     <div bg="red-800/40" px-4 py-2 flex items-center>
       <div i-carbon:time text-red-300 text-xl mr-2 />
       <span font-bold>Traditional Approach</span>
     </div>
-    <div px-5 py-4 grid grid-cols-1 gap-3>
+    <div px-4 py-3 flex flex-col gap-1>
       <div flex items-center justify-between>
-        <div flex items-center gap-2>
-          <div i-bi:gpu-card text-red-300 />
-          <span>CUDA setup:</span>
-        </div>
+        <div>CUDA setup:</div>
         <div text-red-400 font-bold>45-60 min</div>
       </div>
       <div flex items-center justify-between>
-        <div flex items-center gap-2>
-          <div i-logos:pytorch text-red-300 />
-          <span>PyTorch install:</span>
-        </div>
+        <div>PyTorch install:</div>
         <div text-red-400 font-bold>20-30 min</div>
-      </div>
-      <div mt-2 px-4 py-2 bg="red-900/30" rounded-lg text-sm flex items-center gap-2>
-        <div i-carbon:warning-alt text-red-300 />
-        <span>Installation for each developer, each time</span>
       </div>
     </div>
   </div>
-  <div
-    border="2 solid green-800" bg="green-800/20"
-    rounded-lg overflow-hidden
-    :class="$clicks >= 6 ? 'animate-pulse' : ''"
-  >
+
+  <div border="2 solid green-800" bg="green-800/20" rounded-lg overflow-hidden>
     <div bg="green-800/40" px-4 py-2 flex items-center>
       <div i-carbon:time text-green-300 text-xl mr-2 />
       <span font-bold>With Datasets</span>
     </div>
-    <div px-5 py-4 grid grid-cols-1 gap-3>
+    <div px-4 py-3 flex flex-col gap-1>
       <div flex items-center justify-between>
-        <div flex items-center gap-2>
-          <div i-carbon:build text-green-300 />
-          <span>First setup:</span>
-        </div>
+        <div>First setup:</div>
         <div text-green-400 font-bold>10-15 min</div>
       </div>
       <div flex items-center justify-between>
-        <div flex items-center gap-2>
-          <div i-carbon:data-share text-green-300 />
-          <span>Subsequent use:</span>
-        </div>
+        <div>Subsequent use:</div>
         <div text-green-400 font-bold flex items-center>
           <span>seconds</span>
           <div i-carbon:flash animate-pulse ml-1 />
         </div>
-      </div>
-      <div mt-2 px-4 py-2 bg="green-900/30" rounded-lg text-sm flex items-center gap-2>
-        <div i-carbon:checkmark-outline text-green-300 />
-        <span>Build once, share with entire team</span>
       </div>
     </div>
   </div>
@@ -1932,29 +2192,27 @@ glowSeed: 338
 
 ---
 class: py-10
-clicks: 5
 glowSeed: 250
 ---
 
-# Real World Impact: Numbers Don't Lie
+# Metrics in summary
 
 <span>The measurable benefits of Datasets</span>
 
 <div mt-4 />
 
 <div
-  v-click="1"
   grid grid-cols-3 gap-4
-  transition duration-500 ease-in-out
+  transition duration-500 ease-in-out h-90
   :class="$clicks < 1 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
 >
+  <v-clicks>
   <div
     border="2 solid sky-800" bg="sky-800/20"
     rounded-lg p-5 flex flex-col items-center
-    transition-all duration-500
-    :class="$clicks === 2 ? 'scale-110 z-10' : ''"
+    transition-all duration-500 h-full
   >
-    <div text-4xl mb-4>⚡️</div>
+    <div text-4xl mb-4 h-45 flex items-center justify-center>⚡️</div>
     <div font-bold text-xl>Environment Setup</div>
     <div
       text-sky-300 text-2xl font-bold mt-2
@@ -1964,7 +2222,7 @@ glowSeed: 250
       <div i-carbon:arrow-up text-green-400 />
     </div>
     <div text-sm opacity-70 mt-1>With shared environments</div>
-    <div text-xs mt-3 bg="sky-900/30" border="1 solid sky-700" rounded-lg px-3 py-1>
+    <div text-xs mt-3 bg="sky-900/30" rounded-lg px-3 py-1>
       From hours to minutes
     </div>
   </div>
@@ -1972,10 +2230,9 @@ glowSeed: 250
   <div
     border="2 solid purple-800" bg="purple-800/20"
     rounded-lg p-5 flex flex-col items-center
-    transition-all duration-500
-    :class="$clicks === 3 ? 'scale-110 z-10' : ''"
+    transition-all duration-500 h-full
   >
-    <div text-4xl mb-4>💾</div>
+    <div text-4xl mb-4 h-45 flex items-center justify-center>💾</div>
     <div font-bold text-xl>Storage Efficiency</div>
     <div
       text-purple-300 text-2xl font-bold mt-2
@@ -1985,7 +2242,7 @@ glowSeed: 250
       <div i-carbon:arrow-down text-green-400 />
     </div>
     <div text-sm opacity-70 mt-1>Using JuiceFS dedup</div>
-    <div text-xs mt-3 bg="purple-900/30" border="1 solid purple-700" rounded-lg px-3 py-1>
+    <div text-xs mt-3 bg="purple-900/30" rounded-lg px-3 py-1>
       10GB → 1GB typical savings
     </div>
   </div>
@@ -1993,10 +2250,9 @@ glowSeed: 250
   <div
     border="2 solid pink-800" bg="pink-800/20"
     rounded-lg p-5 flex flex-col items-center
-    transition-all duration-500
-    :class="$clicks === 4 ? 'scale-110 z-10' : ''"
+    transition-all duration-500 h-full
   >
-    <div text-4xl mb-4>🎯</div>
+    <div text-4xl mb-4 h-45 flex items-center justify-center>🎯</div>
     <div font-bold text-xl>Development Cycle</div>
     <div
       text-pink-300 text-2xl font-bold mt-2
@@ -2006,72 +2262,11 @@ glowSeed: 250
       <div i-carbon:arrow-down text-green-400 />
     </div>
     <div text-sm opacity-70 mt-1>No more environment setup</div>
-    <div text-xs mt-3 bg="pink-900/30" border="1 solid pink-700" rounded-lg px-3 py-1>
+    <div text-xs mt-3 bg="pink-900/30" rounded-lg px-3 py-1>
       Instant environment activation
     </div>
   </div>
-</div>
-
-<div
-  v-click="5"
-  mt-8 grid grid-cols-2 gap-4
-  transition duration-500 ease-in-out
-  :class="$clicks < 5 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
->
-  <div
-    border="2 solid blue-800" bg="blue-800/20"
-    rounded-lg p-5 flex gap-6
-  >
-    <div flex flex-col items-center justify-center>
-      <div text-4xl>🔄</div>
-    </div>
-    <div flex-1>
-      <div font-bold text-xl>Team Productivity</div>
-      <div text-xl font-bold text-blue-300 mt-1>Consistent Environments</div>
-      <div text-sm opacity-70 mt-1>Same setup for scientists and engineers</div>
-      <div mt-3 flex gap-2 flex-wrap>
-        <div text-xs bg="blue-900/30" border="1 solid blue-700" rounded-lg px-2 py-1 flex items-center gap-1>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Same versions</span>
-        </div>
-        <div text-xs bg="blue-900/30" border="1 solid blue-700" rounded-lg px-2 py-1 flex items-center gap-1>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Same behaviors</span>
-        </div>
-        <div text-xs bg="blue-900/30" border="1 solid blue-700" rounded-lg px-2 py-1 flex items-center gap-1>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>No "works on my machine"</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    border="2 solid indigo-800" bg="indigo-800/20"
-    rounded-lg p-5 flex gap-6
-  >
-    <div flex flex-col items-center justify-center>
-      <div text-4xl>🚀</div>
-    </div>
-    <div flex-1>
-      <div font-bold text-xl>Model Deployment</div>
-      <div text-xl font-bold text-indigo-300 mt-1>Enterprise Model Hub</div>
-      <div text-sm opacity-70 mt-1>Self-contained model registry</div>
-      <div mt-3 flex gap-2 flex-wrap>
-        <div text-xs bg="indigo-900/30" border="1 solid indigo-700" rounded-lg px-2 py-1 flex items-center gap-1>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Pre-loaded models</span>
-        </div>
-        <div text-xs bg="indigo-900/30" border="1 solid indigo-700" rounded-lg px-2 py-1 flex items-center gap-1>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Ready for inference</span>
-        </div>
-        <div text-xs bg="indigo-900/30" border="1 solid indigo-700" rounded-lg px-2 py-1 flex items-center gap-1>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Version controlled</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  </v-clicks>
 </div>
 
 ---
