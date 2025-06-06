@@ -906,12 +906,14 @@ Python + C++ Harmony in K8S
 
 ---
 
-# One CRD to Rule Them All
+# Dataset CRD
+
+One CRD to Rule Them All
 
 <div class="flex relative">
 
 <div class="mt-2 w-75%">
-  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
 
 ```yaml
 apiVersion: dataset.baize.io/v1alpha1
@@ -1030,7 +1032,7 @@ glowSeed: 215
       transition duration-500 ease-in-out
       :class="$clicks < 1? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
     >
-      <div bg="sky-800/40" px-4 py-2 flex items-center justify-center>
+      <div bg="sky-800/40" px-4 py-2 flex items-center justify-center text-sm>
         <span font-bold>ML Model Repositories</span>
       </div>
       <div px-4 py-4 flex flex-col gap-3>
@@ -1065,7 +1067,7 @@ glowSeed: 215
       transition duration-500 ease-in-out
       :class="$clicks < 2 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
     >
-      <div bg="purple-800/40" px-4 py-2 flex items-center justify-center>
+      <div bg="purple-800/40" px-4 py-2 flex items-center justify-center text-sm>
         <span font-bold>Environment & Packages</span>
       </div>
       <div px-4 py-4 flex flex-col gap-3>
@@ -1100,7 +1102,7 @@ glowSeed: 215
       transition duration-500 ease-in-out
       :class="$clicks < 3 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
     >
-      <div bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
+      <div bg="indigo-800/40" px-4 py-2 flex items-center justify-center text-sm>
         <span font-bold>Storage & Version Control</span>
       </div>
       <div px-4 py-4 flex flex-col gap-3>
@@ -1150,7 +1152,9 @@ glowSeed: 215
 
 ---
 
-# Cross-Namespace Dataset Sharing
+# Share across namespaces!
+
+Cross-Namespace Dataset Sharing
 
 <div class="flex relative">
 
@@ -1207,9 +1211,9 @@ clicks: 3
 glowSeed: 88
 ---
 
-# Dataloader: The Polyglot Dependency Manager
+# Component in Dataset: Dataloader
 
-<span>The command-line superpower for dependency control</span>
+<span>The command-line superpower for anything useful to LLMOps / MLOps</span>
 
 <div mt-6 />
 
@@ -1359,153 +1363,12 @@ glowSeed: 88
 ---
 class: py-10
 clicks: 6
-glow: right
----
-
-# Smart Dependency Resolution: Solving the Version Maze
-
-<span>Untangling the complex web of dependencies</span>
-
-<div mt-4 />
-
-<div flex>
-  <div w="1/2" pr-6>
-    <div
-      v-click="1"
-      relative min-h-80 border="2 solid blue-800" rounded-lg bg="blue-800/20"
-      transition duration-500 ease-in-out
-      :class="$clicks < 1 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
-    >
-      <div absolute top--3 left-4 bg="blue-700" px-3 py-0.5 rounded-full text-sm>
-        Dependency Resolution Process
-      </div>
-      <!-- Graph visualization -->
-      <svg width="100%" height="250" viewBox="0 0 400 250" class="mt-4">
-        <!-- PyTorch node -->
-        <circle
-          :cx="200" :cy="70" :r="40"
-          fill="rgba(59, 130, 246, 0.2)"
-          stroke="rgba(59, 130, 246, 0.6)"
-          stroke-width="2"
-          :class="{ 'animate-pulse': $clicks === 2 }"
-        />
-        <text x="200" y="70" text-anchor="middle" fill="white" font-size="14">PyTorch</text>
-        <text x="200" y="85" text-anchor="middle" fill="white" font-size="10">2.1.0</text>
-        <!-- CUDA node -->
-        <circle
-          :cx="100" :cy="170" :r="35"
-          fill="rgba(139, 92, 246, 0.2)"
-          stroke="rgba(139, 92, 246, 0.6)"
-          stroke-width="2"
-          :class="{ 'animate-pulse': $clicks === 3 }"
-        />
-        <text x="100" y="170" text-anchor="middle" fill="white" font-size="14">CUDA</text>
-        <text x="100" y="185" text-anchor="middle" fill="white" font-size="10">11.8</text>
-        <!-- GCC node -->
-        <circle
-          :cx="200" :cy="170" :r="35"
-          fill="rgba(236, 72, 153, 0.2)"
-          stroke="rgba(236, 72, 153, 0.6)"
-          stroke-width="2"
-          :class="{ 'animate-pulse': $clicks === 4 }"
-        />
-        <text x="200" y="170" text-anchor="middle" fill="white" font-size="14">GCC</text>
-        <text x="200" y="185" text-anchor="middle" fill="white" font-size="10">9.4.0</text>
-        <!-- cuDNN node -->
-        <circle
-          :cx="300" :cy="170" :r="35"
-          fill="rgba(34, 211, 238, 0.2)"
-          stroke="rgba(34, 211, 238, 0.6)"
-          stroke-width="2"
-          :class="{ 'animate-pulse': $clicks === 5 }"
-        />
-        <text x="300" y="170" text-anchor="middle" fill="white" font-size="14">cuDNN</text>
-        <text x="300" y="185" text-anchor="middle" fill="white" font-size="10">8.7.0</text>
-        <!-- Connection lines -->
-        <line
-          x1="200" y1="110" x2="100" y2="135"
-          stroke="white" stroke-width="2" stroke-dasharray="4 2"
-          :class="{ 'animate-pulse': $clicks === 3 }"
-        />
-        <line
-          x1="200" y1="110" x2="200" y2="135"
-          stroke="white" stroke-width="2" stroke-dasharray="4 2"
-          :class="{ 'animate-pulse': $clicks === 4 }"
-        />
-        <line
-          x1="200" y1="110" x2="300" y2="135"
-          stroke="white" stroke-width="2" stroke-dasharray="4 2"
-          :class="{ 'animate-pulse': $clicks === 5 }"
-        />
-      </svg>
-    </div>
-  </div>
-
-  <div w="1/2" pl-6 flex flex-col gap-4>
-    <div
-      v-click="2"
-      border="2 solid indigo-800" bg="indigo-800/20"
-      rounded-lg p-4
-      transition duration-500 ease-in-out
-      :class="$clicks < 2 ? 'opacity-0 translate-x-20' : 'opacity-100 translate-x-0'"
-    >
-      <div flex items-center>
-        <div i-carbon:inspection text-indigo-300 text-xl mr-2 />
-        <span font-bold>Before Installation</span>
-      </div>
-      <div mt-3 flex flex-col gap-2>
-        <div flex items-center gap-2>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Dependency graph analysis</span>
-        </div>
-        <div flex items-center gap-2>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Version compatibility check</span>
-        </div>
-        <div flex items-center gap-2>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>System requirements validation</span>
-        </div>
-        <div flex items-center gap-2>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>C++/CUDA ABI verification</span>
-        </div>
-      </div>
-    </div>
-    <div
-      v-click="6"
-      border="2 solid sky-800" bg="sky-800/20"
-      rounded-lg overflow-hidden
-      transition duration-500 ease-in-out
-      :class="$clicks < 6 ? 'opacity-0 translate-x-20' : 'opacity-100 translate-x-0'"
-    >
-      <div bg="sky-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:code text-sky-300 text-xl mr-2 />
-        <span font-bold>Resolution Example</span>
-      </div>
-      <div class="font-mono bg-black/30 px-4 py-3 text-sm">
-        <div text-green-400>$ dataloader install torch==2.1.0</div>
-        <div text-sky-300 mt-1>[INFO] Detected CUDA requirement: 11.8</div>
-        <div text-sky-300>[INFO] Detected cuDNN requirement: 8.7.0</div>
-        <div text-sky-300>[INFO] Detected GCC requirement: 9.4.0</div>
-        <div text-sky-300>[INFO] Building compatible environment...</div>
-        <div text-sky-300 mt-1>[INFO] Downloading PyTorch 2.1.0</div>
-        <div text-sky-300>[INFO] Configuring toolchain compatibility</div>
-        <div text-green-400 mt-1>[SUCCESS] All dependencies resolved!</div>
-      </div>
-    </div>
-  </div>
-</div>
-
----
-class: py-10
-clicks: 6
 glowSeed: 150
 ---
 
-# Cache Strategy: Optimizing the Unbearable Heaviness of Builds
+# Cache Strategy
 
-<span>From hours to seconds with smart caching</span>
+<span>Optimizing the Unbearable Heaviness of Builds</span>
 
 <div mt-6 />
 
@@ -1863,7 +1726,7 @@ glow: bottom
   :class="$clicks < 3 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
 >
   <div
-    flex items-center bg="green-900/30" border="2 solid green-700"
+    flex items-center bg="green-900/30"
     rounded-lg py-3 px-6 gap-4
   >
     <div i-carbon:transform-moving text-green-300 text-3xl />
@@ -1978,7 +1841,7 @@ glowSeed: 338
 
 100x difference in environment setup times!
 
-<div mt-8 />
+<div mt-4 />
 
 <div
   v-click
@@ -1986,16 +1849,16 @@ glowSeed: 338
   :class="$clicks < 1 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
 >
   <!-- Chart container with proper dimensions -->
-  <div relative h-80 w-full px-8>
+  <div relative h-100 w-full>
     <!-- Chart header -->
     <div
       border="2 solid neutral-700" bg="neutral-800/50"
-      rounded-t-lg px-6 py-3
+      rounded-t-lg px-3 py-2
     >
       <div flex items-center justify-between>
         <div flex items-center gap-2>
           <div i-carbon:chart-column text-xl text-sky-300 />
-          <div font-bold text-xl>Setup Time Comparison</div>
+          <div font-bold text-xs>Setup Time Comparison</div>
         </div>
         <div text-sm text-zinc-400>Smaller is better</div>
       </div>
@@ -2003,16 +1866,16 @@ glowSeed: 338
     <!-- Chart bars -->
     <div
       border-x="2 solid neutral-700" border-b="2 solid neutral-700"
-      bg="neutral-900/50" rounded-b-lg px-6 py-8
+      bg="neutral-900/50" rounded-b-lg px-3 pb-3 h-90 pt-6
     >
-      <div flex items-end justify-center gap-20 h-50>
+      <div flex items-end justify-center gap-20 h-full>
         <!-- Conda bar -->
-        <div flex flex-col items-center>
-          <div h-50 w-24 bg="red-800/40" border="2 solid red-700" rounded-t-lg flex items-center justify-center relative>
+        <div flex flex-col items-center justify-end h-full>
+          <div h="75%" w-30 bg="red-800/40" rounded-t-lg flex items-center justify-center relative>
             <span text-2xl font-bold text-red-300>45+</span>
             <span text-sm text-red-300 absolute top-2 right-2>min</span>
-            <div absolute top="-10" w-full text-center>
-              <div bg="red-900/60" border="1 solid red-700" rounded-full px-3 py-1 text-xs inline-block>
+            <div absolute top="-10" w-full flex justify-center>
+              <div bg="red-900/60" border="2 solid red-700" rounded-full px-2 py-1 text-xs flex items-center text-nowrap w-fit>
                 ~100× slower
               </div>
             </div>
@@ -2025,11 +1888,11 @@ glowSeed: 338
         </div>
         <!-- Docker bar -->
         <div flex flex-col items-center>
-          <div h-24 w-24 bg="blue-800/40" border="2 solid blue-700" rounded-t-lg flex items-center justify-center relative>
+          <div h="31%" w-30 bg="blue-800/40" rounded-t-lg flex items-center justify-center relative>
             <span text-2xl font-bold text-blue-300>20</span>
             <span text-sm text-blue-300 absolute top-2 right-2>min</span>
-            <div absolute top="-10" w-full text-center>
-              <div bg="blue-900/60" border="1 solid blue-700" rounded-full px-3 py-1 text-xs inline-block>
+            <div absolute top="-10" w-full flex justify-center>
+              <div bg="blue-900/60" border="2 solid blue-700" rounded-full px-3 py-1 text-xs flex items-center text-nowrap w-fit>
                 ~40× slower
               </div>
             </div>
@@ -2043,58 +1906,25 @@ glowSeed: 338
         <!-- Datasets + Pixi bar -->
         <div flex flex-col items-center>
           <div
-            h-10 w-24 bg="green-800/40" border="2 solid green-700"
+            h-10 w-30 bg="green-800/40"
             rounded-t-lg flex items-center justify-center relative
             class="animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-3000 animate-ease-in-out"
           >
             <span text-2xl font-bold text-green-300>~30</span>
             <span text-sm text-green-300 absolute top-2 right-2>sec</span>
-            <div absolute top="-10" w-full text-center>
-              <div bg="green-900/60" border="1 solid green-700" rounded-full px-3 py-1 text-xs inline-block>
-                <div i-carbon:flash text-yellow-300 mr-1 inline-block />
+            <div absolute top="-10" left="0" w-full flex justify-center>
+              <div bg="green-900/60" border="2 solid green-700" rounded-full px-3 py-1 text-xs flex items-center text-nowrap w-fit>
+                <div i-carbon:flash text-yellow-300 inline-block />
                 Fastest
               </div>
             </div>
           </div>
-          <div py-2 font-semibold>Datasets + Pixi</div>
+          <div py-2 font-semibold>Dataset + Pixi</div>
           <div text-xs text-green-400 flex items-center gap-1>
             <div i-carbon:checkmark-outline />
             <span>Parallel processing</span>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div
-  v-click
-  mt-10 flex justify-center
-  transition duration-500 ease-in-out
-  :class="$clicks < 2 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
->
-  <div
-    bg="green-900/30" border="2 solid green-700"
-    rounded-lg py-4 px-8 text-center max-w-160
-  >
-    <div text-2xl font-bold>
-      <span text-green-300>10-100×</span> Faster Environment Setup
-    </div>
-    <div text-sm mt-2 opacity-80>
-      Powered by Pixi's innovative package management and parallel processing with intelligent caching
-    </div>
-    <div mt-3 flex justify-center gap-6 text-sm>
-      <div flex items-center gap-1>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Reusable across team</span>
-      </div>
-      <div flex items-center gap-1>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Instant activation</span>
-      </div>
-      <div flex items-center gap-1>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Optimized storage</span>
       </div>
     </div>
   </div>
