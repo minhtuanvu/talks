@@ -916,7 +916,7 @@ One CRD to Rule Them All
   <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
 
 ```yaml
-apiVersion: dataset.baize.io/v1alpha1
+apiVersion: dataset.baizeai.io/v1alpha1
 kind: Dataset
 metadata:
   name: pytorch-env
@@ -1163,7 +1163,7 @@ Cross-Namespace Dataset Sharing
 
 ```yaml
 # Sharing Dataset
-apiVersion: dataset.baize.io/v1alpha1
+apiVersion: dataset.baizeai.io/v1alpha1
 kind: Dataset
 metadata:
   name: training-sample-code
@@ -1177,7 +1177,7 @@ spec:
         values: ['4']
 
 # LINK Dataset
-apiVersion: dataset.baize.io/v1alpha1
+apiVersion: dataset.baizeai.io/v1alpha1
 kind: Dataset
 metadata:
   name: training-sample-code-ref
