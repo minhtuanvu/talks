@@ -1254,6 +1254,14 @@ spec:
   </div>
 </div>
 
+<!-- Kebe -->
+
+---
+
+# Architecture
+
+<!-- Kebe -->
+
 ---
 class: py-4
 glowSeed: 275
@@ -1570,6 +1578,8 @@ spec:
 
 </div>
 
+<!-- Kebe -->
+
 ---
 class: py-10
 glowSeed: 195
@@ -1723,125 +1733,7 @@ glowSeed: 195
   </div>
 </div>
 
----
-class: py-10
-clicks: 3
-glowSeed: 150
----
-
-# Intelligent Cache Strategy
-
-<div flex justify-between items-center>
-  <span w="1/2">Optimizing the unbearable heaviness of builds</span>
-  <div i-carbon:cache text-7xl />
-</div>
-
-<div mt-6 grid grid-cols-3 gap-4>
-  <div
-    v-click="1"
-    border="2 solid indigo-800" bg="indigo-800/20"
-    rounded-lg overflow-hidden
-  >
-    <div bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
-      <div i-carbon:archive text-indigo-300 text-xl mr-2 />
-      <span font-bold>Layer 1: Downloads</span>
-    </div>
-    <div px-3 py-3 flex flex-col gap-1>
-      <div text-sm opacity-80>Source packages & archives</div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>SHA256 verification</span>
-      </div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Mirror fallback</span>
-      </div>
-    </div>
-  </div>
-
-  <div
-    v-click="2"
-    border="2 solid purple-800" bg="purple-800/20"
-    rounded-lg overflow-hidden
-  >
-    <div bg="purple-800/40" px-4 py-2 flex items-center justify-center>
-      <div i-carbon:assembly-cluster text-purple-300 text-xl mr-2 />
-      <span font-bold>Layer 2: Builds</span>
-    </div>
-    <div px-3 py-3 flex flex-col gap-1>
-      <div text-sm opacity-80>Compiled binaries & wheels</div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Deduplication</span>
-      </div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Incremental builds</span>
-      </div>
-    </div>
-  </div>
-
-  <div
-    v-click="3"
-    border="2 solid pink-800" bg="pink-800/20"
-    rounded-lg overflow-hidden
-  >
-    <div bg="pink-800/40" px-4 py-2 flex items-center justify-center>
-      <div i-carbon:data-class text-pink-300 text-xl mr-2 />
-      <span font-bold>Layer 3: Metadata</span>
-    </div>
-    <div px-3 py-3 flex flex-col gap-1>
-      <div text-sm opacity-80>Environment configs</div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Dependency tracking</span>
-      </div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Version resolution</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div v-click mt-4 grid grid-cols-2 gap-4>
-  <div border="2 solid red-800" bg="red-800/20" rounded-lg overflow-hidden>
-    <div bg="red-800/40" px-4 py-2 flex items-center>
-      <div i-carbon:time text-red-300 text-xl mr-2 />
-      <span font-bold>Traditional Approach</span>
-    </div>
-    <div px-4 py-3 flex flex-col gap-1>
-      <div flex items-center justify-between>
-        <div>CUDA setup:</div>
-        <div text-red-400 font-bold>45-60 min</div>
-      </div>
-      <div flex items-center justify-between>
-        <div>PyTorch install:</div>
-        <div text-red-400 font-bold>20-30 min</div>
-      </div>
-    </div>
-  </div>
-
-  <div border="2 solid green-800" bg="green-800/20" rounded-lg overflow-hidden>
-    <div bg="green-800/40" px-4 py-2 flex items-center>
-      <div i-carbon:time text-green-300 text-xl mr-2 />
-      <span font-bold>With Datasets</span>
-    </div>
-    <div px-4 py-3 flex flex-col gap-1>
-      <div flex items-center justify-between>
-        <div>First setup:</div>
-        <div text-green-400 font-bold>10-15 min</div>
-      </div>
-      <div flex items-center justify-between>
-        <div>Subsequent use:</div>
-        <div text-green-400 font-bold flex items-center>
-          <span>seconds</span>
-          <div i-carbon:flash animate-pulse ml-1 />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Kebe -->
 
 ---
 class: py-10
@@ -1993,6 +1885,128 @@ glow: bottom
     <div>
       <div text-xl font-bold>From <span text-red-400>isolated silos</span> to <span text-green-400>unified model ecosystem</span></div>
       <div text-sm text-zinc-300 mt-1>Enabling seamless collaboration across data science teams</div>
+    </div>
+  </div>
+</div>
+
+<!-- Kebe -->
+
+---
+class: py-10
+clicks: 3
+glowSeed: 150
+---
+
+# Intelligent Cache Strategy
+
+<div flex justify-between items-center>
+  <span w="1/2">Optimizing the unbearable heaviness of builds</span>
+  <div i-carbon:cache text-7xl />
+</div>
+
+<div mt-6 grid grid-cols-3 gap-4>
+  <div
+    v-click="1"
+    border="2 solid indigo-800" bg="indigo-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:archive text-indigo-300 text-xl mr-2 />
+      <span font-bold>Layer 1: Downloads</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Source packages & archives</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>SHA256 verification</span>
+      </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Mirror fallback</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-click="2"
+    border="2 solid purple-800" bg="purple-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="purple-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:assembly-cluster text-purple-300 text-xl mr-2 />
+      <span font-bold>Layer 2: Builds</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Compiled binaries & wheels</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Deduplication</span>
+      </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Incremental builds</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-click="3"
+    border="2 solid pink-800" bg="pink-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="pink-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:data-class text-pink-300 text-xl mr-2 />
+      <span font-bold>Layer 3: Metadata</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Environment configs</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Dependency tracking</span>
+      </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Version resolution</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div v-click mt-4 grid grid-cols-2 gap-4>
+  <div border="2 solid red-800" bg="red-800/20" rounded-lg overflow-hidden>
+    <div bg="red-800/40" px-4 py-2 flex items-center>
+      <div i-carbon:time text-red-300 text-xl mr-2 />
+      <span font-bold>Traditional Approach</span>
+    </div>
+    <div px-4 py-3 flex flex-col gap-1>
+      <div flex items-center justify-between>
+        <div>CUDA setup:</div>
+        <div text-red-400 font-bold>45-60 min</div>
+      </div>
+      <div flex items-center justify-between>
+        <div>PyTorch install:</div>
+        <div text-red-400 font-bold>20-30 min</div>
+      </div>
+    </div>
+  </div>
+
+  <div border="2 solid green-800" bg="green-800/20" rounded-lg overflow-hidden>
+    <div bg="green-800/40" px-4 py-2 flex items-center>
+      <div i-carbon:time text-green-300 text-xl mr-2 />
+      <span font-bold>With Datasets</span>
+    </div>
+    <div px-4 py-3 flex flex-col gap-1>
+      <div flex items-center justify-between>
+        <div>First setup:</div>
+        <div text-green-400 font-bold>10-15 min</div>
+      </div>
+      <div flex items-center justify-between>
+        <div>Subsequent use:</div>
+        <div text-green-400 font-bold flex items-center>
+          <span>seconds</span>
+          <div i-carbon:flash animate-pulse ml-1 />
+        </div>
+      </div>
     </div>
   </div>
 </div>
