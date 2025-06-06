@@ -195,60 +195,60 @@ glowSeed: 123
   <div
     :class="$clicks < 1 ? 'translate-x--20 opacity-0' : 'translate-x-0 opacity-100'"
     rounded-lg
-    border="2 solid purple-800" bg="purple-800/20"
+    border="2 solid yellow-800" bg="yellow-800/20"
     backdrop-blur
     flex-1 h-full
     transition duration-500 ease-in-out
   >
     <div px-2 py-12 flex items-center justify-center>
-      <div i-carbon:cics-program text-violet-300 h-20 w-20 />
+      <div i-carbon:cics-program text-yellow-300 h-20 w-20 />
     </div>
-    <div bg="purple-800/30" w-full px-4 py-2 h="5rem" flex items-center justify-center text-center>
+    <div bg="yellow-800/30" w-full px-4 py-2 h="5rem" flex items-center justify-center text-center>
       <span>ABI Incompatibility</span>
     </div>
   </div>
   <div
     :class="$clicks < 2 ? 'translate-x--20 opacity-0' : 'translate-x-0 opacity-100'"
     rounded-lg
-    border="2 solid violet-800" bg="violet-800/20"
+    border="2 solid lime-800" bg="lime-800/20"
     backdrop-blur
     flex-1 h-full
     transition duration-500 ease-in-out
   >
     <div px-2 py-12 flex items-center justify-center>
-      <div i-bi:gpu-card text-violet-300 h-20 w-20 />
+      <div i-bi:gpu-card text-lime-300 h-20 w-20 />
     </div>
-    <div bg="violet-800/30" w-full px-4 py-2 h="5rem" flex items-center justify-center text-center>
+    <div bg="lime-800/30" w-full px-4 py-2 h="5rem" flex items-center justify-center text-center>
       <span>CUDA Version Conflicts</span>
     </div>
   </div>
   <div
     :class="$clicks < 3 ? 'translate-x--20 opacity-0' : 'translate-x-0 opacity-100'"
     rounded-lg
-    border="2 solid indigo-800" bg="indigo-800/20"
+    border="2 solid emerald-800" bg="emerald-800/20"
     backdrop-blur
     flex-1 h-full
     transition duration-500 ease-in-out
   >
     <div px-2 py-12 flex items-center justify-center>
-      <div i-carbon:terminal text-indigo-300 h-20 w-20 />
+      <div i-carbon:terminal text-emerald-300 h-20 w-20 />
     </div>
-    <div bg="indigo-800/30" w-full px-4 py-2 h="5rem" flex items-center justify-center text-center>
+    <div bg="emerald-800/30" w-full px-4 py-2 h="5rem" flex items-center justify-center text-center>
       <span>System Library Conflicts</span>
     </div>
   </div>
   <div
     :class="$clicks < 4 ? 'translate-x--20 opacity-0' : 'translate-x-0 opacity-100'"
     rounded-lg
-    border="2 solid blue-800" bg="blue-800/20"
+    border="2 solid sky-800" bg="sky-800/20"
     backdrop-blur
     flex-1 h-full
     transition duration-500 ease-in-out
   >
     <div px-2 py-12 flex items-center justify-center>
-      <div i-carbon:document-multiple text-blue-300 h-20 w-20 />
+      <div i-carbon:row-delete text-sky-300 h-20 w-20 />
     </div>
-    <div bg="blue-800/30" w-full px-4 py-2 h="5rem" flex items-center justify-center text-center>
+    <div bg="sky-800/30" w-full px-4 py-2 h="5rem" flex items-center justify-center text-center>
       <span>Package Inconsistencies</span>
     </div>
   </div>
@@ -277,64 +277,143 @@ glowSeed: 123
 </div>
 
 ---
-layout: center
+class: py-10
+clicks: 4
+glowSeed: 180
 ---
 
 # The Hidden Iceberg: What pip Can't See
 
-<div class="mt-4 grid grid-cols-2 gap-8">
-  <div v-click class="relative">
-    <div class="relative h-80">
-      <div class="absolute bottom-0 w-full bg-blue-500/20 h-60 rounded-t-full"></div>
-      <div class="absolute top-0 w-full">
-        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-          <h3 class="mb-4">Visible Surface</h3>
-          <code class="text-sm">
-            torch==2.1.0<br>
-            transformers==4.36.0<br>
+<span>The deceptive simplicity of Python dependencies</span>
+
+<div mt-8 />
+
+<div flex>
+  <div
+    v-click="1"
+    w=“1/2 pr-6
+    transition duration-500 ease-in-out
+    :class="$clicks < 1 ? 'opacity-0 translate-x--20' : 'opacity-100 translate-x-0'"
+  >
+    <div relative h-90 w-90>
+      <!-- Iceberg water effect -->
+      <div
+        absolute bottom-0 w-full bg="blue-500/20" h-60 rounded-t-full
+        class="animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-8000 animate-ease-in-out"
+      ></div>
+      <!-- Visible part -->
+      <div
+        absolute top-0 w-90
+        transition duration-500 ease-in-out
+        :class="$clicks === 2 ? 'scale-110 z-10' : ''"
+      >
+        <div border="2 solid sky-800" bg="sky-800/20" backdrop-blur rounded-lg p-3>
+          <div flex items-center mb-4>
+            <div i-carbon:cloud-ceiling text-sky-300 text-xl mr-2 />
+            <span font-bold>Seems installing</span>
+          </div>
+          <div
+            font-mono text-sm px-4 py-3 bg="black/30" rounded-lg
+            border="1 solid sky-700"
+          >
+            torch==2.1.0
+            transformers==4.36.0
             accelerate==0.25.0
-          </code>
+          </div>
         </div>
       </div>
-      <div v-click class="absolute bottom-0 w-full">
-        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-          <h3 class="mb-4">Hidden Depths</h3>
-          <code class="text-xs">
-            CUDA 11.8<br>
-            gcc 9.4.0<br>
-            cmake 3.22.1<br>
-            libnccl2<br>
-            libcudnn8<br>
-            cuda-cupti-dev<br>
-            ...and dozens more
-          </code>
+      <!-- Hidden part -->
+      <div
+        v-click="2"
+        absolute bottom-0 w-90
+        transition duration-500 ease-in-out
+        :class="$clicks < 2 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
+      >
+        <div border="2 solid blue-800" bg="blue-800/20" backdrop-blur rounded-lg p-3>
+          <div flex items-center mb-4>
+            <div i-carbon:ibm-cloud-secrets-manager text-blue-300 text-xl mr-2 />
+            <span font-bold>But actually...</span>
+          </div>
+          <div
+            font-mono text-xs px-3 py-3 bg="black/30" rounded-lg
+            border="1 solid blue-700" max-h-40 overflow-y-auto
+          >
+            <div text-blue-300>CUDA 11.8</div>
+            <div>gcc 9.4.0</div>
+            <div>cmake 3.22.1</div>
+            <div>libnccl2</div>
+            <div>libcudnn8</div>
+            <div>cuda-cupti-dev</div>
+            <div>libstdc++.so.6</div>
+            <div>libopenblas.so</div>
+            <div>libpython3.10.so</div>
+            <div>libcublas.so</div>
+            <div text-zinc-500>...and dozens more</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div v-click class="space-y-4">
-    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-      <h3 class="mb-2">Python Package Managers</h3>
-      <ul class="space-y-2 text-sm">
-        <li class="flex items-center gap-2">
-          <div i-carbon:checkmark class="text-green-400" />
+  <div w="1/2">
+    <div
+      v-click="3"
+      border="2 solid violet-800" bg="violet-800/20"
+      rounded-lg overflow-hidden
+      transition duration-500 ease-in-out
+      :class="$clicks < 3 ? 'opacity-0 translate-x-20' : 'opacity-100 translate-x-0'"
+    >
+      <div bg="violet-800/40" px-3 py-2 flex items-center>
+        <div i-logos:python text-xl mr-2 />
+        <span text-sm font-bold>Python Package Managers</span>
+      </div>
+      <div px-3 py-3 flex flex-col gap-1 text-sm>
+        <div flex items-center gap-2 text-nowrap>
+          <div i-carbon:checkmark-outline text-green-400 min-w-5 />
           <span>Handle Python dependencies well</span>
-        </li>
-        <li class="flex items-center gap-2">
-          <div i-carbon:close class="text-red-400" />
+        </div>
+        <div flex items-center gap-2 text-nowrap>
+          <div i-carbon:close text-red-400 min-w-5 />
           <span>Blind to underlying C++ libraries</span>
-        </li>
-        <li class="flex items-center gap-2">
-          <div i-carbon:close class="text-red-400" />
-          <span>No system-level dependency management</span>
-        </li>
-      </ul>
+        </div>
+        <div flex items-center gap-2 text-nowrap>
+          <div i-carbon:close text-red-400 min-w-5 />
+          <span>Cannot handle compiler compatibility</span>
+        </div>
+      </div>
     </div>
-
-    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-      <h3 class="mb-2">The Reality</h3>
-      <p class="text-sm opacity-80">Modern ML libraries are just thin Python wrappers around massive C++ and CUDA codebases</p>
+    <div
+      v-click="4"
+      mt-4 border="2 solid yellow-800" bg="yellow-800/20"
+      rounded-lg overflow-hidden
+      transition duration-500 ease-in-out
+      :class="$clicks < 4 ? 'opacity-0 translate-x-20' : 'opacity-100 translate-x-0'"
+    >
+      <div bg="yellow-800/40" px-3 py-2 flex items-center text-sm>
+        <div i-carbon:warning-alt text-yellow-300 text-xl mr-2 />
+        <span font-bold>The Reality</span>
+      </div>
+      <div px-4 py-3>
+        <div text-xs opacity-80>
+          Modern ML libraries are just thin Python wrappers around massive C++ and CUDA codebases
+        </div>
+        <div flex items-center gap-2 mb-2 mt-8>
+            <div i-carbon:chart-relationship text-yellow-300 />
+            <span font-bold>Dependency Complexity</span>
+          </div>
+          <div flex justify-between text-xs>
+            <div>PyTorch source:</div>
+            <div text-yellow-300>1.8M+ lines of C++</div>
+          </div>
+          <div flex justify-between text-xs>
+            <div>Python wrapper:</div>
+            <div text-yellow-300>~100K lines of Python</div>
+          </div>
+          <div flex justify-between text-xs>
+            <div>Binary size:</div>
+            <div text-yellow-300>1.7GB+ with CUDA</div>
+          </div>
+      </div>
     </div>
   </div>
 </div>
@@ -649,22 +728,22 @@ glow: left
 
 <span>What works, what doesn't, and why</span>
 
-<div mt-8 />
+<div mt-4 />
 
 <div flex justify-center>
   <div
     v-motion
     :initial="{ opacity: 0, y: 40 }"
     :enter="{ opacity: 1, y: 0, transition: { duration: 600 } }"
-    grid grid-cols-3 gap-8 w-full max-w-180
+    grid grid-cols-3 gap-8 w-full text-sm
   >
     <div
       v-click="1"
-      border="2 solid sky-800" bg="sky-800/20"
+      border="2 solid yellow-800" bg="yellow-800/20"
       rounded-lg overflow-hidden transition-all duration-500
       :class="$clicks === 5 ? 'opacity-40' : ''"
     >
-      <div bg="sky-800/40" px-4 py-3 flex items-center>
+      <div bg="yellow-800/40" px-4 py-3 flex items-center>
         <div i-logos:python text-3xl mr-3 />
         <span font-bold>pip & uv</span>
       </div>
@@ -689,11 +768,11 @@ glow: left
     </div>
     <div
       v-click="2"
-      border="2 solid blue-800" bg="blue-800/20"
+      border="2 solid cyan-800" bg="cyan-800/20"
       rounded-lg overflow-hidden transition-all duration-500
       :class="$clicks === 5 ? 'opacity-40' : ''"
     >
-      <div bg="blue-800/40" px-4 py-3 flex items-center>
+      <div bg="cyan-800/40" px-4 py-3 flex items-center>
         <div i-devicon:docker text-3xl mr-3 />
         <span font-bold>Docker</span>
       </div>
@@ -718,11 +797,11 @@ glow: left
     </div>
     <div
       v-click="3"
-      border="2 solid purple-800" bg="purple-800/20"
+      border="2 solid blue-800" bg="blue-800/20"
       rounded-lg overflow-hidden transition-all duration-500
       :class="$clicks === 5 ? 'opacity-40' : ''"
     >
-      <div bg="purple-800/40" px-4 py-3 flex items-center>
+      <div bg="blue-800/40" px-4 py-3 flex items-center>
         <div i-devicon:nixos text-3xl mr-3 />
         <span font-bold>Nix</span>
       </div>
@@ -750,14 +829,14 @@ glow: left
 
 <div
   v-click="4"
-  mt-10 transition-all duration-500
+  mt-4 transition-all duration-500
   :class="$clicks < 4 ? 'opacity-0 scale-95' : 'opacity-100 scale-100'"
 >
   <div flex items-center justify-center>
     <div relative>
       <div
         v-if="$clicks === 5"
-        absolute -top-12 left="1/2" transform -translate-x="1/2"
+        absolute top="-12" left="1/2" transform translate-x="-1/2"
         flex items-center gap-2 bg="green-800/60" border="2 solid green-600"
         px-4 py-2 rounded-full text-green-300 font-bold
       >
@@ -766,34 +845,34 @@ glow: left
       </div>
       <div
         border="2 solid green-800" bg="green-800/20"
-        rounded-lg p-4 w-160
+        rounded-lg p-4 w-full
         :class="$clicks === 5 ? 'border-green-500 scale-110 transition-all duration-500' : ''"
       >
         <div text-center font-bold text-xl mb-3>What We Need</div>
         <div grid grid-cols-3 gap-4>
           <div flex items-center gap-2>
             <div i-carbon:checkmark-outline text-green-400 />
-            <span>Python package management</span>
+            <span text-nowrap>Python package management</span>
           </div>
           <div flex items-center gap-2>
             <div i-carbon:checkmark-outline text-green-400 />
-            <span>C++/CUDA awareness</span>
+            <span text-nowrap>C++/CUDA awareness</span>
           </div>
           <div flex items-center gap-2>
             <div i-carbon:checkmark-outline text-green-400 />
-            <span>Storage efficiency</span>
+            <span text-nowrap>Storage efficiency</span>
           </div>
           <div flex items-center gap-2>
             <div i-carbon:checkmark-outline text-green-400 />
-            <span>Fast setup times</span>
+            <span text-nowrap>Fast setup times</span>
           </div>
           <div flex items-center gap-2>
             <div i-carbon:checkmark-outline text-green-400 />
-            <span>K8s native</span>
+            <span text-nowrap>K8s native</span>
           </div>
           <div flex items-center gap-2>
             <div i-carbon:checkmark-outline text-green-400 />
-            <span>Team consistency</span>
+            <span text-nowrap>Team consistency</span>
           </div>
         </div>
       </div>
@@ -805,7 +884,9 @@ glow: left
 glowSeed: 12129
 ---
 
-# Introducing Datasets: Python + C++ Harmony in K8S
+# Introducing Datasets
+
+Python + C++ Harmony in K8S
 
 <div class="mt-6 flex justify-center">
   <div class="relative w-120 h-60">
@@ -972,9 +1053,8 @@ glowSeed: 182
       transition duration-500 ease-in-out
       :class="$clicks < 4 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
     >
-      <div absolute -left-12 top="1/3" -rotate-90 text-zinc-400 font-bold text-sm>DATA FLOW</div>
+      <div absolute left--12 top="1/3" rotate--90 text-zinc-400 font-bold text-sm>DATA FLOW</div>
       <svg width="100%" height="300" viewBox="0 0 400 300">
-        <!-- Layered boxes -->
         <rect x="50" y="30" width="300" height="50" rx="5" fill="rgba(56, 189, 248, 0.2)" stroke="rgba(56, 189, 248, 0.6)" stroke-width="2"/>
         <text x="200" y="60" text-anchor="middle" fill="white" font-size="14">Dataset CRD</text>
         <path d="M200 80 L200 100" stroke="white" stroke-width="2" stroke-dasharray="4 2"/>
@@ -985,10 +1065,8 @@ glowSeed: 182
         <polygon points="195,180 205,180 200,190" fill="white"/>
         <rect x="50" y="190" width="300" height="50" rx="5" fill="rgba(74, 222, 128, 0.2)" stroke="rgba(74, 222, 128, 0.6)" stroke-width="2"/>
         <text x="200" y="220" text-anchor="middle" fill="white" font-size="14">JuiceFS Shared Storage</text>
-        <!-- Side connectors -->
         <path d="M50 135 L20 135 L20 215 L50 215" stroke="white" stroke-width="2" stroke-dasharray="2 2"/>
         <path d="M350 135 L380 135 L380 215 L350 215" stroke="white" stroke-width="2" stroke-dasharray="2 2"/>
-        <!-- Icons -->
         <text x="70" y="60" font-family="monospace" font-size="18">🧩</text>
         <text x="70" y="140" font-family="monospace" font-size="18">🔄</text>
         <text x="70" y="220" font-family="monospace" font-size="18">💾</text>
@@ -1169,7 +1247,7 @@ glow: bottom
               <div h-6 bg="red-800/50" w-20 flex items-center justify-center text-xs>2h</div>
               <div h-6 rounded-r bg="red-700/50" w-24 flex items-center justify-center text-xs>3h</div>
             </div>
-            <div flex items-center text-[10px] text-zinc-400 pl-24>
+            <div flex items-center text="[10px]" text-zinc-400 pl-24>
               <div w-10 text-center>Setup</div>
               <div w-20 text-center>Install</div>
               <div w-24 text-center>Configuration</div>
@@ -1183,12 +1261,12 @@ glow: bottom
               <div w-10 />
               <div h-6 w-8 flex items-center justify-center text-lg text-green-400 animate-pulse>⚡️</div>
             </div>
-            <div flex items-center text-[10px] text-zinc-400 pl-24>
+            <div flex items-center text="[10px]" text-zinc-400 pl-24>
               <div w-10 text-center>Mount</div>
             </div>
           </div>
           <!-- Time saved indicator -->
-          <div absolute right-8 top="1/2" transform -translate-y="1/2" flex flex-col items-center>
+          <div absolute right-8 top="1/2" transform translate-y="-1/2" flex flex-col items-center>
             <div text-green-400 text-3xl font-bold>95%</div>
             <div text-sm text-zinc-400>Time Saved</div>
           </div>
@@ -1542,7 +1620,7 @@ glowSeed: 150
 >
   <div
     v-click="2"
-    absolute top="1/2" left="1/2" -translate-x="1/2" -translate-y="1/2"
+    absolute top="1/2" left="1/2" translate-x="-1/2" translate-y="-1/2"
     w-90 h-90 rounded-full border="4 indigo-500/40"
     transition-all duration-1000
     :class="{ 'animate-pulse': $clicks < 6 }"
@@ -1550,7 +1628,7 @@ glowSeed: 150
 
   <div
     v-click="3"
-    absolute top="1/2" left="1/2" -translate-x="1/2" -translate-y="1/2"
+    absolute top="1/2" left="1/2" translate-x="-1/2" translate-y="-1/2"
     w-65 h-65 rounded-full border="4 purple-500/40"
     transition-all duration-1000
     :class="{ 'animate-pulse': $clicks < 6 }"
@@ -1558,7 +1636,7 @@ glowSeed: 150
 
   <div
     v-click="4"
-    absolute top="1/2" left="1/2" -translate-x="1/2" -translate-y="1/2"
+    absolute top="1/2" left="1/2" translate-x="-1/2" translate-y="-1/2"
     w-40 h-40 rounded-full border="4 pink-500/40"
     transition-all duration-1000
     :class="{ 'animate-pulse': $clicks < 6 }"
@@ -1803,53 +1881,53 @@ volumes:
 
 ---
 class: py-10
-clicks: 4
-glow: bottom
+clicks: 3
 glowSeed: 338
 ---
 
 # Pixi Integration: The Next Evolution
 
-<span>Supercharging environment creation</span>
+Supercharging environment creation
 
 <div mt-6 />
 
 <div grid grid-cols-2 gap-6>
   <div
     v-click="1"
-    border="2 solid red-800" bg="red-800/20"
+    border="2 solid lime-800" bg="lime-800/20"
     rounded-lg overflow-hidden
     transition duration-500 ease-in-out
     :class="$clicks < 1 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
   >
-    <div bg="red-800/40" px-4 py-2 flex items-center>
-      <div i-logos:conda text-3xl mr-2 />
-      <span font-bold>Traditional Conda Approach</span>
+    <div bg="lime-800/40" px-4 py-4 flex items-center>
+      <div i-logos:conda text-xl />
     </div>
-    <div px-4 py-4 flex flex-col gap-3>
-      <div flex items-center gap-2 text-red-400>
+    <div px-4 py-4 flex flex-col gap-2>
+      <div flex items-center gap-2 text-yellow-400>
         <div i-carbon:time />
         <span>Minutes to hours for environment setup</span>
       </div>
-      <div flex items-center gap-2 text-red-400>
+      <div flex items-center gap-2 text-yellow-400>
         <div i-carbon:warning />
         <span>Sequential dependency resolution</span>
       </div>
-      <div flex items-center gap-2 text-red-400>
+      <div flex items-center gap-2 text-yellow-400>
         <div i-carbon:warning />
         <span>Incompatible ABI issues</span>
       </div>
       <div mt-2 bg="black/30" font-mono text-sm px-3 py-2 rounded>
-        <div>$ conda create -n myenv python=3.10</div>
-        <div>$ conda install pytorch torchvision</div>
-        <div class="text-zinc-500 mt-1"># Waiting... a long time...</div>
+        <div>$ conda create -n myenv python=3.12</div>
+        <div>$ conda install cuda -c nvidia</div>
+        <div>$ conda activate myenv</div>
+        <div>$ pip install torch</div>
+        <div class="text-zinc-500 mt-1"># Waiting... a long time... up to hours</div>
       </div>
       <div
         v-if="$clicks >= 3"
-        mt-2 flex items-center justify-between border="2 solid red-700" bg="red-900/20" rounded-lg p-2
+        mt-2 flex items-center justify-between bg="lime-900/20" rounded-lg p-2
       >
         <span text-sm>Average setup time:</span>
-        <span text-red-300 font-bold>45+ minutes</span>
+        <span text-lime-300 font-bold>60+ minutes</span>
       </div>
     </div>
   </div>
@@ -1861,11 +1939,10 @@ glowSeed: 338
     transition duration-500 ease-in-out
     :class="$clicks < 2 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
   >
-    <div bg="green-800/40" px-4 py-2 flex items-center>
-      <div i-carbon:kubernetes text-3xl mr-2 />
-      <span font-bold>With Pixi Integration</span>
+    <div bg="green-800/40" px-4 py-3 flex items-center>
+      Pixi.sh
     </div>
-    <div px-4 py-4 flex flex-col gap-3>
+    <div px-4 py-4 flex flex-col gap-2>
       <div flex items-center gap-2 text-green-400>
         <div i-carbon:rocket />
         <span>Seconds to minutes for complete setup</span>
@@ -1879,13 +1956,15 @@ glowSeed: 338
         <span>Precompiled binaries with correct ABI</span>
       </div>
       <div mt-2 bg="black/30" font-mono text-sm px-3 py-2 rounded>
-        <div>$ dataloader init --pixi</div>
-        <div>$ dataloader install --cuda=11.8 --pytorch</div>
-        <div class="text-green-400 mt-1"># Ready in seconds with Pixi acceleration</div>
+        <div>$ pixi init</div>
+        <div>$ pixi project channel add nvidia</div>
+        <div>$ pixi add cuda python=3.12</div>
+        <div>$ pixi add --pypi torch</div>
+        <div class="text-green-400 mt-1"># Ready in seconds</div>
       </div>
       <div
         v-if="$clicks >= 3"
-        mt-2 flex items-center justify-between border="2 solid green-700" bg="green-900/20" rounded-lg p-2
+        mt-2 flex items-center justify-between bg="green-900/20" rounded-lg p-2
       >
         <span text-sm>Average setup time:</span>
         <span text-green-300 font-bold>4-5 minutes</span>
@@ -1894,42 +1973,99 @@ glowSeed: 338
   </div>
 </div>
 
+---
+class: py-10
+clicks: 2
+glowSeed: 338
+---
+
+# Pixi Integration: How Fast?
+
+100x difference in environment setup times!
+
+<div mt-8 />
+
 <div
-  v-click="3"
-  mt-6
+  v-click
   transition duration-500 ease-in-out
-  :class="$clicks < 3 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+  :class="$clicks < 1 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
 >
-  <div relative w-full h-16>
+  <!-- Chart container with proper dimensions -->
+  <div relative h-80 w-full px-8>
+    <!-- Chart header -->
     <div
-      absolute top-0 left-0 right-0
       border="2 solid neutral-700" bg="neutral-800/50"
-      rounded-lg px-4 py-3
+      rounded-t-lg px-6 py-3
     >
       <div flex items-center justify-between>
-        <div font-bold text-lg>Setup Time Comparison</div>
+        <div flex items-center gap-2>
+          <div i-carbon:chart-column text-xl text-sky-300 />
+          <div font-bold text-xl>Setup Time Comparison</div>
+        </div>
         <div text-sm text-zinc-400>Smaller is better</div>
       </div>
     </div>
-    <div absolute bottom--6 left-0 right-0 px-10>
-      <div flex items-end gap-4 justify-around h-40>
-        <div flex flex-col items-center gap-2>
-          <div h-32 w-50 bg="red-800/40" border="2 solid red-700" rounded-t-lg flex items-center justify-center>
-            <span text-xl font-bold text-red-300>45+ min</span>
+    <!-- Chart bars -->
+    <div
+      border-x="2 solid neutral-700" border-b="2 solid neutral-700"
+      bg="neutral-900/50" rounded-b-lg px-6 py-8
+    >
+      <div flex items-end justify-center gap-20 h-50>
+        <!-- Conda bar -->
+        <div flex flex-col items-center>
+          <div h-50 w-24 bg="red-800/40" border="2 solid red-700" rounded-t-lg flex items-center justify-center relative>
+            <span text-2xl font-bold text-red-300>45+</span>
+            <span text-sm text-red-300 absolute top-2 right-2>min</span>
+            <div absolute top="-10" w-full text-center>
+              <div bg="red-900/60" border="1 solid red-700" rounded-full px-3 py-1 text-xs inline-block>
+                ~100× slower
+              </div>
+            </div>
           </div>
-          <div text-sm>Conda</div>
+          <div py-2 font-semibold>Conda</div>
+          <div text-xs text-zinc-400 flex items-center gap-1>
+            <div i-carbon:warning-alt text-red-300 />
+            <span>Sequential installation</span>
+          </div>
         </div>
-        <div flex flex-col items-center gap-2>
-          <div h-16 w-50 bg="blue-800/40" border="2 solid blue-700" rounded-t-lg flex items-center justify-center>
-            <span text-xl font-bold text-blue-300>20 min</span>
+        <!-- Docker bar -->
+        <div flex flex-col items-center>
+          <div h-24 w-24 bg="blue-800/40" border="2 solid blue-700" rounded-t-lg flex items-center justify-center relative>
+            <span text-2xl font-bold text-blue-300>20</span>
+            <span text-sm text-blue-300 absolute top-2 right-2>min</span>
+            <div absolute top="-10" w-full text-center>
+              <div bg="blue-900/60" border="1 solid blue-700" rounded-full px-3 py-1 text-xs inline-block>
+                ~40× slower
+              </div>
+            </div>
           </div>
-          <div text-sm>Docker</div>
+          <div py-2 font-semibold>Docker</div>
+          <div text-xs text-zinc-400 flex items-center gap-1>
+            <div i-carbon:warning-alt text-blue-300 />
+            <span>Build & image size issues</span>
+          </div>
         </div>
-        <div flex flex-col items-center gap-2>
-          <div h-8 w-50 bg="green-800/40" border="2 solid green-700" rounded-t-lg flex items-center justify-center>
-            <span text-xl font-bold text-green-300>5 min</span>
+        <!-- Datasets + Pixi bar -->
+        <div flex flex-col items-center>
+          <div
+            h-10 w-24 bg="green-800/40" border="2 solid green-700"
+            rounded-t-lg flex items-center justify-center relative
+            class="animate-name-pulse animate-iteration-count-[infinite] animate-direction-normal animate-duration-3000 animate-ease-in-out"
+          >
+            <span text-2xl font-bold text-green-300>~30</span>
+            <span text-sm text-green-300 absolute top-2 right-2>sec</span>
+            <div absolute top="-10" w-full text-center>
+              <div bg="green-900/60" border="1 solid green-700" rounded-full px-3 py-1 text-xs inline-block>
+                <div i-carbon:flash text-yellow-300 mr-1 inline-block />
+                Fastest
+              </div>
+            </div>
           </div>
-          <div text-sm>Datasets + Pixi</div>
+          <div py-2 font-semibold>Datasets + Pixi</div>
+          <div text-xs text-green-400 flex items-center gap-1>
+            <div i-carbon:checkmark-outline />
+            <span>Parallel processing</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1937,17 +2073,35 @@ glowSeed: 338
 </div>
 
 <div
-  v-click="4"
-  mt-16 flex justify-center
+  v-click
+  mt-10 flex justify-center
   transition duration-500 ease-in-out
-  :class="$clicks < 4 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+  :class="$clicks < 2 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
 >
   <div
     bg="green-900/30" border="2 solid green-700"
-    rounded-lg py-4 px-6 text-center max-w-140
+    rounded-lg py-4 px-8 text-center max-w-160
   >
-    <div text-2xl font-bold text-gradient-primary>10x Faster Environment Setup</div>
-    <div text-sm mt-2 opacity-80>Powered by Pixi's innovative package management and parallel processing</div>
+    <div text-2xl font-bold>
+      <span text-green-300>10-100×</span> Faster Environment Setup
+    </div>
+    <div text-sm mt-2 opacity-80>
+      Powered by Pixi's innovative package management and parallel processing with intelligent caching
+    </div>
+    <div mt-3 flex justify-center gap-6 text-sm>
+      <div flex items-center gap-1>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Reusable across team</span>
+      </div>
+      <div flex items-center gap-1>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Instant activation</span>
+      </div>
+      <div flex items-center gap-1>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Optimized storage</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2096,55 +2250,30 @@ glowSeed: 250
 </div>
 
 ---
-layout: center
+class: py-10
 ---
 
-# Future Roadmap: Building the Future Together
+# Let's build it together
 
-<div class="mt-6 grid grid-cols-2 gap-8">
-  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-    <h3>Coming Soon</h3>
-    <ul class="mt-4 space-y-2">
-      <li>• ModelScope integration</li>
-      <li>• Multi-mirror failover system</li>
-      <li>• Bandwidth control & QoS</li>
-      <li>• Cache prewarming for clusters</li>
-      <li>• Enhanced observability</li>
-    </ul>
-  </div>
+<span>Open sourced, already</span>
 
-  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-    <h3>Long-Term Vision</h3>
-    <ul class="mt-4 space-y-2">
-      <li>• P2P distribution across nodes</li>
-      <li>• Cross-region sync for global teams</li>
-      <li>• Automated version lifecycle management</li>
-      <li>• Intelligent auto-optimization</li>
-      <li>• Extended language ecosystem support</li>
-    </ul>
+<div flex>
+  <div
+    v-click="1" flex flex-col items-start transition duration-500 ease-in-out
+    :class="$clicks < 1 ? 'translate-x--20 opacity-0' : 'translate-x-0 opacity-100'"
+  >
+    <div mt-10 flex gap-16>
+      <img src="/datasets-repository-qr.png" w-60 />
+      <div text-2xl flex items-center gap-2 mt-4>
+        <div i-ri:github-fill /><span underline decoration-dashed font-mono decoration-zinc-300>BaizeAI/dataset</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="mt-8 text-center">
-  <div class="inline-block bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-    <h3 class="mb-4">Join the Revolution</h3>
-    <div class="grid grid-cols-3 gap-8">
-      <div class="text-center">
-        <div class="text-3xl mb-2">🛠️</div>
-        <div class="font-semibold">Contribute</div>
-        <p class="text-xs opacity-70">Help build new features</p>
-      </div>
-      <div class="text-center">
-        <div class="text-3xl mb-2">💡</div>
-        <div class="font-semibold">Suggest</div>
-        <p class="text-xs opacity-70">Share your use cases</p>
-      </div>
-      <div class="text-center">
-        <div class="text-3xl mb-2">🔗</div>
-        <div class="font-semibold">Connect</div>
-        <p class="text-xs opacity-70">Join our community</p>
-      </div>
-    </div>
+<div w-full absolute bottom-0 left-0 flex items-center transform="translate-x--10 translate-y--10">
+  <div w-full flex items-center justify-end gap-4>
+    <img src="/KubeCon.svg" h-20 translate-y-4>
   </div>
 </div>
 
