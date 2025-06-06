@@ -835,15 +835,6 @@ glow: left
   <div flex items-center justify-center>
     <div relative>
       <div
-        v-if="$clicks === 5"
-        absolute top="-12" left="1/2" transform translate-x="-1/2"
-        flex items-center gap-2 bg="green-800/60" border="2 solid green-600"
-        px-4 py-2 rounded-full text-green-300 font-bold
-      >
-        <div i-carbon:checkmark />
-        <span>Our Solution</span>
-      </div>
-      <div
         border="2 solid green-800" bg="green-800/20"
         rounded-lg p-4 w-full
         :class="$clicks === 5 ? 'border-green-500 scale-110 transition-all duration-500' : ''"
@@ -973,125 +964,185 @@ clicks: 4
 glowSeed: 182
 ---
 
-# X-Ray Vision: Datasets Architecture
+# How does it work?
 
 <span>Looking under the hood</span>
 
 <div mt-8 />
 
 <div flex>
-  <div w="1/2" pr-6>
+  <div
+    v-click="1"
+    border="2 solid blue-800" bg="blue-800/20"
+    rounded-lg overflow-hidden
+    transition duration-500 ease-in-out
+    :class="$clicks < 1 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
+  >
+    <div bg="blue-800/40" px-4 py-2 flex items-center>
+      <div i-carbon:kubernetes text-blue-300 text-xl mr-2 />
+      <span font-bold>Controller Architecture</span>
+    </div>
+    <div px-5 py-3>
+      <div
+        v-for="(step, idx) in [
+          'Parse Dataset CRD & validate spec',
+          'Check source type & credentials',
+          'Create/update PVC with JuiceFS',
+          'Deploy init container for setup',
+          'Download/sync data from source',
+          'Configure mount options',
+          'Update dataset status'
+        ]"
+        :key="step"
+        flex items-center gap-2 py-1
+        :class="$clicks < 2 ? 'opacity-0' : 'opacity-100'"
+        :style="{ transitionDelay: `${200 + idx * 100}ms`, transitionProperty: 'all', transitionDuration: '500ms' }"
+      >
+        <div i-carbon:dot-mark text-blue-300 />
+        <span>{{step}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+---
+class: py-10
+clicks: 6
+glowSeed: 215
+---
+
+# How many?
+
+<span>Flexible multi-source data integration</span>
+
+<div mt-8 />
+
+<div flex flex-col items-center>
+  <div
+    grid grid-cols-3 gap-6
+    w-full max-w-200
+  >
+    <!-- Card 1: ML Model Repositories -->
     <div
       v-click="1"
-      border="2 solid blue-800" bg="blue-800/20"
+      border="2 solid sky-800" bg="sky-800/20"
       rounded-lg overflow-hidden
       transition duration-500 ease-in-out
-      :class="$clicks < 1 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
+      :class="$clicks < 1? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
     >
-      <div bg="blue-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:kubernetes text-blue-300 text-xl mr-2 />
-        <span font-bold>Controller Architecture</span>
+      <div bg="sky-800/40" px-4 py-2 flex items-center justify-center>
+        <span font-bold>ML Model Repositories</span>
       </div>
-      <div px-5 py-3>
-        <div
-          v-for="(step, idx) in [
-            'Parse Dataset CRD & validate spec',
-            'Check source type & credentials',
-            'Create/update PVC with JuiceFS',
-            'Deploy init container for setup',
-            'Download/sync data from source',
-            'Configure mount options',
-            'Update dataset status'
-          ]"
-          :key="step"
-          flex items-center gap-2 py-1
-          :class="$clicks < 2 ? 'opacity-0' : 'opacity-100'"
-          :style="{ transitionDelay: `${200 + idx * 100}ms`, transitionProperty: 'all', transitionDuration: '500ms' }"
-        >
-          <div i-carbon:dot-mark text-blue-300 />
-          <span>{{step}}</span>
+      <div px-4 py-4 flex flex-col gap-3>
+        <div flex items-center gap-3>
+          <div i-logos:hugging-face-icon text-3xl w-10 />
+          <div>
+            <div font-semibold>HuggingFace</div>
+            <div text-xs text-zinc-400>Models, datasets, spaces</div>
+          </div>
+        </div>
+        <div flex items-center gap-3>
+          <img src="/modelscope-color.svg" w-10 />
+          <div>
+            <div font-semibold>ModelScope</div>
+            <div text-xs text-zinc-400>Alibaba AI models</div>
+          </div>
+        </div>
+        <div flex items-center gap-3>
+          <div i-simple-icons:pytorch text-3xl text-orange-600 w-10 />
+          <div>
+            <div font-semibold>PyTorch Hub</div>
+            <div text-xs text-zinc-400>Pre-trained models</div>
+          </div>
         </div>
       </div>
     </div>
+    <!-- Card 2: Environment & Package Sources -->
+    <div
+      v-click="2"
+      border="2 solid purple-800" bg="purple-800/20"
+      rounded-lg overflow-hidden
+      transition duration-500 ease-in-out
+      :class="$clicks < 2 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
+    >
+      <div bg="purple-800/40" px-4 py-2 flex items-center justify-center>
+        <span font-bold>Environment & Packages</span>
+      </div>
+      <div px-4 py-4 flex flex-col gap-3>
+        <div flex items-center gap-3>
+          <div i-logos:conda w-10 />
+          <div>
+            <div font-semibold text-base>Conda</div>
+            <div text-xs text-zinc-400>Environment management</div>
+          </div>
+        </div>
+        <div flex items-center gap-3>
+          <img src="/pixi.png" w-10 />
+          <div>
+            <div font-semibold text-base>Pixi</div>
+            <div text-xs text-zinc-400>Environment management</div>
+          </div>
+        </div>
+        <div flex items-center gap-3>
+          <div i-logos:python w-10 />
+          <div>
+            <div font-semibold text-base>PyPI / pip</div>
+            <div text-xs text-zinc-400>Python packages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3: Storage & Version Control -->
     <div
       v-click="3"
-      mt-4
-      border="2 solid purple-800" bg="purple-800/20"
+      border="2 solid indigo-800" bg="indigo-800/20"
       rounded-lg overflow-hidden
       transition duration-500 ease-in-out
       :class="$clicks < 3 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
     >
-      <div bg="purple-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:data-share text-purple-300 text-xl mr-2 />
-        <span font-bold>Multi-Source Support</span>
+      <div bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
+        <span font-bold>Storage & Version Control</span>
       </div>
-      <div px-5 py-3 grid grid-cols-2 gap-2>
-        <div flex items-center gap-2>
-          <div i-logos:python text-2xl />
-          <span>CONDA environments</span>
+      <div px-4 py-4 flex flex-col gap-3>
+        <div flex items-center gap-3>
+          <div i-simple-icons:github text-3xl text="white" w-10 />
+          <div>
+            <div font-semibold text-base>Git Repositories</div>
+            <div text-xs text-zinc-400>Code and configurations</div>
+          </div>
         </div>
-        <div flex items-center gap-2>
-          <div i-logos:huggingface text-2xl />
-          <span>HuggingFace models</span>
+        <div flex items-center gap-3>
+          <div i-logos:aws-s3 text-3xl w-10 />
+          <div>
+            <div font-semibold text-base>S3-compatible</div>
+            <div text-xs text-zinc-400>Cloud storage</div>
+          </div>
         </div>
-        <div flex items-center gap-2>
-          <div i-carbon:cloud text-2xl />
-          <span>Custom repositories</span>
-        </div>
-        <div flex items-center gap-2>
-          <div i-carbon:storage-pool text-2xl />
-          <span>Private model hub</span>
+        <div flex items-center gap-3>
+          <div i-carbon:data-volume text-3xl text-blue-300 w-10 />
+          <div>
+            <div font-semibold text-base>Local Volumes</div>
+            <div text-xs text-zinc-400>On-prem storage</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div w="1/2" pl-6>
+  <div
+    v-click="2"
+    mt-6 flex justify-center
+    transition duration-500 ease-in-out
+    :class="$clicks < 2 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+  >
     <div
-      v-click="4"
-      relative
-      transition duration-500 ease-in-out
-      :class="$clicks < 4 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+      bg="sky-900/30"
+      rounded-lg py-3 px-6 text-center flex items-center gap-3
     >
-      <div absolute left--12 top="1/3" rotate--90 text-zinc-400 font-bold text-sm>DATA FLOW</div>
-      <svg width="100%" height="300" viewBox="0 0 400 300">
-        <rect x="50" y="30" width="300" height="50" rx="5" fill="rgba(56, 189, 248, 0.2)" stroke="rgba(56, 189, 248, 0.6)" stroke-width="2"/>
-        <text x="200" y="60" text-anchor="middle" fill="white" font-size="14">Dataset CRD</text>
-        <path d="M200 80 L200 100" stroke="white" stroke-width="2" stroke-dasharray="4 2"/>
-        <polygon points="195,100 205,100 200,110" fill="white"/>
-        <rect x="50" y="110" width="300" height="50" rx="5" fill="rgba(168, 85, 247, 0.2)" stroke="rgba(168, 85, 247, 0.6)" stroke-width="2"/>
-        <text x="200" y="140" text-anchor="middle" fill="white" font-size="14">Dataset Controller</text>
-        <path d="M200 160 L200 180" stroke="white" stroke-width="2" stroke-dasharray="4 2"/>
-        <polygon points="195,180 205,180 200,190" fill="white"/>
-        <rect x="50" y="190" width="300" height="50" rx="5" fill="rgba(74, 222, 128, 0.2)" stroke="rgba(74, 222, 128, 0.6)" stroke-width="2"/>
-        <text x="200" y="220" text-anchor="middle" fill="white" font-size="14">JuiceFS Shared Storage</text>
-        <path d="M50 135 L20 135 L20 215 L50 215" stroke="white" stroke-width="2" stroke-dasharray="2 2"/>
-        <path d="M350 135 L380 135 L380 215 L350 215" stroke="white" stroke-width="2" stroke-dasharray="2 2"/>
-        <text x="70" y="60" font-family="monospace" font-size="18">🧩</text>
-        <text x="70" y="140" font-family="monospace" font-size="18">🔄</text>
-        <text x="70" y="220" font-family="monospace" font-size="18">💾</text>
-      </svg>
-      <div
-        grid grid-cols-2 gap-2 mt-2
-        border="2 solid green-800" bg="green-800/10"
-        rounded-lg p-3
-      >
-        <div flex items-center gap-2 text-sm>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Built on JuiceFS for shared storage</span>
-        </div>
-        <div flex items-center gap-2 text-sm>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>CUDA-aware environment resolution</span>
-        </div>
-        <div flex items-center gap-2 text-sm>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Intelligent caching of packages</span>
-        </div>
-        <div flex items-center gap-2 text-sm>
-          <div i-carbon:checkmark-outline text-green-400 />
-          <span>Deduplication of common libraries</span>
-        </div>
+      <div i-carbon:connection text-green-300 text-2xl />
+      <div>
+        <div text-xl font-bold>Unified Data Access Layer</div>
+        <div text-sm mt-1>One consistent API to access all your AI assets</div>
       </div>
     </div>
   </div>
@@ -1148,160 +1199,6 @@ spec:
   </div>
 </div>
 
-</div>
-
----
-class: py-10
-clicks: 3
-glow: bottom
----
-
-# Enterprise Model Hub in Minutes
-
-<span>From fragmented assets to unified ecosystem</span>
-
-<div mt-6 />
-
-<div flex>
-  <div
-    v-click="1"
-    w="1/2" pr-4
-    transition duration-500 ease-in-out
-    :class="$clicks < 1 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
-  >
-    <div
-      border="2 solid violet-800" bg="violet-800/20"
-      rounded-lg overflow-hidden relative h-70
-    >
-      <div bg="violet-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:machine-learning-model text-violet-300 text-xl mr-2 />
-        <span font-bold>Model Management</span>
-      </div>
-      <div
-        absolute left-0 right-0 top-12 bottom-0
-        class="bg-[url('/bg-grid.svg')] bg-center"
-      >
-        <div
-          v-for="(item, idx) in [
-            { x: 20, y: 25, r: 40, color: 'rgba(139, 92, 246, 0.5)', label: 'Llama-3' },
-            { x: 120, y: 55, r: 30, color: 'rgba(139, 92, 246, 0.5)', label: 'Mistral' },
-            { x: 75, y: 130, r: 50, color: 'rgba(139, 92, 246, 0.5)', label: 'PyTorch' },
-            { x: 170, y: 120, r: 35, color: 'rgba(139, 92, 246, 0.5)', label: 'SD-3' }
-          ]"
-          :key="idx"
-          absolute
-          class="rounded-full flex items-center justify-center"
-          :style="{
-            left: `${item.x}px`,
-            top: `${item.y}px`,
-            width: `${item.r*2}px`,
-            height: `${item.r*2}px`,
-            backgroundColor: item.color,
-            border: '2px solid rgba(139, 92, 246, 0.8)',
-            transitionDelay: `${300 + idx * 200}ms`,
-            transitionProperty: 'all',
-            transitionDuration: '800ms'
-          }"
-        >
-          <span font-bold text-sm>{{item.label}}</span>
-        </div>
-        <div absolute right-4 bottom-4 flex flex-col gap-3>
-          <div flex items-center gap-2 bg="violet-900/60" px-3 py-1.5 rounded-lg text-sm>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Version control</span>
-          </div>
-          <div flex items-center gap-2 bg="violet-900/60" px-3 py-1.5 rounded-lg text-sm>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Metadata extraction</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div
-    v-click="2"
-    w="1/2" pl-4
-    transition duration-500 ease-in-out
-    :class="$clicks < 2 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
-  >
-    <div
-      border="2 solid blue-800" bg="blue-800/20"
-      rounded-lg overflow-hidden relative h-70
-    >
-      <div bg="blue-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:time text-blue-300 text-xl mr-2 />
-        <span font-bold>Ready Before You Are</span>
-      </div>
-      <div px-3 py-4>
-        <div flex justify-between items-center>
-          <div text-sm text-zinc-400>Deployment Timeline</div>
-          <div text-sm text-zinc-400>Time Savings</div>
-        </div>
-        <div mt-4 relative h-40>
-          <!-- Traditional timeline -->
-          <div absolute top-0 left-0 right-0 flex flex-col gap-1>
-            <div flex items-center>
-              <div w-24 text-xs pr-2 text-right text-red-400>Traditional</div>
-              <div h-6 rounded-l bg="red-900/50" w-10 flex items-center justify-center text-xs>1h</div>
-              <div h-6 bg="red-800/50" w-20 flex items-center justify-center text-xs>2h</div>
-              <div h-6 rounded-r bg="red-700/50" w-24 flex items-center justify-center text-xs>3h</div>
-            </div>
-            <div flex items-center text="[10px]" text-zinc-400 pl-24>
-              <div w-10 text-center>Setup</div>
-              <div w-20 text-center>Install</div>
-              <div w-24 text-center>Configuration</div>
-            </div>
-          </div>
-          <!-- Dataset timeline -->
-          <div absolute bottom-0 left-0 right-0 flex flex-col gap-1>
-            <div flex items-center>
-              <div w-24 text-xs pr-2 text-right text-green-400>With Datasets</div>
-              <div h-6 rounded bg="green-900/50" w-10 flex items-center justify-center text-xs>30s</div>
-              <div w-10 />
-              <div h-6 w-8 flex items-center justify-center text-lg text-green-400 animate-pulse>⚡️</div>
-            </div>
-            <div flex items-center text="[10px]" text-zinc-400 pl-24>
-              <div w-10 text-center>Mount</div>
-            </div>
-          </div>
-          <!-- Time saved indicator -->
-          <div absolute right-8 top="1/2" transform translate-y="-1/2" flex flex-col items-center>
-            <div text-green-400 text-3xl font-bold>95%</div>
-            <div text-sm text-zinc-400>Time Saved</div>
-          </div>
-        </div>
-        <div mt-4 grid grid-cols-2 gap-2>
-          <div flex items-center gap-2 bg="blue-900/40" px-3 py-2 rounded-lg text-sm>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>No waiting for CUDA compilation</span>
-          </div>
-          <div flex items-center gap-2 bg="blue-900/40" px-3 py-2 rounded-lg text-sm>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Environments ready to use</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div
-  v-click="3"
-  mt-6 flex justify-center
-  transition duration-500 ease-in-out
-  :class="$clicks < 3 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
->
-  <div
-    flex items-center bg="green-900/30" border="2 solid green-700"
-    rounded-lg py-3 px-6 gap-4
-  >
-    <div i-carbon:transform-moving text-green-300 text-3xl />
-    <div>
-      <div text-xl font-bold>From <span text-red-400>isolated silos</span> to <span text-green-400>unified model ecosystem</span></div>
-      <div text-sm text-zinc-300 mt-1>Enabling seamless collaboration across data science teams</div>
-    </div>
-  </div>
 </div>
 
 ---
@@ -1824,58 +1721,156 @@ glowSeed: 150
 </div>
 
 ---
-layout: center
+class: py-10
+clicks: 3
+glow: bottom
 ---
 
-# PVC Architecture: Storage Strategies for Gigabytes
+# Enterprise Model Hub in Minutes
 
-<div class="mt-6 flex justify-center">
-  <div class="relative w-120">
-    <div v-click class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6 mb-4">
-      <h3>Shared Cache Layer (JuiceFS)</h3>
-      <div class="mt-2 text-sm opacity-80">
-        ReadWriteMany PVC for common dependencies
+<span>From fragmented assets to unified ecosystem</span>
+
+<div mt-6 />
+
+<div flex>
+  <div
+    v-click="1"
+    w="1/2" pr-4
+    transition duration-500 ease-in-out
+    :class="$clicks < 1 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
+  >
+    <div
+      border="2 solid violet-800" bg="violet-800/20"
+      rounded-lg overflow-hidden relative h-70
+    >
+      <div bg="violet-800/40" px-4 py-2 flex items-center>
+        <div i-carbon:machine-learning-model text-violet-300 text-xl mr-2 />
+        <span font-bold>Model Management</span>
       </div>
-      <div class="mt-2 grid grid-cols-3 gap-2 text-xs opacity-70">
-        <div>• Deduplication</div>
-        <div>• Compression</div>
-        <div>• Concurrent access</div>
+      <div
+        absolute left-0 right-0 top-12 bottom-0
+        class="bg-[url('/bg-grid.svg')] bg-center"
+      >
+        <div
+          v-for="(item, idx) in [
+            { x: 20, y: 25, r: 40, color: 'rgba(139, 92, 246, 0.5)', label: 'Llama-3' },
+            { x: 120, y: 55, r: 30, color: 'rgba(139, 92, 246, 0.5)', label: 'Mistral' },
+            { x: 75, y: 130, r: 50, color: 'rgba(139, 92, 246, 0.5)', label: 'PyTorch' },
+            { x: 170, y: 120, r: 35, color: 'rgba(139, 92, 246, 0.5)', label: 'SD-3' }
+          ]"
+          :key="idx"
+          absolute
+          class="rounded-full flex items-center justify-center"
+          :style="{
+            left: `${item.x}px`,
+            top: `${item.y}px`,
+            width: `${item.r*2}px`,
+            height: `${item.r*2}px`,
+            backgroundColor: item.color,
+            border: '2px solid rgba(139, 92, 246, 0.8)',
+            transitionDelay: `${300 + idx * 200}ms`,
+            transitionProperty: 'all',
+            transitionDuration: '800ms'
+          }"
+        >
+          <span font-bold text-sm>{{item.label}}</span>
+        </div>
+        <div absolute right-4 bottom-4 flex flex-col gap-3>
+          <div flex items-center gap-2 bg="violet-900/60" px-3 py-1.5 rounded-lg text-sm>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Version control</span>
+          </div>
+          <div flex items-center gap-2 bg="violet-900/60" px-3 py-1.5 rounded-lg text-sm>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Metadata extraction</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="grid grid-cols-2 gap-4">
-      <div v-click class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-        <h3>Training Workloads</h3>
-        <div class="mt-2 text-sm opacity-80">
-          ReadOnlyMany mount
-        </div>
-        <pre class="text-xs mt-2 bg-black/30 p-2 rounded">
-volumes:
-- name: pytorch-env
-  persistentVolumeClaim:
-    claimName: pytorch-env
-    readOnly: true
-        </pre>
+  </div>
+
+  <div
+    v-click="2"
+    w="1/2" pl-4
+    transition duration-500 ease-in-out
+    :class="$clicks < 2 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
+  >
+    <div
+      border="2 solid blue-800" bg="blue-800/20"
+      rounded-lg overflow-hidden relative h-70
+    >
+      <div bg="blue-800/40" px-4 py-2 flex items-center>
+        <div i-carbon:time text-blue-300 text-xl mr-2 />
+        <span font-bold>Ready Before You Are</span>
       </div>
-      <div v-click class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-        <h3>Development Environment</h3>
-        <div class="mt-2 text-sm opacity-80">
-          ReadOnlyMany mount
+      <div px-3 py-4>
+        <div flex justify-between items-center>
+          <div text-sm text-zinc-400>Deployment Timeline</div>
+          <div text-sm text-zinc-400>Time Savings</div>
         </div>
-        <pre class="text-xs mt-2 bg-black/30 p-2 rounded">
-volumes:
-- name: pytorch-env
-  persistentVolumeClaim:
-    claimName: pytorch-env
-    readOnly: true
-        </pre>
+        <div mt-4 relative h-40>
+          <!-- Traditional timeline -->
+          <div absolute top-0 left-0 right-0 flex flex-col gap-1>
+            <div flex items-center>
+              <div w-24 text-xs pr-2 text-right text-red-400>Traditional</div>
+              <div h-6 rounded-l bg="red-900/50" w-10 flex items-center justify-center text-xs>1h</div>
+              <div h-6 bg="red-800/50" w-20 flex items-center justify-center text-xs>2h</div>
+              <div h-6 rounded-r bg="red-700/50" w-24 flex items-center justify-center text-xs>3h</div>
+            </div>
+            <div flex items-center text="[10px]" text-zinc-400 pl-24>
+              <div w-10 text-center>Setup</div>
+              <div w-20 text-center>Install</div>
+              <div w-24 text-center>Configuration</div>
+            </div>
+          </div>
+          <!-- Dataset timeline -->
+          <div absolute bottom-0 left-0 right-0 flex flex-col gap-1>
+            <div flex items-center>
+              <div w-24 text-xs pr-2 text-right text-green-400>With Datasets</div>
+              <div h-6 rounded bg="green-900/50" w-10 flex items-center justify-center text-xs>30s</div>
+              <div w-10 />
+              <div h-6 w-8 flex items-center justify-center text-lg text-green-400 animate-pulse>⚡️</div>
+            </div>
+            <div flex items-center text="[10px]" text-zinc-400 pl-24>
+              <div w-10 text-center>Mount</div>
+            </div>
+          </div>
+          <!-- Time saved indicator -->
+          <div absolute right-8 top="1/2" transform translate-y="-1/2" flex flex-col items-center>
+            <div text-green-400 text-3xl font-bold>95%</div>
+            <div text-sm text-zinc-400>Time Saved</div>
+          </div>
+        </div>
+        <div mt-4 grid grid-cols-2 gap-2>
+          <div flex items-center gap-2 bg="blue-900/40" px-3 py-2 rounded-lg text-sm>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>No waiting for CUDA compilation</span>
+          </div>
+          <div flex items-center gap-2 bg="blue-900/40" px-3 py-2 rounded-lg text-sm>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span>Environments ready to use</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div v-click class="mt-8 text-center">
-  <div class="inline-block bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-    <p class="text-lg">Storage efficiency: <span class="text-green-400">90% reduction</span> compared to individual environments</p>
+<div
+  v-click="3"
+  mt-6 flex justify-center
+  transition duration-500 ease-in-out
+  :class="$clicks < 3 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+>
+  <div
+    flex items-center bg="green-900/30" border="2 solid green-700"
+    rounded-lg py-3 px-6 gap-4
+  >
+    <div i-carbon:transform-moving text-green-300 text-3xl />
+    <div>
+      <div text-xl font-bold>From <span text-red-400>isolated silos</span> to <span text-green-400>unified model ecosystem</span></div>
+      <div text-sm text-zinc-300 mt-1>Enabling seamless collaboration across data science teams</div>
+    </div>
   </div>
 </div>
 
