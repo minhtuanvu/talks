@@ -401,7 +401,7 @@ glowSeed: 180
 <div flex>
   <div
     v-click="1"
-    w=“1/2 pr-6
+    w="1/2 pr-6"
     transition duration-500 ease-in-out
     :class="$clicks < 1 ? 'opacity-0 translate-x--20' : 'opacity-100 translate-x-0'"
   >
@@ -1071,7 +1071,6 @@ spec:
 
 ---
 class: py-10
-clicks: 4
 glowSeed: 182
 ---
 
@@ -1098,15 +1097,14 @@ glowSeed: 182
         v-for="(step, idx) in [
           'Parse Dataset CRD & validate spec',
           'Check source type & credentials',
-          'Create/update PVC with JuiceFS',
-          'Deploy init container for setup',
-          'Download/sync data from source',
+          'Create/update PVC',
+          'Download/sync data from source to PV',
           'Configure mount options',
           'Update dataset status'
         ]"
         :key="step"
         flex items-center gap-2 py-1
-        :class="$clicks < 2 ? 'opacity-0' : 'opacity-100'"
+        :class="$clicks < 1 ? 'opacity-0' : 'opacity-100'"
         :style="{ transitionDelay: `${200 + idx * 100}ms`, transitionProperty: 'all', transitionDuration: '500ms' }"
       >
         <div i-carbon:dot-mark text-blue-300 />
@@ -1115,6 +1113,18 @@ glowSeed: 182
     </div>
   </div>
 </div>
+
+<!--
+Let me walk you through how this actually works under the hood. When you create a Dataset CRD, our controller springs into action.
+
+First, we parse and validate your spec - making sure everything's properly defined. Then we check what type of source you're using and handle any credentials securely.
+
+Here's where it gets interesting - we create a PVC, We are almost compatible with all CSIs.
+
+Then we deploy a job that does all the heavy lifting - downloading your models, setting up your conda environment, installing all those pesky C++ libraries. Once it's done, boom! Your dataset is ready to be mounted by any pod.
+
+The beauty is - this happens once. After that, everyone just mounts the ready-to-use environment. No more waiting!
+-->
 
 ---
 class: py-4
@@ -1254,13 +1264,13 @@ spec:
   </div>
 </div>
 
-<!-- Kebe -->
+<!--
+Here's the same Dataset spec, but now I want to highlight something really important - we support multiple package managers!
 
----
+You can use conda for full environment control with CUDA integration. Need something from PyPI? No problem, just add it to your pip requirements. Want blazing fast installs? We've got Pixi integration - it's Rust-powered and incredibly fast. Or if you prefer, use Mamba which is 10x faster than traditional conda.
 
-# Architecture
-
-<!-- Kebe -->
+The key is flexibility - use whatever works best for your workflow. We handle all the complexity behind the scenes, making sure everything plays nicely together.
+-->
 
 ---
 class: py-4
@@ -1329,8 +1339,8 @@ spec:
         </div>
         <div flex-1 font-mono text-xs bg="black/30" rounded-lg px-3 py-2 text="[10px]">
           <div>options:</div>
-          <div>  <span text-green-300>include: "*.safetensors"</span></div>
-          <div>  <span text-green-300>exclude: "*.fp16.*"</span></div>
+          <!-- <div>  <span text-green-300>include: "*.safetensors"</span></div> -->
+          <div>  <span text-green-300>&nbsp;&nbsp;exclude: "*.bin"</span></div>
         </div>
       </div>
     </div>
@@ -1380,9 +1390,18 @@ spec:
   </div>
 </div>
 
+<!--
+But Datasets isn't just about Python environments - it's also about models and data! Here's an example of loading a model from HuggingFace.
+
+Look at this - we're pulling the Qwen 32B model directly from HuggingFace. But here's where it gets smart - see those filtering options? You can exclude the files you need.
+
+And check out those advanced features - need to use a regional mirror because HuggingFace is slow in your region? Just change the endpoint. Got private models? We handle token authentication securely through Kubernetes secrets.
+
+This means you can have your models ready and waiting, right alongside your environments. No more downloading gigabytes every time you start a training job!
+-->
+
 ---
 class: py-10
-clicks: 6
 glowSeed: 215
 ---
 
@@ -1421,13 +1440,6 @@ glowSeed: 215
           <div>
             <div font-semibold>ModelScope</div>
             <div text-xs text-zinc-400>Alibaba AI models</div>
-          </div>
-        </div>
-        <div flex items-center gap-3>
-          <div i-simple-icons:pytorch text-3xl text-orange-600 w-10 />
-          <div>
-            <div font-semibold>PyTorch Hub</div>
-            <div text-xs text-zinc-400>Pre-trained models</div>
           </div>
         </div>
       </div>
@@ -1505,10 +1517,10 @@ glowSeed: 215
   </div>
 
   <div
-    v-click="2"
+    v-click="4"
     mt-6 flex justify-center
     transition duration-500 ease-in-out
-    :class="$clicks < 2 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+    :class="$clicks < 4 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
   >
     <div
       bg="sky-900/30"
@@ -1523,163 +1535,137 @@ glowSeed: 215
   </div>
 </div>
 
----
+<!--
+So how many sources do we support? Well, let me show you!
 
-# Share across namespaces!
+[click] First, we've got all the ML model repositories - HuggingFace, ModelScope for our friends in China. Whatever your team is using, we've got you covered.
 
-Cross-Namespace Dataset Sharing
+[click] Then there's environment and package sources - Conda, Pixi, PyPI. Mix and match as needed.
 
-<div class="flex relative">
+[click] And for storage - Git repos for your code, S3-compatible storage for your data, local volumes for on-prem deployments.
 
-<div class="mt-2 w-75%">
-  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
-
-```yaml
-# Sharing Dataset
-apiVersion: dataset.baizeai.io/v1alpha1
-kind: Dataset
-metadata:
-  name: training-sample-code
-  namespace: default
-spec:
-  shared: true
-  shareToNamespaceSelector:
-    matchExpressions:
-      - key: example.io/workspace-id
-        operator: In
-        values: ['4']
-
-# LINK Dataset
-apiVersion: dataset.baizeai.io/v1alpha1
-kind: Dataset
-metadata:
-  name: training-sample-code-ref
-spec:
-  source:
-    type: REFERENCE
-    uri: dataset://default/training-sample-code
-```
-
-  </div>
-</div>
-
-<div v-click class="absolute right-0 top-25">
-  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-    <div text-xl text-neutral-300>Key Features</div>
-    <ul class="mt-4">
-      <li>• Fine-grained namespace access control</li>
-      <li>• Automatic PVC/PV creation for LINKs</li>
-      <li>• UI for managing shared Datasets</li>
-      <li>• API for discovering shared Datasets</li>
-      <li>• Synchronized lifecycle management</li>
-    </ul>
-  </div>
-</div>
-
-</div>
-
-<!-- Kebe -->
+[click] But here's the real beauty - it's all through one unified API. You don't need to learn different tools for different sources. Just define your Dataset, and we handle the rest. It's like having a universal translator for all your AI assets!
+-->
 
 ---
 class: py-10
-glowSeed: 195
+glowSeed: 185
 ---
 
-# Cross-Namespace Dataset Sharing
+# The Real Problem: Collaboration at Scale
 
-<span>Breaking down silos without breaking security</span>
+<span>When every team becomes an island</span>
 
 <div mt-6 />
 
-<div flex>
+<div flex items-center justify-center gap-8>
   <div
     v-click="1"
-    w="1/2" pr-4
+    flex flex-col items-center
     transition duration-500 ease-in-out
-    :class="$clicks < 1 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
+    :class="$clicks < 1 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
   >
     <div
-      border="2 solid blue-800" bg="blue-800/20"
-      rounded-lg overflow-hidden
+      border="2 solid red-800" bg="red-800/20"
+      rounded-lg p-6 w-100
     >
-      <div bg="blue-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:share-knowledge text-blue-300 text-xl mr-2 />
-        <span font-bold>The Power of Sharing</span>
+      <div flex items-center mb-4>
+        <div i-carbon:warning-alt text-red-300 text-2xl mr-2 />
+        <span font-bold text-xl>The Isolation Problem</span>
       </div>
-      <div px-4 py-4 flex flex-col gap-2>
-        <div
-          font-mono text-sm px-4 py-3 bg="black/30" rounded-lg
-          border="1 solid blue-700"
-        >
-          <div text-yellow-300># Enable sharing for Dataset</div>
-          <div>spec:</div>
-          <div>  <span text-green-300>shared: true</span></div>
-          <div>  <span text-green-300>shareToNamespaceSelector:</span></div>
-          <div>    matchExpressions:</div>
-          <div>      - key: workspace.io/id</div>
-          <div>        operator: In</div>
-          <div>        values: ['4']</div>
-        </div>
-        <div mt-2 flex flex-col gap-2>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Fine-grained namespace access control</span>
+      <div grid grid-cols-2 gap-4>
+        <!-- Team 1 -->
+        <div bg="red-900/30" rounded-lg p-3>
+          <div flex items-center gap-2 mb-2>
+            <div i-carbon:group text-amber-300 />
+            <span font-semibold>Team A</span>
           </div>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Workspace-based sharing</span>
-          </div>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Security-first design</span>
+          <div text-sm space-y-1>
+            <div flex items-center gap-1>
+              <div i-carbon:document text-xs />
+              <span text-xs>llama-3-70b-instruct</span>
+            </div>
+            <div flex items-center gap-1>
+              <div i-carbon:cube text-xs />
+              <span text-xs>PyTorch 2.1 + CUDA 11.8</span>
+            </div>
+            <div text-xs text-red-300 mt-2>Storage: 160GB</div>
           </div>
         </div>
+        <!-- Team 2 -->
+        <div bg="red-900/30" rounded-lg p-3>
+          <div flex items-center gap-2 mb-2>
+            <div i-carbon:group text-blue-300 />
+            <span font-semibold>Team B</span>
+          </div>
+          <div text-sm space-y-1>
+            <div flex items-center gap-1>
+              <div i-carbon:document text-xs />
+              <span text-xs>llama-3-70b-instruct</span>
+            </div>
+            <div flex items-center gap-1>
+              <div i-carbon:cube text-xs />
+              <span text-xs>PyTorch 2.1 + CUDA 11.8</span>
+            </div>
+            <div text-xs text-red-300 mt-2>Storage: 160GB</div>
+          </div>
+        </div>
+      </div>
+      <div mt-3 text-center>
+        <span text-xl text-red-400 font-bold>Same model, same env</span>
+        <div text-sm text-red-300>Downloaded twice, stored twice!</div>
       </div>
     </div>
   </div>
 
   <div
     v-click="2"
-    w="1/2" pl-4
+    flex items-center
     transition duration-500 ease-in-out
-    :class="$clicks < 2 ? 'opacity-0 translate-y-20' : 'opacity-100 translate-y-0'"
+    :class="$clicks < 2 ? 'opacity-0' : 'opacity-100'"
+  >
+    <div i-carbon:arrow-right text-4xl text-green-400 animate-pulse />
+  </div>
+
+  <div
+    v-click="3"
+    flex flex-col items-center
+    transition duration-500 ease-in-out
+    :class="$clicks < 3 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
   >
     <div
-      border="2 solid purple-800" bg="purple-800/20"
-      rounded-lg overflow-hidden
+      border="2 solid green-800" bg="green-800/20"
+      rounded-lg p-6 w-100
     >
-      <div bg="purple-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:connection text-purple-300 text-xl mr-2 />
-        <span font-bold>Consuming Shared Datasets</span>
+      <div flex items-center mb-4>
+        <div i-carbon:share-knowledge text-green-300 text-2xl mr-2 />
+        <span font-bold text-xl>The Sharing Solution</span>
       </div>
-      <div px-4 py-4 flex flex-col gap-2>
-        <div
-          font-mono text-sm px-4 py-3 bg="black/30" rounded-lg
-          border="1 solid purple-700"
-        >
-          <div text-yellow-300># Reference a shared Dataset</div>
-          <div>apiVersion: dataset.baizeai.io/v1alpha1</div>
-          <div>kind: Dataset</div>
-          <div>metadata:</div>
-          <div>  name: llama-model-ref</div>
-          <div>spec:</div>
-          <div>  source:</div>
-          <div>    <span text-green-300>type: REFERENCE</span></div>
-          <div>    <span text-green-300>uri: dataset://default/llama-model</span></div>
+      <div bg="green-900/30" rounded-lg p-3 mb-3>
+        <div flex items-center gap-2 mb-2>
+          <div i-carbon:data-share text-green-300 />
+          <span font-semibold>Shared Dataset</span>
         </div>
-        <div mt-2 flex flex-col gap-2>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Automatic PVC/PV mirroring</span>
+        <div text-sm space-y-1>
+          <div flex items-center gap-1>
+            <div i-carbon:document text-xs />
+            <span text-xs>llama-3-70b-instruct</span>
           </div>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Synchronized lifecycle management</span>
+          <div flex items-center gap-1>
+            <div i-carbon:cube text-xs />
+            <span text-xs>PyTorch 2.1 + CUDA 11.8</span>
           </div>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Use models from other teams instantly</span>
-          </div>
+          <div text-xs text-green-300 mt-2>Storage: 160GB (once!)</div>
+        </div>
+      </div>
+      <div grid grid-cols-2 gap-2>
+        <div flex items-center gap-1 text-sm>
+          <div i-carbon:link text-green-400 />
+          <span>Team A → uses reference</span>
+        </div>
+        <div flex items-center gap-1 text-sm>
+          <div i-carbon:link text-green-400 />
+          <span>Team B → uses reference</span>
         </div>
       </div>
     </div>
@@ -1690,50 +1676,90 @@ glowSeed: 195
   v-click="3"
   mt-6 flex justify-center
   transition duration-500 ease-in-out
-  :class="$clicks < 3 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
+  :class="$clicks < 3 ? 'opacity-0' : 'opacity-100'"
 >
-  <div
-    bg="teal-900/30" border="2 solid teal-800"
-    rounded-lg px-5 py-3 max-w-180
-  >
-    <div flex items-center gap-2 mb-2>
-      <div i-carbon:chart-relationship text-teal-300 text-xl />
-      <span font-bold text-lg>Before vs After</span>
-    </div>
-    <div grid grid-cols-2 gap-6 mt-3>
-      <div flex flex-col gap-2>
-        <div flex items-center gap-2 text-red-400>
-          <div i-carbon:close />
-          <span>Duplicate model copies</span>
-        </div>
-        <div flex items-center gap-2 text-red-400>
-          <div i-carbon:close />
-          <span>TB of wasted storage</span>
-        </div>
-        <div flex items-center gap-2 text-red-400>
-          <div i-carbon:close />
-          <span>Complex permission management</span>
-        </div>
-      </div>
-      <div flex flex-col gap-2>
-        <div flex items-center gap-2 text-green-400>
-          <div i-carbon:checkmark-outline />
-          <span>Single source of truth</span>
-        </div>
-        <div flex items-center gap-2 text-green-400>
-          <div i-carbon:checkmark-outline />
-          <span>Efficient storage usage</span>
-        </div>
-        <div flex items-center gap-2 text-green-400>
-          <div i-carbon:checkmark-outline />
-          <span>Declarative access control</span>
-        </div>
+  <div bg="blue-900/30" border="2 solid blue-800" rounded-lg px-5 py-3>
+    <div flex items-center gap-3>
+      <div i-carbon:analytics text-blue-300 text-2xl />
+      <div>
+        <div text-lg font-bold>Enterprise Impact</div>
+        <div text-sm>10 teams × 160GB model = <span text-red-400 line-through>1.6TB</span> → <span text-green-400>160GB</span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Kebe -->
+<!--
+Now, let me show you why sharing is so important. This is a real scenario we see all the time.
+
+[click] Team A downloads Llama 3, sets up their PyTorch environment with CUDA - 160GB of storage. Team B needs the same model, same environment - boom, another 160GB. Same model, same environment, but stored twice!
+
+Now imagine you have 10 teams doing this. That's 1.6 terabytes for the same model! It's insane!
+
+[click] [click]
+
+But with Dataset sharing, we store it once, and everyone just references it. One model, one storage footprint, everyone benefits. This is how we turn chaos into collaboration!
+-->
+
+---
+
+# Cross-Namespace Dataset Sharing
+
+<div class="flex relative">
+
+<div class="mt-2 w-75%" v-click>
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg pl-1 pr-1">
+
+```yaml {7-9}
+apiVersion: dataset.baizeai.io/v1alpha1
+kind: Dataset
+metadata:
+  name: llama3-foundation-ref
+  namespace: nlp-team
+spec:
+  source:
+    type: REFERENCE
+    uri: dataset://ml-platform/llama3-70b-foundation
+```
+```yaml {10-11}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fine-tuning-job
+spec:
+  ...
+  volumes:
+  - name: model
+    persistentVolumeClaim:
+      claimName: llama3-foundation-ref  # Auto-created PVC
+```
+  </div>
+</div>
+
+<div v-click class="absolute right-0 top-25">
+  <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+    <div text-xl text-neutral-300>How It Works</div>
+    <ul class="mt-4 space-y-2 text-sm">
+      <li>• Reference points to shared dataset</li>
+      <li>• Controller auto-creates local PVC & PV</li>
+      <li>• No data duplication</li>
+      <li>• Instant access to models</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<!--
+Here's how teams actually use shared datasets. It's beautifully simple!
+
+[click] The NLP team just creates a reference - see that REFERENCE type? They're pointing to the dataset in the ml-platform namespace. Our controller automatically creates a PVC for them, backed by the same JuiceFS data. No copying, no downloading, just instant access!
+
+And look how naturally it fits into your existing workflow - you just mount it like any other PVC. Your training pods don't even know they're using a shared dataset. It's completely transparent!
+
+[click] The benefits are huge - zero download time because the data is already there, 90% storage reduction across your org, and you still maintain namespace isolation for security. It's the best of both worlds!
+-->
 
 ---
 class: py-10
@@ -1889,7 +1915,15 @@ glow: bottom
   </div>
 </div>
 
-<!-- Kebe -->
+<!--
+So what does all this sharing and caching give us? An enterprise model hub in minutes!
+
+[click] Look at this - you've got all your models organized, version controlled, with metadata automatically extracted. No more "which version of Llama are we using?" conversations.
+
+[click] And the time savings? Incredible! What used to take hours - setting up environments, downloading models, configuring CUDA - now takes 30 seconds. Just mount and go! That's a 95% time reduction!
+
+[click] This transforms how teams work. Instead of isolated silos where every team maintains their own model zoo, you get a unified ecosystem where teams can discover, share, and build on each other's work. This is how you accelerate AI development across your entire organization!
+-->
 
 ---
 class: py-10
