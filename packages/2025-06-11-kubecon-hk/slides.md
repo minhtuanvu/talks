@@ -1072,6 +1072,7 @@ spec:
 ---
 class: py-10
 glowSeed: 182
+clicks: 4
 ---
 
 # How does it work?
@@ -1117,13 +1118,13 @@ glowSeed: 182
 <!--
 Let me walk you through how this actually works under the hood. When you create a Dataset CRD, our controller springs into action.
 
-First, we parse and validate your spec - making sure everything's properly defined. Then we check what type of source you're using and handle any credentials securely.
+[click] First, we parse and validate your spec - making sure everything's properly defined. Then we check what type of source you're using and handle any credentials securely.
 
-Here's where it gets interesting - we create a PVC, We are almost compatible with all CSIs.
+[click] Here's where it gets interesting - we create a PVC, We are almost compatible with all CSIs.
 
-Then we deploy a job that does all the heavy lifting - downloading your models, setting up your conda environment, installing all those pesky C++ libraries. Once it's done, boom! Your dataset is ready to be mounted by any pod.
+[click] Then we deploy a job - downloading your models, setting up your conda environment, installing all those C++ libraries. Once it's done, boom! Your dataset is ready to be mounted by any pod.
 
-The beauty is - this happens once. After that, everyone just mounts the ready-to-use environment. No more waiting!
+[click] The beauty is - this happens once. After that, everyone just mounts the ready-to-use environment. No more waiting!
 -->
 
 ---
@@ -1267,7 +1268,7 @@ spec:
 <!--
 Here's the same Dataset spec, but now I want to highlight something really important - we support multiple package managers!
 
-You can use conda for full environment control with CUDA integration. Need something from PyPI? No problem, just add it to your pip requirements. Want blazing fast installs? We've got Pixi integration - it's Rust-powered and incredibly fast. Or if you prefer, use Mamba which is 10x faster than traditional conda.
+[click] You can use conda for full environment control with CUDA integration. Need something from PyPI? No problem, just add it to your pip requirements. Want blazing fast installs? We've got Pixi integration - it's Rust-powered and incredibly fast. Or if you prefer, use Mamba which is 10x faster than traditional conda.
 
 The key is flexibility - use whatever works best for your workflow. We handle all the complexity behind the scenes, making sure everything plays nicely together.
 -->
@@ -1316,7 +1317,6 @@ spec:
     <div text-lg>HuggingFace & ModelScope</div>
     <span class="text–neutral-500 text-xs">Models, datasets, all in one</span>
     <div
-      v-click
       mt-4
       border="2 solid cyan-800" bg="cyan-800/20"
       rounded-lg overflow-hidden
@@ -1395,7 +1395,7 @@ But Datasets isn't just about Python environments - it's also about models and d
 
 Look at this - we're pulling the Qwen 32B model directly from HuggingFace. But here's where it gets smart - see those filtering options? You can exclude the files you need.
 
-And check out those advanced features - need to use a regional mirror because HuggingFace is slow in your region? Just change the endpoint. Got private models? We handle token authentication securely through Kubernetes secrets.
+[click] And check out those advanced features - need to use a regional mirror because HuggingFace is slow in your region? Just change the endpoint. Got private models? We handle token authentication securely through Kubernetes secrets.
 
 This means you can have your models ready and waiting, right alongside your environments. No more downloading gigabytes every time you start a training job!
 -->
