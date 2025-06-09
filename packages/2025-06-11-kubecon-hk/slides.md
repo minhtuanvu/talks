@@ -1098,7 +1098,7 @@ clicks: 4
         v-for="(step, idx) in [
           'Parse Dataset CRD & validate spec',
           'Check source type & credentials',
-          'Create/update PVC',
+          'Create/update PVC(Any CSI)',
           'Download/sync data from source to PV',
           'Configure mount options',
           'Update dataset status'
@@ -1116,13 +1116,13 @@ clicks: 4
 </div>
 
 <!--
-Let me walk you through how this actually works under the hood. When you create a Dataset CRD, our controller springs into action.
+Okay, let's take a look at how the CRD works once it is created.
 
-[click] First, we parse and validate your spec - making sure everything's properly defined. Then we check what type of source you're using and handle any credentials securely.
+[click] First, we parse and validate your spec - making sure everything's properly defined. Then we check what type of source and handle any credentials securely.
 
 [click] Here's where it gets interesting - we create a PVC, We are almost compatible with all CSIs.
 
-[click] Then we deploy a job - downloading your models, setting up your conda environment, installing all those C++ libraries. Once it's done, boom! Your dataset is ready to be mounted by any pod.
+[click] Then we deploy a job - downloading your models, setting up your conda environment, installing all those libraries. Once it's done, your dataset is ready to be mounted by any pod.
 
 [click] The beauty is - this happens once. After that, everyone just mounts the ready-to-use environment. No more waiting!
 -->
@@ -1393,11 +1393,11 @@ spec:
 <!--
 But Datasets isn't just about Python environments - it's also about models and data! Here's an example of loading a model from HuggingFace.
 
-Look at this - we're pulling the Qwen 32B model directly from HuggingFace. But here's where it gets smart - see those filtering options? You can exclude the files you need.
+[click] Look at this - we're pulling the Qwen 32B model directly from HuggingFace. But here's where it gets smart - see those filtering options? You can exclude the files you need.
 
-[click] And check out those advanced features - need to use a regional mirror because HuggingFace is slow in your region? Just change the endpoint. Got private models? We handle token authentication securely through Kubernetes secrets.
+And check out those advanced features - need to use a regional mirror because HuggingFace is slow in your region? Just change the endpoint. Got private models? We handle token authentication securely through Kubernetes secrets.
 
-This means you can have your models ready and waiting, right alongside your environments. No more downloading gigabytes every time you start a training job!
+This means you can have your models ready and waiting, right alongside your environments. No more downloading gigabytes every time you start an inference or job!
 -->
 
 ---
