@@ -1794,10 +1794,12 @@ glow: bottom
       >
         <div
           v-for="(item, idx) in [
-            { x: 20, y: 25, r: 40, color: 'rgba(139, 92, 246, 0.5)', label: 'Llama-3' },
-            { x: 120, y: 55, r: 30, color: 'rgba(139, 92, 246, 0.5)', label: 'Mistral' },
-            { x: 75, y: 130, r: 50, color: 'rgba(139, 92, 246, 0.5)', label: 'PyTorch' },
-            { x: 170, y: 120, r: 35, color: 'rgba(139, 92, 246, 0.5)', label: 'SD-3' }
+            { x: 20, y: 25, r: 50, color: 'rgba(139, 92, 246, 0.5)', label: 'DeepSeek-R1' },
+            { x: 125, y: 55, r: 40, color: 'rgba(139, 92, 246, 0.5)', label: 'Qwen' },
+            { x: 80, y: 120, r: 30, color: 'rgba(139, 92, 246, 0.5)', label: 'FLUX' },
+            { x: 210, y: 80, r: 25, color: 'rgba(139, 92, 246, 0.5)', label: 'SD-3' },
+            { x: 250, y: 5, r: 50, color: 'rgba(139, 92, 246, 0.5)', label: 'DeepSeek-V3' },
+            { x: 340, y: 70, r: 30, color: 'rgba(139, 92, 246, 0.5)', label: 'Gemma' }
           ]"
           :key="idx"
           absolute
@@ -1854,21 +1856,21 @@ glow: bottom
           <div absolute top-0 left-0 right-0 flex flex-col gap-1>
             <div flex items-center>
               <div w-24 text-xs pr-2 text-right text-red-400>Traditional</div>
-              <div h-6 rounded-l bg="red-900/50" w-10 flex items-center justify-center text-xs>1h</div>
-              <div h-6 bg="red-800/50" w-20 flex items-center justify-center text-xs>2h</div>
-              <div h-6 rounded-r bg="red-700/50" w-24 flex items-center justify-center text-xs>3h</div>
+              <div h-6 rounded-l bg="red-900/50" w-14 flex items-center justify-center text-xs>30m</div>
+              <div h-6 bg="red-800/50" w-40 flex items-center justify-center text-xs>6h</div>
+              <div h-6 rounded-r bg="red-700/50" w-14 flex items-center justify-center text-xs>30m</div>
             </div>
             <div flex items-center text="[10px]" text-zinc-400 pl-24>
-              <div w-10 text-center>Setup</div>
-              <div w-20 text-center>Install</div>
-              <div w-24 text-center>Configuration</div>
+              <div w-14 text-center text-nowrap>Setup</div>
+              <div w-40 text-center text-nowrap>Download Weights</div>
+              <div w-14 text-center text-nowrap>Test running</div>
             </div>
           </div>
           <!-- Dataset timeline -->
           <div absolute bottom-0 left-0 right-0 flex flex-col gap-1>
             <div flex items-center>
               <div w-24 text-xs pr-2 text-right text-green-400>With Datasets</div>
-              <div h-6 rounded bg="green-900/50" w-10 flex items-center justify-center text-xs>30s</div>
+              <div h-6 rounded bg="green-900/50" w-4 flex items-center justify-center text-xs>30s</div>
               <div w-10 />
               <div h-6 w-8 flex items-center justify-center text-lg text-green-400 animate-pulse>⚡️</div>
             </div>
@@ -1880,16 +1882,6 @@ glow: bottom
           <div absolute right-8 top="1/2" transform translate-y="-1/2" flex flex-col items-center>
             <div text-green-400 text-3xl font-bold>95%</div>
             <div text-sm text-zinc-400>Time Saved</div>
-          </div>
-        </div>
-        <div mt-4 grid grid-cols-2 gap-2>
-          <div flex items-center gap-2 bg="blue-900/40" px-3 py-2 rounded-lg text-sm>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>No waiting for CUDA compilation</span>
-          </div>
-          <div flex items-center gap-2 bg="blue-900/40" px-3 py-2 rounded-lg text-sm>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span>Environments ready to use</span>
           </div>
         </div>
       </div>
@@ -1927,7 +1919,6 @@ So what does all this sharing and caching give us? An enterprise model hub in mi
 
 ---
 class: py-10
-clicks: 3
 glowSeed: 150
 ---
 
@@ -1940,11 +1931,10 @@ glowSeed: 150
 
 <div mt-6 grid grid-cols-3 gap-4>
   <div
-    v-click="1"
     border="2 solid indigo-800" bg="indigo-800/20"
     rounded-lg overflow-hidden
   >
-    <div bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
+    <div v-click bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
       <div i-carbon:archive text-indigo-300 text-xl mr-2 />
       <span font-bold>Layer 1: Downloads</span>
     </div>
@@ -1962,7 +1952,7 @@ glowSeed: 150
   </div>
 
   <div
-    v-click="2"
+    v-click
     border="2 solid purple-800" bg="purple-800/20"
     rounded-lg overflow-hidden
   >
@@ -1984,7 +1974,7 @@ glowSeed: 150
   </div>
 
   <div
-    v-click="3"
+    v-click
     border="2 solid pink-800" bg="pink-800/20"
     rounded-lg overflow-hidden
   >
@@ -2260,7 +2250,9 @@ glowSeed: 250
     rounded-lg p-5 flex flex-col items-center
     transition-all duration-500 h-full
   >
-    <div text-4xl mb-4 h-45 flex items-center justify-center>⚡️</div>
+    <div text-4xl mb-4 h-45 flex items-center justify-center>
+      <div i-carbon:lightning text-yellow-500 text-6xl />
+    </div>
     <div font-bold text-xl>Environment Setup</div>
     <div
       text-sky-300 text-2xl font-bold mt-2
@@ -2280,7 +2272,9 @@ glowSeed: 250
     rounded-lg p-5 flex flex-col items-center
     transition-all duration-500 h-full
   >
-    <div text-4xl mb-4 h-45 flex items-center justify-center>💾</div>
+    <div text-4xl mb-4 h-45 flex items-center justify-center>
+      <div i-carbon:vmdk-disk text-pink-500 text-6xl />
+    </div>
     <div font-bold text-xl>Storage Efficiency</div>
     <div
       text-purple-300 text-2xl font-bold mt-2
@@ -2300,7 +2294,9 @@ glowSeed: 250
     rounded-lg p-5 flex flex-col items-center
     transition-all duration-500 h-full
   >
-    <div text-4xl mb-4 h-45 flex items-center justify-center>🎯</div>
+    <div text-4xl mb-4 h-45 flex items-center justify-center>
+      <div i-carbon:badge text-purple-500 text-6xl />
+    </div>
     <div font-bold text-xl>Development Cycle</div>
     <div
       text-pink-300 text-2xl font-bold mt-2
