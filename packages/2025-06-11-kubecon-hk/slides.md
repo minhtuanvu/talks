@@ -171,20 +171,25 @@ glowSeed: 175
         <div i-carbon:development text-amber-300 text-xl />
         <div>
           <div font-bold>Development</div>
-          <div text-sm opacity-80>SSH Remote / Jupyter Notebooks</div>
+          <div text-sm opacity-80>Preparing new model training datasets</div>
         </div>
       </div>
       <div flex items-center gap-2 py-1>
         <div i-carbon:machine-learning-model text-amber-300 text-xl />
         <div>
           <div font-bold>Training</div>
-          <div text-sm opacity-80>Separate pods/containers</div>
+          <div text-sm opacity-80>Fine-tuning load with transformers lib</div>
+        </div>
+      </div>
+      <div flex items-center gap-2 py-1>
+        <div i-carbon:area-custom text-amber-300 text-xl />
+        <div>
+          <div font-bold>Inference</div>
+          <div text-sm opacity-80>Inference from vLLM with transformers </div>
         </div>
       </div>
       <div mt-2 bg="red-900/30" rounded-lg p-3 text-sm>
-        <div font-bold mb-1>Slurm-style Install Pattern</div>
         <div font-mono text-xs text-zinc-300 bg="black/30" p-2 rounded>
-          <div># In training script or job</div>
           <div>pip install -r requirements.txt</div>
           <div>python train.py</div>
         </div>
@@ -235,9 +240,9 @@ glowSeed: 175
           <span text-sm>Automatic dependency resolution</span>
         </div>
       </div>
-      <div bg="green-900/30" rounded-lg p-3 mt-1 h-40>
+      <div bg="green-900/30" rounded-lg p-3 mt-1 h-44>
         <div font-bold text-sm mb-2>Automatic Tool Integration</div>
-        <div grid grid-cols-2 gap-2 h-16>
+        <div grid grid-cols-2 gap-2 h-24>
           <div flex items-center justify-center gap-2 bg="black/20" rounded p-2>
             <div i-logos:jupyter text-xl min-w-7 />
             <div text-xs>
@@ -598,7 +603,7 @@ glow: right
       </div>
       <div mt-4 flex justify-around>
         <div
-          v-for="(version, idx) in ['4.8.5', '9.4.0', '11.2.0']"
+          v-for="(version, idx) in ['9.4.0', '11.2.0']"
           :key="version"
           :class="[
             'relative px-4 py-3 rounded-lg border-2 transition-all duration-500',
@@ -610,7 +615,7 @@ glow: right
             v-if="$clicks >= idx+1"
             class="absolute -top-2 -right-2 rounded-full bg-sky-500 px-2 py-0.5 text-xs"
           >
-            {{['CentOS 7', 'PyTorch', 'Ubuntu 22.04'][idx]}}
+            {{['PyTorch', 'Ubuntu 22.04'][idx]}}
           </div>
         </div>
       </div>
@@ -981,6 +986,95 @@ glow: left
 </div>
 
 ---
+class: py-10
+glowSeed: 125
+---
+
+# Datasets vs Docker: Flexibility Matters
+
+<span>Why writable persistent environments win for data science</span>
+
+<div mt-6 />
+
+<div flex>
+  <div flex-1 pr-4>
+    <div
+      border="2 solid cyan-800" bg="cyan-800/20"
+      rounded-lg overflow-hidden
+    >
+      <div bg="cyan-800/40" px-4 py-2 flex items-center>
+        <div i-devicon:docker text-xl mr-2 />
+        <span font-bold>Docker Approach</span>
+      </div>
+      <div px-4 py-3>
+        <div font-mono text-xs bg="black/30" rounded-lg p-2>
+          <div># Need to add a dependency? Rebuild the entire image</div>
+          <div class="text-cyan-400">FROM nvidia/cuda:11.8.0-base-ubuntu22.04</div>
+          <div>RUN apt-get update && apt-get install -y python3-pip</div>
+          <div>COPY requirements.txt .</div>
+          <div>RUN pip install -r requirements.txt</div>
+          <div>COPY . .</div>
+          <div class="text-red-400"># Immutable after build - can't easily modify</div>
+        </div>
+        <div mt-3 bg="red-900/30" rounded-lg p-3 flex flex-col gap-2>
+          <div flex items-center gap-2>
+            <div i-carbon:time text-red-300 />
+            <span text-sm>30+ minutes to rebuild for one new package</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:locked text-red-300 />
+            <span text-sm>Read-only runtime limits dynamic ML tools</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:switch text-red-300 />
+            <span text-sm>One container = one environment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div flex-1 pl-4>
+    <div
+      border="2 solid green-800" bg="green-800/20"
+      rounded-lg overflow-hidden
+    >
+      <div bg="green-800/40" px-4 py-2 flex items-center>
+        <div i-carbon:data-volume text-green-300 text-xl mr-2 />
+        <span font-bold>Dataset CRD Approach</span>
+      </div>
+      <div px-4 py-3>
+        <div font-mono text-xs bg="black/30" rounded-lg p-2>
+          <div class="text-green-400"># Mount pre-built environments as needed</div>
+          <div>volumes:</div>
+          <div>- name: pytorch-env</div>
+          <div>  persistentVolumeClaim:</div>
+          <div>    claimName: pytorch-2.1-env</div>
+          <div class="text-green-400"># Need another env? Just mount another PVC</div>
+          <div>- name: pytorch-nightly-env</div>
+          <div>  persistentVolumeClaim:</div>
+          <div>    claimName: pytorch-nightly-env</div>
+        </div>
+        <div mt-3 bg="green-900/30" rounded-lg p-3 flex flex-col gap-2>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span text-sm>Add packages on-the-fly in seconds</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span text-sm>Writeable PVCs support all ML workflows</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span text-sm>Switch multiple environments simultaneously</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+---
 glowSeed: 12129
 ---
 
@@ -1272,6 +1366,124 @@ Here's the same Dataset spec, but now I want to highlight something really impor
 
 The key is flexibility - use whatever works best for your workflow. We handle all the complexity behind the scenes, making sure everything plays nicely together.
 -->
+
+---
+class: py-10
+glowSeed: 150
+---
+
+# Intelligent Cache Strategy
+
+<div flex justify-between items-center>
+  <span w="1/2">Optimizing the unbearable heaviness of builds</span>
+  <div i-carbon:cache text-7xl />
+</div>
+
+<div mt-6 grid grid-cols-3 gap-4>
+  <div
+    border="2 solid indigo-800" bg="indigo-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div v-click bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:archive text-indigo-300 text-xl mr-2 />
+      <span font-bold>1: Fetching</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Source packages & archives</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Mirror for Conda & pip</span>
+      </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Auto merge config & requirements.txt</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-click
+    border="2 solid purple-800" bg="purple-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="purple-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:assembly-cluster text-purple-300 text-xl mr-2 />
+      <span font-bold>2: Install & Build</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Compiled binaries & wheels</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Existing cache used</span>
+      </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>No duplicated installation</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-click
+    border="2 solid pink-800" bg="pink-800/20"
+    rounded-lg overflow-hidden
+  >
+    <div bg="pink-800/40" px-4 py-2 flex items-center justify-center>
+      <div i-carbon:data-class text-pink-300 text-xl mr-2 />
+      <span font-bold>3: Persist & Activate</span>
+    </div>
+    <div px-3 py-3 flex flex-col gap-1>
+      <div text-sm opacity-80>Environment configs</div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Auto discovery for Notebooks</span>
+      </div>
+      <div flex items-center gap-1 text-xs>
+        <div i-carbon:checkmark-outline text-green-400 />
+        <span>Auto activate</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div v-click mt-4 grid grid-cols-2 gap-4>
+  <div bg="red-800/20" rounded-lg overflow-hidden>
+    <div bg="red-800/40" px-4 py-2 flex items-center>
+      <div i-carbon:time text-red-300 text-xl mr-2 />
+      <span font-bold>Traditional Approach</span>
+    </div>
+    <div px-4 py-3 flex flex-col gap-1>
+      <div flex items-center justify-between>
+        <div>CUDA setup:</div>
+        <div text-red-400 font-bold>45-60 min</div>
+      </div>
+      <div flex items-center justify-between>
+        <div>PyTorch install:</div>
+        <div text-red-400 font-bold>20-30 min</div>
+      </div>
+    </div>
+  </div>
+
+  <div bg="green-800/20" rounded-lg overflow-hidden>
+    <div bg="green-800/40" px-4 py-2 flex items-center>
+      <div i-carbon:time text-green-300 text-xl mr-2 />
+      <span font-bold>With Datasets</span>
+    </div>
+    <div px-4 py-3 flex flex-col gap-1>
+      <div flex items-center justify-between>
+        <div>First setup:</div>
+        <div text-green-400 font-bold>10-15 min</div>
+      </div>
+      <div flex items-center justify-between>
+        <div>Subsequent use:</div>
+        <div text-green-400 font-bold flex items-center>
+          <span>seconds</span>
+          <div i-carbon:flash animate-pulse ml-1 />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ---
 class: py-4
@@ -1919,124 +2131,6 @@ So what does all this sharing and caching give us? An enterprise model hub in mi
 
 ---
 class: py-10
-glowSeed: 150
----
-
-# Intelligent Cache Strategy
-
-<div flex justify-between items-center>
-  <span w="1/2">Optimizing the unbearable heaviness of builds</span>
-  <div i-carbon:cache text-7xl />
-</div>
-
-<div mt-6 grid grid-cols-3 gap-4>
-  <div
-    border="2 solid indigo-800" bg="indigo-800/20"
-    rounded-lg overflow-hidden
-  >
-    <div v-click bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
-      <div i-carbon:archive text-indigo-300 text-xl mr-2 />
-      <span font-bold>Layer 1: Downloads</span>
-    </div>
-    <div px-3 py-3 flex flex-col gap-1>
-      <div text-sm opacity-80>Source packages & archives</div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>SHA256 verification</span>
-      </div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Mirror fallback</span>
-      </div>
-    </div>
-  </div>
-
-  <div
-    v-click
-    border="2 solid purple-800" bg="purple-800/20"
-    rounded-lg overflow-hidden
-  >
-    <div bg="purple-800/40" px-4 py-2 flex items-center justify-center>
-      <div i-carbon:assembly-cluster text-purple-300 text-xl mr-2 />
-      <span font-bold>Layer 2: Builds</span>
-    </div>
-    <div px-3 py-3 flex flex-col gap-1>
-      <div text-sm opacity-80>Compiled binaries & wheels</div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Deduplication</span>
-      </div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Incremental builds</span>
-      </div>
-    </div>
-  </div>
-
-  <div
-    v-click
-    border="2 solid pink-800" bg="pink-800/20"
-    rounded-lg overflow-hidden
-  >
-    <div bg="pink-800/40" px-4 py-2 flex items-center justify-center>
-      <div i-carbon:data-class text-pink-300 text-xl mr-2 />
-      <span font-bold>Layer 3: Metadata</span>
-    </div>
-    <div px-3 py-3 flex flex-col gap-1>
-      <div text-sm opacity-80>Environment configs</div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Dependency tracking</span>
-      </div>
-      <div flex items-center gap-1 text-xs>
-        <div i-carbon:checkmark-outline text-green-400 />
-        <span>Version resolution</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div v-click mt-4 grid grid-cols-2 gap-4>
-  <div border="2 solid red-800" bg="red-800/20" rounded-lg overflow-hidden>
-    <div bg="red-800/40" px-4 py-2 flex items-center>
-      <div i-carbon:time text-red-300 text-xl mr-2 />
-      <span font-bold>Traditional Approach</span>
-    </div>
-    <div px-4 py-3 flex flex-col gap-1>
-      <div flex items-center justify-between>
-        <div>CUDA setup:</div>
-        <div text-red-400 font-bold>45-60 min</div>
-      </div>
-      <div flex items-center justify-between>
-        <div>PyTorch install:</div>
-        <div text-red-400 font-bold>20-30 min</div>
-      </div>
-    </div>
-  </div>
-
-  <div border="2 solid green-800" bg="green-800/20" rounded-lg overflow-hidden>
-    <div bg="green-800/40" px-4 py-2 flex items-center>
-      <div i-carbon:time text-green-300 text-xl mr-2 />
-      <span font-bold>With Datasets</span>
-    </div>
-    <div px-4 py-3 flex flex-col gap-1>
-      <div flex items-center justify-between>
-        <div>First setup:</div>
-        <div text-green-400 font-bold>10-15 min</div>
-      </div>
-      <div flex items-center justify-between>
-        <div>Subsequent use:</div>
-        <div text-green-400 font-bold flex items-center>
-          <span>seconds</span>
-          <div i-carbon:flash animate-pulse ml-1 />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
----
-class: py-10
 clicks: 3
 glowSeed: 338
 ---
@@ -2184,23 +2278,6 @@ glowSeed: 338
             <span>Sequential installation</span>
           </div>
         </div>
-        <!-- Docker bar -->
-        <div flex flex-col items-center>
-          <div h="31%" w-30 bg="blue-800/40" rounded-t-lg flex items-center justify-center relative>
-            <span text-2xl font-bold text-blue-300>20</span>
-            <span text-sm text-blue-300 absolute top-2 right-2>min</span>
-            <div absolute top="-10" w-full flex justify-center>
-              <div bg="blue-900/60" border="2 solid blue-700" rounded-full px-3 py-1 text-xs flex items-center text-nowrap w-fit>
-                ~40× slower
-              </div>
-            </div>
-          </div>
-          <div py-2 font-semibold>Docker</div>
-          <div text-xs text-zinc-400 flex items-center gap-1>
-            <div i-carbon:warning-alt text-blue-300 />
-            <span>Build & image size issues</span>
-          </div>
-        </div>
         <!-- Datasets + Pixi bar -->
         <div flex flex-col items-center>
           <div
@@ -2217,7 +2294,7 @@ glowSeed: 338
               </div>
             </div>
           </div>
-          <div py-2 font-semibold>Dataset + Pixi</div>
+          <div py-2 font-semibold>Pixi</div>
           <div text-xs text-green-400 flex items-center gap-1>
             <div i-carbon:checkmark-outline />
             <span>Parallel processing</span>
@@ -2246,24 +2323,46 @@ glowSeed: 250
 >
   <v-clicks>
   <div
-    border="2 solid sky-800" bg="sky-800/20"
+    border="2 solid lime-800" bg="lime-800/20"
     rounded-lg p-5 flex flex-col items-center
     transition-all duration-500 h-full
   >
-    <div text-4xl mb-4 h-45 flex items-center justify-center>
-      <div i-carbon:lightning text-yellow-500 text-6xl />
+    <div mb-4 flex-1 flex items-center justify-center>
+      <div i-carbon:lightning text-yellow-500 text="[100px]" />
     </div>
-    <div font-bold text-xl>Environment Setup</div>
+    <div font-bold text-xl>Setup time cost</div>
     <div
-      text-sky-300 text-2xl font-bold mt-2
+      text-lime-300 text-2xl font-bold mt-2
       flex items-center gap-1
     >
       <span>5-10x</span>
       <div i-carbon:arrow-up text-green-400 />
     </div>
     <div text-sm opacity-70 mt-1>With shared environments</div>
-    <div text-xs mt-3 bg="sky-900/30" rounded-lg px-3 py-1>
+    <div text-xs mt-3 bg="lime-900/30" rounded-lg px-3 py-1>
       From hours to minutes
+    </div>
+  </div>
+
+  <div
+    border="2 solid cyan-800" bg="cyan-800/20"
+    rounded-lg p-5 flex flex-col items-center
+    transition-all duration-500 h-full
+  >
+    <div mb-4 flex-1 flex items-center justify-center>
+      <div i-carbon:vmdk-disk text-indigo-500 text="[100px]" />
+    </div>
+    <div font-bold text-xl>Save storage</div>
+    <div
+      text-cyan-300 text-2xl font-bold mt-2
+      flex items-center gap-1
+    >
+      <span>90%</span>
+      <div i-carbon:arrow-down text-green-400 />
+    </div>
+    <div text-sm opacity-70 mt-1>Using JuiceFS dedup</div>
+    <div text-xs mt-3 bg="cyan-900/30" rounded-lg px-3 py-1>
+      10GB → 1GB typical savings
     </div>
   </div>
 
@@ -2272,41 +2371,19 @@ glowSeed: 250
     rounded-lg p-5 flex flex-col items-center
     transition-all duration-500 h-full
   >
-    <div text-4xl mb-4 h-45 flex items-center justify-center>
-      <div i-carbon:vmdk-disk text-pink-500 text-6xl />
+    <div mb-4 flex-1 flex items-center justify-center>
+      <div i-carbon:badge text-violet-500 text="[100px]" />
     </div>
-    <div font-bold text-xl>Storage Efficiency</div>
+    <div font-bold text-xl>Time cost</div>
     <div
       text-purple-300 text-2xl font-bold mt-2
-      flex items-center gap-1
-    >
-      <span>90%</span>
-      <div i-carbon:arrow-down text-green-400 />
-    </div>
-    <div text-sm opacity-70 mt-1>Using JuiceFS dedup</div>
-    <div text-xs mt-3 bg="purple-900/30" rounded-lg px-3 py-1>
-      10GB → 1GB typical savings
-    </div>
-  </div>
-
-  <div
-    border="2 solid pink-800" bg="pink-800/20"
-    rounded-lg p-5 flex flex-col items-center
-    transition-all duration-500 h-full
-  >
-    <div text-4xl mb-4 h-45 flex items-center justify-center>
-      <div i-carbon:badge text-purple-500 text-6xl />
-    </div>
-    <div font-bold text-xl>Development Cycle</div>
-    <div
-      text-pink-300 text-2xl font-bold mt-2
       flex items-center gap-1
     >
       <span>75%</span>
       <div i-carbon:arrow-down text-green-400 />
     </div>
     <div text-sm opacity-70 mt-1>No more environment setup</div>
-    <div text-xs mt-3 bg="pink-900/30" rounded-lg px-3 py-1>
+    <div text-xs mt-3 bg="purple-900/30" rounded-lg px-3 py-1>
       Instant environment activation
     </div>
   </div>
