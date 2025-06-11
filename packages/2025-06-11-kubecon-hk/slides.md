@@ -1494,7 +1494,7 @@ We use a three-layer caching approach.
 
 [click] Second, we build and compiled binaries and wheels. This is huge because compilation is where most time is spent. We deduplicate at the file level, so if two environments share libraries, we only store them once.
 
-[click] Third, we can auto create metadata - environment configs, dependency resolution results. This makes environment creation lightning fast.
+[click] Third, we can auto create metadata - environment configs, dependency resolution results. This allows you to use the environment we created in Dataset directly when you open your Notebook, without having to execute specified commands to activate it. It was a wonderful experience!
 
 [click] Look at the time difference! Traditional CUDA setup takes 45-60 minutes. PyTorch another 20-30. With our caching? First setup is 10-15 minutes, and after that? Seconds! Just seconds to spin up a complete ML environment. That's the power of intelligent caching!
 -->
