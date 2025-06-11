@@ -1589,7 +1589,7 @@ glowSeed: 150
 <!--
 Now let's talk about our intelligent dependency approach. Building these environments can be heavy - I mean, compiling PyTorch with CUDA? That's not trivial!
 
-We use a three-layer caching approach. 
+We use a three-layer caching approach.
 [click] First, we downloads all those source packages, with SHA verification and mirror fallback for reliability.
 
 [click] Second, we build and compiled binaries and wheels. This is huge because compilation is where most time is spent. We deduplicate at the file level, so if two environments share libraries, we only store them once.
