@@ -1372,7 +1372,7 @@ class: py-10
 glowSeed: 150
 ---
 
-# Intelligent Cache Strategy
+# Intelligent Dependency Approach
 
 <div flex justify-between items-center>
   <span w="1/2">Optimizing the unbearable heaviness of builds</span>
@@ -1487,7 +1487,7 @@ glowSeed: 150
 </div>
 
 <!--
-Now let's talk about our intelligent cache strategy. Building these environments can be heavy - I mean, compiling PyTorch with CUDA? That's not trivial!
+Now let's talk about our intelligent dependency approach. Building these environments can be heavy - I mean, compiling PyTorch with CUDA? That's not trivial!
 
 We use a three-layer caching approach. 
 [click] First, we cache downloads - all those source packages, with SHA verification and mirror fallback for reliability.
