@@ -1490,11 +1490,11 @@ glowSeed: 150
 Now let's talk about our intelligent dependency approach. Building these environments can be heavy - I mean, compiling PyTorch with CUDA? That's not trivial!
 
 We use a three-layer caching approach. 
-[click] First, we cache downloads - all those source packages, with SHA verification and mirror fallback for reliability.
+[click] First, we downloads all those source packages, with SHA verification and mirror fallback for reliability.
 
-[click] Second, we cache builds - the compiled binaries and wheels. This is huge because compilation is where most time is spent. We deduplicate at the file level, so if two environments share libraries, we only store them once.
+[click] Second, we build and compiled binaries and wheels. This is huge because compilation is where most time is spent. We deduplicate at the file level, so if two environments share libraries, we only store them once.
 
-[click] Third, we cache metadata - environment configs, dependency resolution results. This makes environment creation lightning fast.
+[click] Third, we can auto create metadata - environment configs, dependency resolution results. This makes environment creation lightning fast.
 
 [click] Look at the time difference! Traditional CUDA setup takes 45-60 minutes. PyTorch another 20-30. With our caching? First setup is 10-15 minutes, and after that? Seconds! Just seconds to spin up a complete ML environment. That's the power of intelligent caching!
 -->
