@@ -1381,10 +1381,11 @@ glowSeed: 150
 
 <div mt-6 grid grid-cols-3 gap-4>
   <div
+    v-click
     border="2 solid indigo-800" bg="indigo-800/20"
     rounded-lg overflow-hidden
   >
-    <div v-click bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
+    <div bg="indigo-800/40" px-4 py-2 flex items-center justify-center>
       <div i-carbon:archive text-indigo-300 text-xl mr-2 />
       <span font-bold>1: Fetching</span>
     </div>
@@ -1484,6 +1485,19 @@ glowSeed: 150
     </div>
   </div>
 </div>
+
+<!--
+Now let's talk about our intelligent cache strategy. Building these environments can be heavy - I mean, compiling PyTorch with CUDA? That's not trivial!
+
+We use a three-layer caching approach. 
+[click] First, we cache downloads - all those source packages, with SHA verification and mirror fallback for reliability.
+
+[click] Second, we cache builds - the compiled binaries and wheels. This is huge because compilation is where most time is spent. We deduplicate at the file level, so if two environments share libraries, we only store them once.
+
+[click] Third, we cache metadata - environment configs, dependency resolution results. This makes environment creation lightning fast.
+
+[click] Look at the time difference! Traditional CUDA setup takes 45-60 minutes. PyTorch another 20-30. With our caching? First setup is 10-15 minutes, and after that? Seconds! Just seconds to spin up a complete ML environment. That's the power of intelligent caching!
+-->
 
 ---
 class: py-4
