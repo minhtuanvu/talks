@@ -1118,95 +1118,6 @@ glow: left
 </div>
 
 ---
-class: py-10
-glowSeed: 125
----
-
-# Datasets vs Docker: Flexibility Matters
-
-<span>Why writable persistent environments win for data science</span>
-
-<div mt-6 />
-
-<div flex>
-  <div flex-1 pr-4>
-    <div
-      border="2 solid cyan-800" bg="cyan-800/20"
-      rounded-lg overflow-hidden
-    >
-      <div bg="cyan-800/40" px-4 py-2 flex items-center>
-        <div i-devicon:docker text-xl mr-2 />
-        <span font-bold>Docker Approach</span>
-      </div>
-      <div px-4 py-3>
-        <div font-mono text-xs bg="black/30" rounded-lg p-2>
-          <div># Need to add a dependency? Rebuild the entire image</div>
-          <div class="text-cyan-400">FROM nvidia/cuda:11.8.0-base-ubuntu22.04</div>
-          <div>RUN apt-get update && apt-get install -y python3-pip</div>
-          <div>COPY requirements.txt .</div>
-          <div>RUN pip install -r requirements.txt</div>
-          <div>COPY . .</div>
-          <div class="text-red-400"># Immutable after build - can't easily modify</div>
-        </div>
-        <div mt-3 bg="red-900/30" rounded-lg p-3 flex flex-col gap-2>
-          <div flex items-center gap-2>
-            <div i-carbon:time text-red-300 />
-            <span text-sm>30+ minutes to rebuild for one new package</span>
-          </div>
-          <div flex items-center gap-2>
-            <div i-carbon:locked text-red-300 />
-            <span text-sm>Read-only runtime limits dynamic ML tools</span>
-          </div>
-          <div flex items-center gap-2>
-            <div i-carbon:switch text-red-300 />
-            <span text-sm>One container = one environment</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div flex-1 pl-4>
-    <div
-      border="2 solid green-800" bg="green-800/20"
-      rounded-lg overflow-hidden
-    >
-      <div bg="green-800/40" px-4 py-2 flex items-center>
-        <div i-carbon:data-volume text-green-300 text-xl mr-2 />
-        <span font-bold>Dataset CRD Approach</span>
-      </div>
-      <div px-4 py-3>
-        <div font-mono text-xs bg="black/30" rounded-lg p-2>
-          <div class="text-green-400"># Mount pre-built environments as needed</div>
-          <div>volumes:</div>
-          <div>- name: pytorch-env</div>
-          <div>  persistentVolumeClaim:</div>
-          <div>    claimName: pytorch-2.1-env</div>
-          <div class="text-green-400"># Need another env? Just mount another PVC</div>
-          <div>- name: pytorch-nightly-env</div>
-          <div>  persistentVolumeClaim:</div>
-          <div>    claimName: pytorch-nightly-env</div>
-        </div>
-        <div mt-3 bg="green-900/30" rounded-lg p-3 flex flex-col gap-2>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span text-sm>Add packages on-the-fly in seconds</span>
-          </div>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span text-sm>Writeable PVCs support all ML workflows</span>
-          </div>
-          <div flex items-center gap-2>
-            <div i-carbon:checkmark-outline text-green-400 />
-            <span text-sm>Switch multiple environments simultaneously</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
----
 glowSeed: 12129
 ---
 
@@ -1293,6 +1204,95 @@ spec:
   </div>
 </div>
 
+</div>
+
+---
+class: py-10
+glowSeed: 125
+---
+
+# Datasets vs Docker: Flexibility Matters
+
+<span>Why writable persistent environments win for data science</span>
+
+<div mt-6 />
+
+<div flex>
+  <div flex-1 pr-4>
+    <div
+      border="2 solid cyan-800" bg="cyan-800/20"
+      rounded-lg overflow-hidden
+    >
+      <div bg="cyan-800/40" px-4 py-2 flex items-center>
+        <div i-devicon:docker text-xl mr-2 />
+        <span font-bold>Docker Approach</span>
+      </div>
+      <div px-4 py-3>
+        <div font-mono text-xs bg="black/30" rounded-lg p-2>
+          <div># Need to add a dependency? Rebuild the entire image</div>
+          <div class="text-cyan-400">FROM nvidia/cuda:11.8.0-base-ubuntu22.04</div>
+          <div>RUN apt-get update && apt-get install -y python3-pip</div>
+          <div>COPY requirements.txt .</div>
+          <div>RUN pip install -r requirements.txt</div>
+          <div>COPY . .</div>
+          <div class="text-red-400"># Immutable after build - can't easily modify</div>
+        </div>
+        <div mt-3 bg="red-900/30" rounded-lg p-3 flex flex-col gap-2>
+          <div flex items-center gap-2>
+            <div i-carbon:time text-red-300 />
+            <span text-sm>30+ minutes to rebuild for one new package</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:locked text-red-300 />
+            <span text-sm>Read-only runtime limits dynamic ML tools</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:switch text-red-300 />
+            <span text-sm>One container = one environment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div flex-1 pl-4>
+    <div
+      border="2 solid green-800" bg="green-800/20"
+      rounded-lg overflow-hidden
+    >
+      <div bg="green-800/40" px-4 py-2 flex items-center>
+        <div i-carbon:data-volume text-green-300 text-xl mr-2 />
+        <span font-bold>Dataset CRD Approach</span>
+      </div>
+      <div px-4 py-3>
+        <div font-mono text-xs bg="black/30" rounded-lg p-2>
+          <div class="text-green-400"># Mount pre-built environments as needed</div>
+          <div>volumes:</div>
+          <div>- name: pytorch-env</div>
+          <div>  persistentVolumeClaim:</div>
+          <div>    claimName: pytorch-2.1-env</div>
+          <div class="text-green-400"># Need another env? Just mount another PVC</div>
+          <div>- name: pytorch-nightly-env</div>
+          <div>  persistentVolumeClaim:</div>
+          <div>    claimName: pytorch-nightly-env</div>
+        </div>
+        <div mt-3 bg="green-900/30" rounded-lg p-3 flex flex-col gap-2>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span text-sm>Add packages on-the-fly in seconds</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span text-sm>Writeable PVCs support all ML workflows</span>
+          </div>
+          <div flex items-center gap-2>
+            <div i-carbon:checkmark-outline text-green-400 />
+            <span text-sm>Switch multiple environments simultaneously</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 ---
