@@ -120,6 +120,106 @@ glowSeed: 205
 </div>
 
 ---
+class: py-10
+glowSeed: 100
+---
+
+# Challenges Across LLM Lifecycle
+
+<span>From environment setup to production deployment</span>
+
+<div mt-6 />
+
+<div grid grid-cols-3 gap-3 h-75>
+
+<v-clicks>
+
+<div border="2 solid white/5" rounded-lg overflow-hidden bg="white/5" backdrop-blur-sm h-full>
+  <div flex items-center bg="white/10" backdrop-blur px-3 py-2 rounded-md>
+    <div i-carbon:warning-alt text-amber-300 text-sm mr-2 />
+    <div font-semibold>
+      Dependency Hell
+    </div>
+  </div>
+  <div px-4 py-3>
+    <div flex flex-col gap-3>
+      <div>
+        <div text-sm font-medium>Dependency install overhead</div>
+        <div text-xs opacity-70>Python/NodeJS install fails frequently with long waiting</div>
+      </div>
+      <div>
+        <div text-sm font-medium>CUDA version drift</div>
+        <div text-xs opacity-70>Incompatible versions across environments</div>
+      </div>
+      <div>
+        <div text-sm font-medium>Dependency Lifecycle consistency</div>
+        <div text-xs opacity-70>From development to training to inference</div>
+      </div>
+      <div>
+        <div text-sm font-medium>Tool fragmentation</div>
+        <div text-xs opacity-70>pip / uv / conda / nix / pixi</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div border="2 solid white/5" rounded-lg overflow-hidden bg="white/5" backdrop-blur-sm h-full>
+  <div flex items-center bg="white/10" backdrop-blur px-3 py-2 rounded-md>
+    <div i-carbon:download text-blue-300 text-sm mr-2 />
+    <div font-semibold>
+      Data Preparation
+    </div>
+  </div>
+  <div px-4 py-3>
+    <div flex flex-col gap-3>
+      <div>
+        <div text-sm font-medium>Unattended dataset/model preparation</div>
+        <div text-xs opacity-70>Time-consuming & error-prone processes</div>
+      </div>
+      <div>
+        <div text-sm font-medium>Disparate sources</div>
+        <div text-xs opacity-70>HuggingFace / S3 / NFS / Web</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div border="2 solid white/5" rounded-lg overflow-hidden bg="white/5" backdrop-blur-sm h-full>
+  <div flex items-center bg="white/10" backdrop-blur px-3 py-2 rounded-md>
+    <div i-carbon:data-check text-green-300 text-sm mr-2 />
+    <div font-semibold>
+      Data Governance
+    </div>
+  </div>
+  <div px-4 py-3>
+    <div flex flex-col gap-3>
+      <div>
+        <div text-sm font-medium>Sharing artifacts</div>
+        <div text-xs opacity-70>Across teams and Kubernetes namespaces</div>
+      </div>
+      <div>
+        <div text-sm font-medium>Version control & Reproducibility</div>
+        <div text-xs opacity-70>Tracking model & environment versions</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</v-clicks>
+
+</div>
+
+<div v-click mt-6 flex justify-center>
+  <div
+    border="2 solid white/5" bg="white/5" backdrop-blur-sm
+    rounded-lg px-6 py-3 flex items-center gap-3
+  >
+    <div i-carbon:idea text-yellow-300 text-2xl />
+    <span text-lg>LLM projects face unique infrastructure challenges beyond traditional ML</span>
+  </div>
+</div>
+
+---
 layout: center
 class: text-center
 ---
