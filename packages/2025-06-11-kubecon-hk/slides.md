@@ -262,7 +262,7 @@ Typically ,  dark moment for :   was working  , but not here"
 
 Look at those |       I believe they  [停顿几秒]
 
-【重复】Sounds familiar. 10年前， Docker was born to address that 
+【重复】Sounds familiar. 10年前， Docker was born to address that
 你会问 : Why NOT 用docker 管理 all those DEP?
 You know,, system Lib -> CUDA->Python -> PyTorch -> Transformers , and so many other libs.
 计算 Permutation and combination , 镜像总数  Astronomical huge number
@@ -385,8 +385,8 @@ glowSeed: 175
 
 <!--
 After你勤奋工作,  you've tidy the python libs in 开发环境,
-[click] But when shift   开发 -> 训练 , then 推理 stage 
-当切换环境， 不仅 wasting | reinstall  , 
+[click] But when shift   开发 -> 训练 , then 推理 stage
+当切换环境， 不仅 wasting | reinstall  ,
 the worst nightmare is dep relationship breaks, from here to there.
 
 [click] So , we DO need a solution : define once ,  consistent from end to end, and reusable, unattended , and well integrated with Jupyter ,vscode.
@@ -561,7 +561,6 @@ glowSeed: 180
           </div>
           <div
             font-mono text-sm px-4 py-3 bg="black/30" rounded-lg
-            border="1 solid sky-700"
           >
             torch==2.1.0
             transformers==4.36.0
@@ -583,7 +582,7 @@ glowSeed: 180
           </div>
           <div
             font-mono text-xs px-3 py-3 bg="black/30" rounded-lg
-            border="1 solid blue-700" max-h-40 overflow-y-auto
+            max-h-40 overflow-y-auto
           >
             <div text-blue-300>CUDA 11.8</div>
             <div>gcc 9.4.0</div>
@@ -692,7 +691,7 @@ layout: center
   </div>
 </div>
 
-<div v-click class="mt-8 grid grid-cols-2 gap-4">
+<div v-click class="mt-2 grid grid-cols-2 gap-2">
   <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
     <h3 class="mb-2">CUDA Complexity</h3>
     <ul class="space-y-1 text-sm">
@@ -1191,7 +1190,7 @@ spec:
   </div>
 </div>
 
-<div class="absolute right-0 top-25">
+<div v-click class="absolute right-0 top-25">
   <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
     <div text-xl text-neutral-300>Key Features</div>
     <ul class="mt-4">
@@ -1217,8 +1216,8 @@ glowSeed: 125
 
 <div mt-6 />
 
-<div flex>
-  <div flex-1 pr-4>
+<div flex gap-2>
+  <div v-click flex-1>
     <div
       border="2 solid cyan-800" bg="cyan-800/20"
       rounded-lg overflow-hidden
@@ -1247,7 +1246,7 @@ glowSeed: 125
             <span text-sm>Read-only runtime limits dynamic ML tools</span>
           </div>
           <div flex items-center gap-2>
-            <div i-carbon:switch text-red-300 />
+            <div i-carbon:airport-location text-red-300 />
             <span text-sm>One container = one environment</span>
           </div>
         </div>
@@ -1255,7 +1254,7 @@ glowSeed: 125
     </div>
   </div>
 
-  <div flex-1 pl-4>
+  <div v-click flex-1 pl-4>
     <div
       border="2 solid green-800" bg="green-800/20"
       rounded-lg overflow-hidden
