@@ -219,6 +219,16 @@ glowSeed: 100
   </div>
 </div>
 
+<!--
+Usually , We have facing challenges , across AI dev to production lifecycles.
+
+[click] The Python | NodeJS dev installation not only takes time, & version may shift from diff env &  become inconsistent.
+And finally,  fall into a dependency hell .
+
+[click] Also challenges from  data preparation, download things takes time and error-prone, also deal with diff kinds of data sources.
+[click] And data governance requirements: we need share things across team and namespaces, and dealing with version control.
+-->
+
 ---
 layout: center
 class: text-center
@@ -246,6 +256,17 @@ $ ldd $(which python3) | grep 'not found'
 ```
 
 </div>
+
+<!--
+Typically ,  dark moment for :   was working  , but not here"
+
+Look at those |       I believe they  [停顿几秒]
+
+【重复】Sounds familiar. 10年前， Docker was born to address that 
+你会问 : Why NOT 用docker 管理 all those DEP?
+You know,, system Lib -> CUDA->Python -> PyTorch -> Transformers , and so many other libs.
+计算 Permutation and combination , 镜像总数  Astronomical huge number
+-->
 
 ---
 class: py-10
@@ -361,6 +382,17 @@ glowSeed: 175
     </div>
   </div>
 </div>
+
+<!--
+After你勤奋工作,  you've tidy the python libs in 开发环境,
+[click] But when shift   开发 -> 训练 , then 推理 stage 
+当切换环境， 不仅 wasting | reinstall  , 
+the worst nightmare is dep relationship breaks, from here to there.
+
+[click] So , we DO need a solution : define once ,  consistent from end to end, and reusable, unattended , and well integrated with Jupyter ,vscode.
+
+Ok, Neko, Can you  shed some light  for us?
+-->
 
 ---
 clicks: 3
@@ -1316,7 +1348,7 @@ Okay, let's take a look at how the CRD works once it is created.
 
 [click] Here's where it gets interesting - we create a PVC, We are almost compatible with all CSIs.
 
-[click] Then we deploy a job - downloading your models, setting up your conda environment, installing all those libraries. Once it's done, your dataset is ready to be mounted by any pod.
+[click] Then we deploy a job - it will setting up your conda environment, installing all those libraries. Once it's done, your dataset is ready to be mounted by any pod.
 
 [click] The beauty is - this happens once. After that, everyone just mounts the ready-to-use environment. No more waiting!
 -->
@@ -1460,9 +1492,10 @@ spec:
 </div>
 
 <!--
-Here's the same Dataset spec, but now I want to highlight something really important - we support multiple package managers!
+Here's the Dataset spec, it's very simple and easy to unstandard, the env config stored in options, like conda's environment.yaml and pip's requirements.txt. This is a very typical declarative approach to environment definition.
+but now I want to highlight something really important - we support multiple package managers!
 
-[click] You can use conda for full environment control with CUDA integration. Need something from PyPI? No problem, just add it to your pip requirements. Want blazing fast installs? We've got Pixi integration - it's Rust-powered and incredibly fast. Or if you prefer, use Mamba which is 10x faster than traditional conda.
+[click] Besides conda, we can also integrate well with pixi and pip only. Or if you prefer, use Mamba which is 10x faster than traditional conda.
 
 The key is flexibility - use whatever works best for your workflow. We handle all the complexity behind the scenes, making sure everything plays nicely together.
 -->
@@ -1596,7 +1629,7 @@ We use a three-layer caching approach.
 
 [click] Third, we can auto create metadata - environment configs, dependency resolution results. This allows you to use the environment we created in Dataset directly when you open your Notebook, without having to execute specified commands to activate it. It was a wonderful experience!
 
-[click] Look at the time difference! Traditional CUDA setup takes 45-60 minutes. PyTorch another 20-30. With our caching? First setup is 10-15 minutes, and after that? Seconds! Just seconds to spin up a complete ML environment. That's the power of intelligent caching!
+[click] Look at the time difference! Traditional CUDA setup takes 45-60 minutes. PyTorch another 20-30. With our solution? First setup is 10-15 minutes, and after that? Seconds! Just seconds to spin up a complete ML environment. That's the power of intelligent dependency approach!
 -->
 
 ---
