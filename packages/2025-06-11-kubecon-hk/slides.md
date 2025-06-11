@@ -639,7 +639,13 @@ layout: center
 
 # CUDA Conundrum: The Version Wars
 
-<div class="grid grid-cols-3 gap-4 mt-6">
+<div class="grid grid-cols-3 gap-2 mt-6">
+  <div v-click class="flex flex-col items-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
+    <div class="text-4xl mb-4">🎯</div>
+    <h3>Version 11.6</h3>
+    <p class="text-sm opacity-70">Legacy Model</p>
+    <p class="text-xs mt-2 text-red-300">Required by older frameworks</p>
+  </div>
   <div v-click class="flex flex-col items-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
     <div class="text-4xl mb-4">🎯</div>
     <h3>Version 11.8</h3>
@@ -651,12 +657,6 @@ layout: center
     <h3>Version 12.1</h3>
     <p class="text-sm opacity-70">System Default</p>
     <p class="text-xs mt-2 text-yellow-300">Newest features, compatibility issues</p>
-  </div>
-  <div v-click class="flex flex-col items-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-    <div class="text-4xl mb-4">🎯</div>
-    <h3>Version 11.6</h3>
-    <p class="text-sm opacity-70">Legacy Model</p>
-    <p class="text-xs mt-2 text-red-300">Required by older frameworks</p>
   </div>
 </div>
 
@@ -689,7 +689,7 @@ glow: right
 <div mt-6 />
 
 <div flex>
-  <div flex-1 pr-4>
+  <div flex-1 pr-0>
     <div
       v-motion
       :initial="{ opacity: 0, y: 50 }"
@@ -703,7 +703,7 @@ glow: right
       </div>
       <div mt-4 flex justify-around>
         <div
-          v-for="(version, idx) in ['9.4.0', '11.2.0']"
+          v-for="(version, idx) in ['2.7.0', '13.1']"
           :key="version"
           :class="[
             'relative px-4 py-3 rounded-lg border-2 transition-all duration-500',
@@ -715,7 +715,7 @@ glow: right
             v-if="$clicks >= idx+1"
             class="absolute -top-2 -right-2 rounded-full bg-sky-500 px-2 py-0.5 text-xs"
           >
-            {{['PyTorch', 'Ubuntu 22.04'][idx]}}
+            {{['PyTorch', 'gcc'][idx]}}
           </div>
         </div>
       </div>
@@ -765,10 +765,10 @@ glow: right
         <div i-carbon:code text-blue-300 text-xl mr-2 />
         <span font-bold>C++ ABI Changes</span>
       </div>
-      <div mt-4 flex flex-col gap-4>
+      <div mt-4 flex flex-col gap-2>
         <div
           v-click="6"
-          flex flex-col border="1 solid blue-600" rounded-lg overflow-hidden
+          flex flex-col border="2 solid blue-900/50" rounded-lg overflow-hidden h-50
         >
           <div bg="blue-800/50" py-1 px-3 text-sm>String Implementation</div>
           <div font-mono text-xs p-2>
@@ -795,7 +795,7 @@ glow: right
 
 <div
   v-click="6"
-  flex justify-center mt-4 bg="indigo-800/30" border="2 solid indigo-600"
+  flex justify-center mt-4 bg="indigo-800/30"
   rounded-lg py-3 items-center
 >
   <div i-carbon:face-dizzy text-2xl mr-2 />
@@ -848,13 +848,13 @@ glowSeed: 350
 
   <div
     v-click="6"
-    border="2 solid green-800" bg="green-800/20"
+    border="2 solid lime-800" bg="lime-800/20"
     rounded-lg overflow-hidden
     transition duration-500 ease-in-out
     :class="$clicks < 6 ? 'opacity-0 scale-90' : 'opacity-100 scale-100'"
   >
-    <div bg="green-800/40" px-4 py-2 flex items-center>
-      <div i-carbon:checkmark text-green-300 text-xl mr-2 />
+    <div bg="lime-800/40" px-4 py-2 flex items-center>
+      <div i-carbon:ai-status-in-progress text-lime-300 text-xl mr-2 />
       <span font-bold>Reusable Environments</span>
     </div>
     <div px-5 py-4 flex flex-col gap-2>
@@ -864,11 +864,11 @@ glowSeed: 350
           'Install once, mount instantly',
           'Identical experience for all team members',
           'Seamless dev-to-prod workflow'
-        ]"
+        ]"carbon:help-filled
         :key="item"
         flex items-center gap-2
       >
-        <div i-carbon:checkmark-filled text-green-400 />
+        <div i-carbon:help-filled text-lime-400 />
         <span>{{item}}</span>
       </div>
     </div>
@@ -905,10 +905,10 @@ glowSeed: 350
           </div>
         </div>
       </div>
-      <div w-80 bg="green-900/30" rounded-lg p-3 relative>
-        <div absolute top--3 left-3 bg="green-700" text-xs px-2 py-0.5 rounded-full>With Reusable Environments</div>
+      <div w-80 bg="white/5" rounded-lg p-3 relative>
+        <div absolute top--3 left-3 bg="white/50" text-xs px-2 py-0.5 rounded-full>With Reusable Environments</div>
         <div flex items-center gap-2 text-xl>
-          <div i-carbon:time text-green-300 />
+          <div i-carbon:time text-white  />
           <span font-bold>30 Seconds</span>
         </div>
         <div text-sm mt-2 opacity-70>
@@ -916,15 +916,15 @@ glowSeed: 350
         </div>
         <div flex flex-col gap-1 mt-4>
           <div flex items-center text-xs gap-1>
-            <div i-carbon:checkmark-filled text-green-400 text-sm />
+            <div i-carbon:help-filled text-white text-sm />
             <span>Pre-built environments</span>
           </div>
           <div flex items-center text-xs gap-1>
-            <div i-carbon:checkmark-filled text-green-400 text-sm />
+            <div i-carbon:help-filled text-white text-sm />
             <span>Consistent across team</span>
           </div>
           <div flex items-center text-xs gap-1>
-            <div i-carbon:checkmark-filled text-green-400 text-sm />
+            <div i-carbon:help-filled text-white text-sm />
             <span>Efficient storage usage</span>
           </div>
         </div>
@@ -950,7 +950,7 @@ glow: left
     v-motion
     :initial="{ opacity: 0, y: 40 }"
     :enter="{ opacity: 1, y: 0, transition: { duration: 600 } }"
-    grid grid-cols-3 gap-8 w-full text-sm
+    grid grid-cols-3 gap-4 w-full text-sm
   >
     <div
       v-click="1"
@@ -1054,7 +1054,7 @@ glow: left
         rounded-lg p-4 w-full
       >
         <div text-center font-bold text-xl mb-3>What We Need</div>
-        <div grid grid-cols-3 gap-4>
+        <div grid grid-cols-3 gap-2>
           <div flex items-center gap-2>
             <div i-carbon:checkmark-outline text-green-400 />
             <span text-nowrap>Python package management</span>
